@@ -129,65 +129,65 @@ stages:
     marketing_md: |
         [Bencode](https://en.wikipedia.org/wiki/Bencode) is a binary serialization format used in BitTorrent protocol. In this stage, you’ll decode a bencoded string.
 
-  - slug: "bencode-int"
-    name: "Decode bencoded integers"
-    difficulty: very_easy
-    description_md:
-    marketing_md: |
-        In this stage, you’ll decode a bencoded integer.
+  # - slug: "bencode-int"
+  #   name: "Decode bencoded integers"
+  #   difficulty: very_easy
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll decode a bencoded integer.
 
-  - slug: "bencode-list"
-    name: "Decode bencoded lists"
-    difficulty: very_easy
-    description_md:
-    marketing_md: |
-        In this stage, you’ll decode a bencoded list.
+  # - slug: "bencode-list"
+  #   name: "Decode bencoded lists"
+  #   difficulty: very_easy
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll decode a bencoded list.
 
-  - slug: "bencode-dict"
-    name: "Decode bencoded dictionaries"
-    difficulty: very_easy
-    description_md:
-    marketing_md: |
-        In this stage, you’ll decode a bencoded dictionary.
+  # - slug: "bencode-dict"
+  #   name: "Decode bencoded dictionaries"
+  #   difficulty: very_easy
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll decode a bencoded dictionary.
 
-  - slug: "parse-torrent"
-    name: "Parse torrent file"
-    difficulty: easy
-    description_md:
-    marketing_md: |
-        In this stage, you’ll parse a .torrent file and extract information about the torrent.
+  # - slug: "parse-torrent"
+  #   name: "Parse torrent file"
+  #   difficulty: easy
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll parse a .torrent file and extract information about the torrent.
 
-  - slug: "infohash"
-    name: "Calculate info hash"
-    difficulty: easy
-    description_md:
-    marketing_md: |
-        In this stage, you’ll calculate a unique identifier for a torrent, known as info hash, used in communication with trackers and peers.
+  # - slug: "infohash"
+  #   name: "Calculate info hash"
+  #   difficulty: easy
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll calculate a unique identifier for a torrent, known as info hash, used in communication with trackers and peers.
 
-  - slug: "tracker-get"
-    name: "Discover peers"
-    difficulty: medium
-    description_md:
-    marketing_md: |
-        In this stage, you’ll interact with a tracker, a central server that keeps track of peers participating in the sharing of a torrent. You'll make a GET request to a HTTP tracker to discover peers from whom you can download the file.
+  # - slug: "tracker-get"
+  #   name: "Discover peers"
+  #   difficulty: medium
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll interact with a tracker, a central server that keeps track of peers participating in the sharing of a torrent. You'll make a GET request to a HTTP tracker to discover peers from whom you can download the file.
 
-  - slug: "bitfield"
-    name: "Peer handshake"
-    difficulty: medium
-    description_md:
-    marketing_md: |
-        In this stage, you’ll establish a TCP connection with a peer and complete a handshake according to [BitTorrent Peer Protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol)
+  # - slug: "bitfield"
+  #   name: "Peer handshake"
+  #   difficulty: medium
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you’ll establish a TCP connection with a peer and complete a handshake according to [BitTorrent Peer Protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol)
 
-  - slug: "dl-piece"
-    name: "Download a piece"
-    difficulty: hard
-    description_md:
-    marketing_md: |
-        In this stage, you'll connect to a peer and download a piece of the file. You'll download the piece in blocks, which you'll later combine and verify using SHA-1, a cryptographic hash value.
+  # - slug: "dl-piece"
+  #   name: "Download a piece"
+  #   difficulty: hard
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you'll connect to a peer and download a piece of the file. You'll download the piece in blocks, which you'll later combine and verify using SHA-1, a cryptographic hash value.
 
-  - slug: "dl-file"
-    name: "Download the whole file"
-    difficulty: hard
-    description_md:
-    marketing_md: |
-        In this stage, you'll download the entire file. You'll download all the pieces, verify them using SHA-1 and save them to disk.
+  # - slug: "dl-file"
+  #   name: "Download the whole file"
+  #   difficulty: hard
+  #   description_md:
+  #   marketing_md: |
+  #       In this stage, you'll download the entire file. You'll download all the pieces, verify them using SHA-1 and save them to disk.

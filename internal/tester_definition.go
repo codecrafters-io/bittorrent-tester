@@ -6,13 +6,13 @@ import (
 
 var testerDefinition = testerutils.TesterDefinition{
 	AntiCheatStages:    []testerutils.Stage{},
-	ExecutableFileName: "script.sh",
+	ExecutableFileName: "your_bittorrent.sh",
 	Stages: []testerutils.Stage{
 		{
 			Number:                  1,
-			Slug:                    "init",
-			Title:                   "Match a literal character",
-			TestFunc:                testInit,
+			Slug:                    "bencode-string",
+			Title:                   "Decode bencoded strings",
+			TestFunc:                testBencodeString,
 			ShouldRunPreviousStages: true,
 		},
 	},
