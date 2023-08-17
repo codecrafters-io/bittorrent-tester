@@ -18,7 +18,7 @@ test_and_watch:
 
 copy_course_file:
 	hub api \
-		repos/codecrafters-io/build-your-own-grep/contents/course-definition.yml \
+		repos/codecrafters-io/build-your-own-bittorrent/contents/course-definition.yml \
 		| jq -r .content \
 		| base64 -d \
 		> internal/test_helpers/course_definition.yml

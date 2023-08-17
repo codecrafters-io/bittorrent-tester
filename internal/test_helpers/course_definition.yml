@@ -1,52 +1,52 @@
-# This should be replaced with your course's course-definition.yml
-
 # Used in your course's URL: https://app.codecrafters.io/courses/<slug>
 # Example: "redis"
-slug: "your_course_slug"
+slug: "bittorrent"
 
 # The name of your course. This will be displayed in the course catalog, and on other course pages.
 # Example: "Build your own Redis"
-name: "Build your own something"
+name: "Build your own BitTorrent"
 
-# A short name for your course, this'll be used in copy like emails.
+# A short name for your course, this'll be used in copy like emails. 
 # Example: "Redis"
-short_name: "dummy"
+short_name: "BitTorrent"
 
-# The release status for your course.
+# The release status for your course. 
 #
-# - alpha: Only visible to yourself and CodeCrafters staff.
+# - alpha: Only visible to yourself and CodeCrafters staff. 
 # - beta: Visible to all CodeCrafters users, but with a "beta" label.
 # - live: Visible to all CodeCrafters users, no label.
-#
+# 
 # Allowed values: "alpha", "beta", "live"
 release_status: "alpha"
 
 # This is shown on the course overview page. Markdown supported, recommended length ~30 words.
-#
-# Recommended format:
-#
+# 
+# Recommended format: 
+# 
 # > In this challenge, you'll build ABC that's capable of D, E, F and G. Along the way, we'll learn about X, Y, Z and more.
-#
+# 
 # Example:
-#
+# 
 # > In this challenge, you'll build a toy Redis clone that's capable of handling basic commands like PING, GET
 # > and SET. Along the way, we'll learn about event loops, the Redis Protocol and more.
 description_md: |
-  Add a description for your course here.
+  In this challenge, you’ll build a BitTorrent client that's capable of parsing a .torrent file and downloading a file from a peer.
+
+  Along the way, we’ll learn about how torrent files are structured, HTTP trackers, BitTorrent’s Peer Protocol, pipelining and more.
 
 # This is shown on the catalog. Plaintext only, recommended length ~10 words.
-#
-# Recommended format:
-#
+# 
+# Recommended format: 
+# 
 # > Learn about X, Y, Z and more
-#
-# Example:
+# 
+# Example: 
 #
 # > Learn about TCP servers, the Redis protocol and more
-#
+# 
 # **TODO**: Remove _md suffix since markdown isn't supported
 short_description_md: |
-  Add a short description for your course here.
+  Learn about .torrent files, the BitTorrent Peer Protocol and more
 
 # The percentage of users who complete your course. We'll calculate this automatically in the future, safe to ignore for now.
 completion_percentage: 15
@@ -58,10 +58,10 @@ languages:
   - slug: "rust"
 
 marketing:
-  # Shown in the catalog.
-  #
+  # Shown in the catalog. 
+  # 
   # Recommended guidelines:
-  #
+  # 
   # - "easy": < 2h of work for an experienced developer
   # - "medium": > 6h of work for an experienced developer
   # - "hard": > 6h of work for an experienced developer
@@ -71,11 +71,11 @@ marketing:
 
   # This is shown as an example when users suggest extensions to your course.
   # Example: "Persistence" (from the Redis challenge)
-  sample_extension_idea_title: "My course extension idea"
+  sample_extension_idea_title: "Multiple Peers"
 
   # This is shown as an example when users suggest extensions to your course.
   # Example: "A Redis server that can read and write .rdb files" (from the Redis challenge)
-  sample_extension_idea_description: "A description for my course extension idea"
+  sample_extension_idea_description: "A bittorrent client that can download a file by combining pieces from multiple peers"
 
   # These are some default testimonials that you can use. Feel free to switch these out with your own.
   testimonials:
@@ -94,27 +94,100 @@ marketing:
         Didn't even know that was possible!
 
 stages:
-  - slug: "init"
-    name: "Match a literal character"
-    difficulty: very_easy
-    description_md: |
-      In this stage, we'll handle the simplest regex possible: a single character. 
+  - slug: "bencode-string" # A identifier for this stage, needs to be unique within a course.
 
-      **Example:** `a` should match "apple", but not "dog".
+    # The name of the stage. This is shown in the course catalog, and on other course pages.
+    name: "Decode bencoded strings"
+
+    # The difficulty of this stage. 
+    # 
+    # Recommended guidelines, based on how long the stage will take an experienced developer to complete:
+    # 
+    # - Very Easy (< 5 minutes) 
+    # - Easy (5-10 minutes) 
+    # - Medium (30m-1h) 
+    # - Hard (> 1h)
+    # 
+    # Allowed values: "very_easy", "easy", "medium", "hard"
+    difficulty: very_easy
+
+    # The instructions for your stage. Markdown supported. Shown on the course page.
+    description_md: |
+      In this stage, we'll do XYZ.
+
+      **Example:** ABC
 
       Your program will be executed like this: 
 
       ```bash
-      $ echo "apple" | ./script.sh -E "a"
+      $ echo "apple" | ./your_executable.sh -E "a"
       ```
 
-      The `-E` flag instructs `grep` to interprets patterns as extended regular expressions (with support 
-      for metacharacters like `+`, `?` etc.). We'll use this flag in all stages.
+      You program must ABCD.
 
-      You program must [exit](https://en.wikipedia.org/wiki/Exit_status) with 0 if the character is found, and 1 if not.
+    # A description of this stage that is used on the course overview page and other marketing material. Markdown supported.
     marketing_md: |
-      In this stage, we'll handle the simplest regex possible: a single character. 
+        [Bencode](https://en.wikipedia.org/wiki/Bencode) is a binary serialization format used in BitTorrent protocol. In this stage, you’ll decode a bencoded string.
 
-      **Example:**
+  - slug: "bencode-int"
+    name: "Decode bencoded integers"
+    difficulty: very_easy
+    description_md:
+    marketing_md: |
+        In this stage, you’ll decode a bencoded integer.
 
-      `a` should match "apple", but not "dog".
+  - slug: "bencode-list"
+    name: "Decode bencoded lists"
+    difficulty: very_easy
+    description_md:
+    marketing_md: |
+        In this stage, you’ll decode a bencoded list.
+
+  - slug: "bencode-dict"
+    name: "Decode bencoded dictionaries"
+    difficulty: very_easy
+    description_md:
+    marketing_md: |
+        In this stage, you’ll decode a bencoded dictionary.
+
+  - slug: "parse-torrent"
+    name: "Parse torrent file"
+    difficulty: easy
+    description_md:
+    marketing_md: |
+        In this stage, you’ll parse a .torrent file and extract information about the torrent.
+
+  - slug: "infohash"
+    name: "Calculate info hash"
+    difficulty: easy
+    description_md:
+    marketing_md: |
+        In this stage, you’ll calculate a unique identifier for a torrent, known as info hash, used in communication with trackers and peers.
+
+  - slug: "tracker-get"
+    name: "Discover peers"
+    difficulty: medium
+    description_md:
+    marketing_md: |
+        In this stage, you’ll interact with a tracker, a central server that keeps track of peers participating in the sharing of a torrent. You'll make a GET request to a HTTP tracker to discover peers from whom you can download the file.
+
+  - slug: "bitfield"
+    name: "Peer handshake"
+    difficulty: medium
+    description_md:
+    marketing_md: |
+        In this stage, you’ll establish a TCP connection with a peer and complete a handshake according to [BitTorrent Peer Protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol)
+
+  - slug: "dl-piece"
+    name: "Download a piece"
+    difficulty: hard
+    description_md:
+    marketing_md: |
+        In this stage, you'll connect to a peer and download a piece of the file. You'll download the piece in blocks, which you'll later combine and verify using SHA-1, a cryptographic hash value.
+
+  - slug: "dl-file"
+    name: "Download the whole file"
+    difficulty: hard
+    description_md:
+    marketing_md: |
+        In this stage, you'll download the entire file. You'll download all the pieces, verify them using SHA-1 and save them to disk.
