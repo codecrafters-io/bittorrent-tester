@@ -8,11 +8,18 @@ import (
 
 func TestStages(t *testing.T) {
 	testCases := map[string]tester_utils.TesterOutputTestCase{
-		"bencoded_string": {
+		"bencoded_string_failure": {
 			StageName:           "bencode-string",
 			CodePath:            "./test_helpers/scenarios/init/failure",
 			ExpectedExitCode:    1,
 			StdoutFixturePath:   "./test_helpers/fixtures/init/failure",
+			NormalizeOutputFunc: normalizeTesterOutput,
+		},
+		"bencoded_string_success": {
+			StageName:           "bencode-string",
+			CodePath:            "./test_helpers/scenarios/init/success",
+			ExpectedExitCode:    0,
+			StdoutFixturePath:   "./test_helpers/fixtures/init/success",
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
 	}
