@@ -1,12 +1,15 @@
 package internal
 
 import (
+	"os"
 	"testing"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
 func TestStages(t *testing.T) {
+	os.Setenv("CODECRAFTERS_RANDOM_SEED", "1234567890")
+
 	testCases := map[string]tester_utils.TesterOutputTestCase{
 		"bencoded_string_failure": {
 			StageName:           "bencode-string",
