@@ -1,3 +1,5 @@
 #!/bin/sh
-echo "Logs from your program will appear here!"
+string=$2           # 5:hello
+string=${string#*:} # hello
+echo "\"$string\""
 exit 0
