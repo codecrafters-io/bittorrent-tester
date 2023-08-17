@@ -2,7 +2,6 @@ package internal
 
 import (
 	"fmt"
-	"io/ioutil"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -12,13 +11,6 @@ func testBencodeString(stageHarness *tester_utils.StageHarness) error {
 
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
-
-	tempDir, err := ioutil.TempDir("", "worktree")
-	if err != nil {
-		return err
-	}
-
-	executable.WorkingDir = tempDir
 
 	randomWord := randomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
