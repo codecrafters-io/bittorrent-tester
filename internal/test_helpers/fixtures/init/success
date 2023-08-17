@@ -1,3 +1,4 @@
 [33m[stage-1] [0m[94m[94mRunning tests for Stage #1: Decode bencoded strings[0m[0m
-[33m[your_program] [0m"hello"
+[33m[stage-1] [0m[94m[94mRunning ./your_bittorrent.sh decode 9:pineapple[0m[0m
+[33m[your_program] [0m"pineapple"
 [33m[stage-1] [0m[92m[92mTest passed.[0m[0m

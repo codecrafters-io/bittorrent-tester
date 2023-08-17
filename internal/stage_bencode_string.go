@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -17,8 +18,11 @@ func testBencodeString(stageHarness *tester_utils.StageHarness) error {
 
 	executable.WorkingDir = tempDir
 
-	logger.Debugf("Running ./your_bittorrent.sh decode 5:hello")
-	result, err := executable.Run("decode", "5:hello")
+	randomWord := randomWord()
+	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
+
+	logger.Infof("Running ./your_bittorrent.sh decode %s", randomWordEncoded)
+	result, err := executable.Run("decode", randomWordEncoded)
 	if err != nil {
 		return err
 	}
@@ -27,7 +31,7 @@ func testBencodeString(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	expected := "\"hello\"" + "\n"
+	expected := fmt.Sprintf("\"%s\"\n", randomWord)
 	if err = assertStdout(result, expected); err != nil {
 		return err
 	}
