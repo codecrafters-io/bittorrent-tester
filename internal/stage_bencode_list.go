@@ -1,16 +1,23 @@
 package internal
 
 import (
+	"fmt"
+
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
-// TODO: Randomize
 func testBencodeList(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	logger.Debugf("Running ./your_bittorrent.sh decode l5:helloi52ee")
-	result, err := executable.Run("decode", "l5:helloi52ee")
+	randomWord := randomWord()
+	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
+	listEncoded := fmt.Sprintf("l%si52ee", randomWordEncoded)
+
+	logger.Debugf("Running ./your_bittorrent.sh decode %s", listEncoded)
+	result, err := executable.Run("decode", listEncoded)
 	if err != nil {
 		return err
 	}
@@ -20,8 +27,8 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	list := []string{
-		`["hello",52]` + "\n",
-		`["hello", 52]` + "\n",
+		fmt.Sprintf("[\"%s\",52]\n", randomWord),
+		fmt.Sprintf("[\"%s\", 52]\n", randomWord),
 	}
 	if err = assertStdoutList(result, list); err != nil {
 		return err
