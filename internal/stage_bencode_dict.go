@@ -1,16 +1,24 @@
 package internal
 
 import (
+	"fmt"
+
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
-// TODO: Randomize
 func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	logger.Debugf("Running ./your_bittorrent.sh decode d3:foo3:bar5:helloi52ee")
-	result, err := executable.Run("decode", "d3:foo3:bar5:helloi52ee")
+	randomWord := randomWord()
+	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
+	// Keys must be strings and appear in sorted order
+	randomDictEncoded := fmt.Sprintf("d3:foo%s5:helloi52ee", randomWordEncoded)
+
+	logger.Debugf("Running ./your_bittorrent.sh decode %s", randomDictEncoded)
+	result, err := executable.Run("decode", randomDictEncoded)
 	if err != nil {
 		return err
 	}
@@ -20,8 +28,8 @@ func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	list := []string{
-		"{\"foo\":\"bar\",\"hello\":52}\n",
-		"{\"foo\": \"bar\", \"hello\": 52}\n",
+		fmt.Sprintf("{\"foo\":\"%s\",\"hello\":52}\n", randomWord),
+		fmt.Sprintf("{\"foo\": \"%s\", \"hello\": 52}\n", randomWord),
 	}
 	if err = assertStdoutList(result, list); err != nil {
 		return err
