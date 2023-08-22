@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -67,5 +68,29 @@ func assertExitCode(result tester_utils.ExecutableResult, expected int) error {
 		return fmt.Errorf("Expected %d as exit code, got: %d", expected, actual)
 	}
 
+	return nil
+}
+
+func assertFileSize(downloadedFilePath string, expectedFileSize int64) error {
+	fileInfo, err := os.Stat(downloadedFilePath)
+	if err != nil {
+		return err
+	}
+
+	fileSize := fileInfo.Size()
+	if fileSize != expectedFileSize {
+		return fmt.Errorf("File size does not match expected file size. Expected: %d Actual: %d", expectedFileSize, fileSize)
+	}
+	return nil
+}
+
+func assertFileSHA1(downloadedFilePath string, expectedSha1 string) error {
+	sha1, err := calculateSHA1(downloadedFilePath)
+	if err != nil {
+		return err
+	}
+	if sha1 != expectedSha1 {
+		return fmt.Errorf("File SHA-1 does not match expected SHA-1. Expected: %s Actual: %s", expectedSha1, sha1)
+	}
 	return nil
 }
