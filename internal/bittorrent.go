@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strings"
 
 	"github.com/jackpal/bencode-go"
 )
@@ -67,6 +68,43 @@ func toPiecesStr(pieces []string) string {
 		hex.Decode(piecesByteArray[i*20:(i+1)*20], []byte(piece))
 	}
 	return string(piecesByteArray)
+}
+
+func createPiecesStrFromFile(filePath string, pieceLengthBytes int) (string, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	buffer := make([]byte, pieceLengthBytes)
+	hasher := sha1.New()
+	pieceIndex := 0
+	var pieceHashes []string
+	for {
+		bytesRead, err := file.Read(buffer)
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			return "", err
+		}
+		_, err = hasher.Write(buffer[:bytesRead])
+		if err != nil {
+			return "", err
+		}
+		if bytesRead == pieceLengthBytes {
+			hashSum := hasher.Sum(nil)
+			pieceHashes = append(pieceHashes, string(hashSum))
+			hasher.Reset()
+			pieceIndex++
+		}
+	}
+	// Handle the last piece if it's less than piece size
+	if hasher.Size() > 0 {
+		hashSum := hasher.Sum(nil)
+		pieceHashes = append(pieceHashes, string(hashSum))
+	}
+	return strings.Join(pieceHashes, ""), nil
 }
 
 func readHandshake(r io.Reader) (*Handshake, error) {

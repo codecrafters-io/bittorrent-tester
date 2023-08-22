@@ -141,3 +141,12 @@ func calculateSHA1(filePath string) (string, error) {
 	hashBytes := hash.Sum(nil)
 	return hex.EncodeToString(hashBytes), nil
 }
+
+func getFileSizeBytes(filePath string) (int64, error) {
+	fileInfo, err := os.Stat(filePath)
+	if err != nil {
+		return -1, err
+	}
+	fileSize := fileInfo.Size()
+	return fileSize, nil
+}
