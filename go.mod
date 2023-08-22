@@ -1,8 +1,11 @@
-module github.com/codecrafters-io/grep-tester
+module github.com/codecrafters-io/bittorrent-tester
 
 go 1.17
 
-require github.com/codecrafters-io/tester-utils v0.1.52
+require (
+	github.com/codecrafters-io/tester-utils v0.1.52
+	github.com/jackpal/bencode-go v1.0.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

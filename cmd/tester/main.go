@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/codecrafters-io/grep-tester/internal"
+	"github.com/codecrafters-io/bittorrent-tester/internal"
 )
 
 func main() {
