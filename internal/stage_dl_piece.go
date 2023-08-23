@@ -6,6 +6,7 @@ import (
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
+// TODO: Use private tracker and own torrents
 func testDownloadPiece(stageHarness *tester_utils.StageHarness) error {
 	torrentFile := "test.torrent"
 	pieceIndex := "0"
