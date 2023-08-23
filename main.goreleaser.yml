@@ -10,3 +10,4 @@ archives:
     files:
       - test.sh
       - torrents
+      - response
