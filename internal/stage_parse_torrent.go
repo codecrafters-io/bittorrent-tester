@@ -20,7 +20,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	if err := copyTorrent(tempDir, torrent.filename); err != nil {
-		logger.Debugf("TESTER DIR: %s", os.Getenv("TESTER_DIR"))
+		logger.Errorf("TESTER DIR: %s", os.Getenv("TESTER_DIR"))
 		logger.Errorf("Couldn't copy torrent file")
 		return err
 	}
