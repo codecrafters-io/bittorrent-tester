@@ -8,6 +8,8 @@ import (
 )
 
 func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 	torrent := randomTorrent()

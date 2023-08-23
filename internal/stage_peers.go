@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"time"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -60,11 +59,12 @@ var discoverPeersResponses = []DiscoverPeersTestCase{
 }
 
 func randomResponse() DiscoverPeersTestCase {
-	rand.Seed(time.Now().UnixNano())
 	return discoverPeersResponses[rand.Intn(len(discoverPeersResponses))]
 }
 
 func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 

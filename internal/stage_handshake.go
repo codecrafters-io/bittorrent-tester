@@ -6,12 +6,13 @@ import (
 	"math/rand"
 	"net"
 	"path"
-	"time"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
 func testHandshake(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
@@ -75,7 +76,6 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 }
 
 func randomHash() ([20]byte, error) {
-	rand.Seed(time.Now().UnixNano())
 	var hash [20]byte
 	if _, err := rand.Read(hash[:]); err != nil {
 		return [20]byte{}, err

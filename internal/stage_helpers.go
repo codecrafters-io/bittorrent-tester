@@ -8,7 +8,6 @@ import (
 	"net"
 	"os"
 	"path"
-	"time"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -79,7 +78,6 @@ func copyTorrent(tempDir string, torrentFilename string) error {
 }
 
 func randomTorrent() TestTorrentInfo {
-	rand.Seed(time.Now().UnixNano())
 	return testTorrents[rand.Intn(len(testTorrents))]
 }
 
