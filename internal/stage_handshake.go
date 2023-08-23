@@ -115,6 +115,6 @@ func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logge
 	}
 
 	logger.Debugf("Received handshake: [infohash: %x, peer_id: %x]\n", handshake.InfoHash, handshake.PeerID)
-	logger.Debugf("Sending back handshake")
+	logger.Debugf("Sending back handshake with peer_id: %x", myPeerID)
 	sendHandshake(conn, handshake.InfoHash, myPeerID)
 }
