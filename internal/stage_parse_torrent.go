@@ -35,7 +35,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 
 	expected := strings.Join([]string{
 		fmt.Sprintf("Tracker URL: %s", torrent.tracker),
-		fmt.Sprintf("Length: %s", torrent.length)}, "\n") + "\n"
+		fmt.Sprintf("Length: %d", torrent.length)}, "\n") + "\n"
 
 	if err = assertStdoutContains(result, expected); err != nil {
 		return err
