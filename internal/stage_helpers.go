@@ -35,7 +35,7 @@ type TestTorrentInfo struct {
 var testTorrents = []TestTorrentInfo{
 	{
 		filename:       "codercat.gif.torrent",
-		outputFilename: "codercat.git",
+		outputFilename: "codercat.gif",
 		tracker:        "http://bittorrent-test-tracker.codecrafters.io/announce",
 		infohash:       "c77829d2a77d6516f88cd7a3de1a26abcbfab0db",
 		length:         2994120,
@@ -43,7 +43,7 @@ var testTorrents = []TestTorrentInfo{
 	},
 	{
 		filename:       "congratulations.gif.torrent",
-		outputFilename: "congratulations.git",
+		outputFilename: "congratulations.gif",
 		tracker:        "http://bittorrent-test-tracker.codecrafters.io/announce",
 		infohash:       "1cad4a486798d952614c394eb15e75bec587fd08",
 		length:         820892,
@@ -51,7 +51,7 @@ var testTorrents = []TestTorrentInfo{
 	},
 	{
 		filename:       "itsworking.gif.torrent",
-		outputFilename: "itsworking.git",
+		outputFilename: "itsworking.gif",
 		tracker:        "http://bittorrent-test-tracker.codecrafters.io/announce",
 		infohash:       "70edcac2611a8829ebf467a6849f5d8408d9d8f4",
 		length:         2549700,
