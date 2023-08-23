@@ -9,3 +9,4 @@ archives:
     format: tar.gz
     files:
       - test.sh
+      - torrents
