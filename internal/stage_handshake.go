@@ -6,12 +6,13 @@ import (
 	"math/rand"
 	"net"
 	"path"
-	"time"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
 func testHandshake(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
@@ -75,7 +76,6 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 }
 
 func randomHash() ([20]byte, error) {
-	rand.Seed(time.Now().UnixNano())
 	var hash [20]byte
 	if _, err := rand.Read(hash[:]); err != nil {
 		return [20]byte{}, err
@@ -115,6 +115,6 @@ func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logge
 	}
 
 	logger.Debugf("Received handshake: [infohash: %x, peer_id: %x]\n", handshake.InfoHash, handshake.PeerID)
-	logger.Debugf("Sending back handshake")
+	logger.Debugf("Sending back handshake with peer_id: %x", myPeerID)
 	sendHandshake(conn, handshake.InfoHash, myPeerID)
 }

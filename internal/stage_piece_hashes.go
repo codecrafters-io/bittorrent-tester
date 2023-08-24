@@ -5,12 +5,13 @@ import (
 	"math/rand"
 	"path"
 	"strings"
-	"time"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
 func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
@@ -73,8 +74,6 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 }
 
 func createPieceHashes() ([]string, error) {
-	rand.Seed(time.Now().UnixNano())
-	// Generate a random size between 2 and 8 (inclusive)
 	size := rand.Intn(7) + 2
 	pieceHashes := make([]string, size)
 	for i := 0; i < size; i++ {

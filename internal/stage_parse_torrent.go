@@ -2,13 +2,14 @@ package internal
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
 func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 	torrent := randomTorrent()
@@ -20,7 +21,6 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	if err := copyTorrent(tempDir, torrent.filename); err != nil {
-		logger.Errorf("TESTER DIR: %s", os.Getenv("TESTER_DIR"))
 		logger.Errorf("Couldn't copy torrent file")
 		return err
 	}
@@ -37,7 +37,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 
 	expected := strings.Join([]string{
 		fmt.Sprintf("Tracker URL: %s", torrent.tracker),
-		fmt.Sprintf("Length: %s", torrent.length)}, "\n") + "\n"
+		fmt.Sprintf("Length: %d", torrent.length)}, "\n") + "\n"
 
 	if err = assertStdoutContains(result, expected); err != nil {
 		return err

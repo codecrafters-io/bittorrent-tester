@@ -8,7 +8,6 @@ import (
 	"net"
 	"os"
 	"path"
-	"time"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -25,36 +24,38 @@ var samplePieceHashes = []string{
 }
 
 type TestTorrentInfo struct {
-	filename string
-	tracker  string
-	length   string
-	infohash string
+	filename       string
+	outputFilename string
+	tracker        string
+	infohash       string
+	length         int64
+	expectedSha1   string
 }
 
 var testTorrents = []TestTorrentInfo{
 	{
-		filename: "test.torrent",
-		tracker:  "http://linuxtracker.org:2710/00000000000000000000000000000000/announce",
-		length:   "406847488",
-		infohash: "6d4795dee70aeb88e03e5336ca7c9fcf0a1e206d",
+		filename:       "codercat.gif.torrent",
+		outputFilename: "codercat.gif",
+		tracker:        "http://bittorrent-test-tracker.codecrafters.io/announce",
+		infohash:       "c77829d2a77d6516f88cd7a3de1a26abcbfab0db",
+		length:         2994120,
+		expectedSha1:   "89d5dcbb92d31f040f8fe42b559fd6ec7f4d83a5",
 	},
 	{
-		filename: "debian-9.1.0-amd64-netinst.iso.torrent",
-		tracker:  "http://bttracker.debian.org:6969/announce",
-		length:   "304087040",
-		infohash: "fd5fdf21aef4505451861da97aa39000ed852988",
+		filename:       "congratulations.gif.torrent",
+		outputFilename: "congratulations.gif",
+		tracker:        "http://bittorrent-test-tracker.codecrafters.io/announce",
+		infohash:       "1cad4a486798d952614c394eb15e75bec587fd08",
+		length:         820892,
+		expectedSha1:   "fe3cc9002bc84c4776c3a962a717244c9cb962c0",
 	},
 	{
-		filename: "debian-10.8.0-amd64-netinst.iso.torrent",
-		tracker:  "http://bttracker.debian.org:6969/announce",
-		length:   "352321536",
-		infohash: "4090c3c2a394a49974dfbbf2ce7ad0db3cdeddd7",
-	},
-	{
-		filename: "alpine-minirootfs-3.18.3-aarch64.tar.gz.torrent",
-		tracker:  "http://tracker.openbittorrent.com:80/announce",
-		length:   "3201634",
-		infohash: "0307870997cb1ae741431cfc54f3b2dcf52e2c80",
+		filename:       "itsworking.gif.torrent",
+		outputFilename: "itsworking.gif",
+		tracker:        "http://bittorrent-test-tracker.codecrafters.io/announce",
+		infohash:       "70edcac2611a8829ebf467a6849f5d8408d9d8f4",
+		length:         2549700,
+		expectedSha1:   "683e899db9d7a38e50eb87874b62f7fdd0c14c9c",
 	},
 }
 
@@ -77,7 +78,6 @@ func copyTorrent(tempDir string, torrentFilename string) error {
 }
 
 func randomTorrent() TestTorrentInfo {
-	rand.Seed(time.Now().UnixNano())
 	return testTorrents[rand.Intn(len(testTorrents))]
 }
 

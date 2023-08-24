@@ -8,6 +8,8 @@ import (
 )
 
 func testInfoHash(stageHarness *tester_utils.StageHarness) error {
+	initRandom()
+
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 	torrent := randomTorrent()
@@ -35,7 +37,7 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 
 	expected := strings.Join([]string{
 		fmt.Sprintf("Tracker URL: %s", torrent.tracker),
-		fmt.Sprintf("Length: %s", torrent.length),
+		fmt.Sprintf("Length: %d", torrent.length),
 		fmt.Sprintf("Info Hash: %s", torrent.infohash)}, "\n") + "\n"
 
 	if err = assertStdoutContains(result, expected); err != nil {
