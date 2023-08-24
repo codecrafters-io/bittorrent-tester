@@ -15,7 +15,7 @@ func testBencodeInt(stageHarness *tester_utils.StageHarness) error {
 
 	randomNumber := fmt.Sprintf("%d", rand.Intn(2147483647))
 	randomNumberEncoded := fmt.Sprintf("i%se", randomNumber)
-	logger.Infod("Running ./your_bittorrent.sh decode %s", randomNumberEncoded)
+	logger.Infof("Running ./your_bittorrent.sh decode %s", randomNumberEncoded)
 	result, err := executable.Run("decode", randomNumberEncoded)
 	if err != nil {
 		return err
