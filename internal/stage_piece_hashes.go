@@ -46,7 +46,7 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Debugf("Running ./your_bittorrent.sh info %s", torrentFilename)
+	logger.Infof("Running ./your_bittorrent.sh info %s", torrentFilename)
 	result, err := executable.Run("info", torrentFilename)
 	if err != nil {
 		return err

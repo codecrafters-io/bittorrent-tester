@@ -25,7 +25,7 @@ func testDownloadFile(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Debugf("Running ./your_bittorrent.sh download -o %s %s", t.outputFilename, t.filename)
+	logger.Infof("Running ./your_bittorrent.sh download -o %s %s", t.outputFilename, t.filename)
 	result, err := executable.Run("download", "-o", t.outputFilename, t.filename)
 	if err != nil {
 		return err

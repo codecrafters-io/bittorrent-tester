@@ -56,7 +56,7 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 
 	go waitAndHandlePeerConnection(address, expectedPeerID, infoHash, logger)
 
-	logger.Debugf("Running ./your_bittorrent.sh handshake %s %s", torrentFilename, address)
+	logger.Infof("Running ./your_bittorrent.sh handshake %s %s", torrentFilename, address)
 	result, err := executable.Run("handshake", torrentFilename, address)
 	if err != nil {
 		return err

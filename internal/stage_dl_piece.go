@@ -57,7 +57,7 @@ func testDownloadPiece(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	expectedFilename := fmt.Sprintf("piece-%d", t.pieceIndex)
-	logger.Debugf("Running ./your_bittorrent.sh download_piece -o %s %s %d", expectedFilename, t.torrentFilename, t.pieceIndex)
+	logger.Infof("Running ./your_bittorrent.sh download_piece -o %s %s %d", expectedFilename, t.torrentFilename, t.pieceIndex)
 	result, err := executable.Run("download_piece", "-o", expectedFilename, t.torrentFilename, fmt.Sprintf("%d", t.pieceIndex))
 	if err != nil {
 		return err

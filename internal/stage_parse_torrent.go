@@ -28,7 +28,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 
 	torrentPath := path.Join(tempDir, torrent.filename)
 
-	logger.Debugf("Running ./your_bittorrent.sh info %s", torrentPath)
+	logger.Infof("Running ./your_bittorrent.sh info %s", torrentPath)
 	result, err := executable.Run("info", torrentPath)
 	if err != nil {
 		return err
