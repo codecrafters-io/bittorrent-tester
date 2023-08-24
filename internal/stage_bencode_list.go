@@ -16,7 +16,7 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
 	listEncoded := fmt.Sprintf("l%si52ee", randomWordEncoded)
 
-	logger.Debugf("Running ./your_bittorrent.sh decode %s", listEncoded)
+	logger.Infof("Running ./your_bittorrent.sh decode %s", listEncoded)
 	result, err := executable.Run("decode", listEncoded)
 	if err != nil {
 		return err

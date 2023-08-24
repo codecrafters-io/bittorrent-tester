@@ -17,7 +17,7 @@ func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
 	// Keys must be strings and appear in sorted order
 	randomDictEncoded := fmt.Sprintf("d3:foo%s5:helloi52ee", randomWordEncoded)
 
-	logger.Debugf("Running ./your_bittorrent.sh decode %s", randomDictEncoded)
+	logger.Infof("Running ./your_bittorrent.sh decode %s", randomDictEncoded)
 	result, err := executable.Run("decode", randomDictEncoded)
 	if err != nil {
 		return err
