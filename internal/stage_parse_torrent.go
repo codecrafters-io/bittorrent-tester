@@ -2,6 +2,8 @@ package internal
 
 import (
 	"fmt"
+	"os"
+	"path"
 	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -14,9 +16,8 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 	executable := stageHarness.Executable
 	torrent := randomTorrent()
 
-	tempDir, err := createTempDir(executable)
+	tempDir, err := os.MkdirTemp("", "worktree")
 	if err != nil {
-		logger.Errorf("Couldn't create temp directory")
 		return err
 	}
 
@@ -25,8 +26,10 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Debugf("Running ./your_bittorrent.sh info %s", torrent.filename)
-	result, err := executable.Run("info", torrent.filename)
+	torrentPath := path.Join(tempDir, torrent.filename)
+
+	logger.Debugf("Running ./your_bittorrent.sh info %s", torrentPath)
+	result, err := executable.Run("info", torrentPath)
 	if err != nil {
 		return err
 	}
