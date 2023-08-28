@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -38,11 +37,18 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	expected := strings.Join([]string{
-		fmt.Sprintf("Tracker URL: %s", torrent.tracker),
-		fmt.Sprintf("Length: %d", torrent.length)}, "\n") + "\n"
+	expectedTrackerURLValue := fmt.Sprintf("Tracker URL: %s", torrent.tracker)
+	expectedLengthValue := fmt.Sprintf("Length: %d", torrent.length)
 
-	if err = assertStdoutContains(result, expected); err != nil {
+	logger.Debugf("Checking for tracker URL (%v)", expectedTrackerURLValue)
+
+	if err = assertStdoutContains(result, expectedTrackerURLValue); err != nil {
+		return err
+	}
+
+	logger.Debugf("Checking for length (%v)", expectedLengthValue)
+
+	if err = assertStdoutContains(result, expectedLengthValue); err != nil {
 		return err
 	}
 
