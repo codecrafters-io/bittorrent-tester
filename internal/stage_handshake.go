@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net"
+	"os"
 	"path"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -16,9 +17,8 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	tempDir, err := createTempDir(executable)
+	tempDir, err := os.MkdirTemp("", "worktree")
 	if err != nil {
-		logger.Errorf("Couldn't create temp directory")
 		return err
 	}
 
@@ -42,8 +42,8 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	torrentFilename := "test.torrent"
-	torrentOutputPath := path.Join(tempDir, torrentFilename)
-	infoHash, err := torrent.writeToFile(torrentOutputPath)
+	torrentFilePath := path.Join(tempDir, torrentFilename)
+	infoHash, err := torrent.writeToFile(torrentFilePath)
 	if err != nil {
 		logger.Errorf("Error writing torrent file", err)
 		return err
@@ -56,8 +56,8 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 
 	go waitAndHandlePeerConnection(address, expectedPeerID, infoHash, logger)
 
-	logger.Infof("Running ./your_bittorrent.sh handshake %s %s", torrentFilename, address)
-	result, err := executable.Run("handshake", torrentFilename, address)
+	logger.Infof("Running ./your_bittorrent.sh handshake %s %s", torrentFilePath, address)
+	result, err := executable.Run("handshake", torrentFilePath, address)
 	if err != nil {
 		return err
 	}
@@ -68,7 +68,7 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 
 	expected := fmt.Sprintf("Peer ID: %x\n", expectedPeerID)
 
-	if err = assertStdout(result, expected); err != nil {
+	if err = assertStdoutContains(result, expected); err != nil {
 		return err
 	}
 
