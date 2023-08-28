@@ -68,9 +68,8 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	tempDir, err := createTempDir(executable)
+	tempDir, err := os.MkdirTemp("", "worktree")
 	if err != nil {
-		logger.Errorf("Couldn't create temp directory")
 		return err
 	}
 
@@ -112,8 +111,8 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 
 	go listenAndServePeersResponse(address, destinationPath, expectedInfoHash, logger)
 
-	logger.Infof("Running ./your_bittorrent.sh peers %s", torrentFileName)
-	result, err := executable.Run("peers", torrentFileName)
+	logger.Infof("Running ./your_bittorrent.sh peers %s", torrentFilePath)
+	result, err := executable.Run("peers", torrentFilePath)
 	if err != nil {
 		return err
 	}
