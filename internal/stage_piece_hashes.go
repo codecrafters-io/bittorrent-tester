@@ -15,6 +15,7 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
+	// TODO: Remove, don't change working directory
 	torrentFilename := "test.torrent"
 	tempDir, err := createTempDir(executable)
 	if err != nil {

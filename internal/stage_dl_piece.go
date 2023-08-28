@@ -45,6 +45,7 @@ func testDownloadPiece(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
+	// TODO: Remove, don't change working directory
 	tempDir, err := createTempDir(executable)
 	if err != nil {
 		logger.Errorf("Couldn't create temp directory")

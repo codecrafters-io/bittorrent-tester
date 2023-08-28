@@ -14,6 +14,7 @@ func testDownloadFile(stageHarness *tester_utils.StageHarness) error {
 
 	t := randomTorrent()
 
+	// TODO: Remove, don't change working directory
 	tempDir, err := createTempDir(executable)
 	if err != nil {
 		logger.Errorf("Couldn't create temp directory")
