@@ -46,7 +46,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Successf("Found tracker URL")
+	logger.Successf("Tracker URL is correct")
 
 	logger.Debugf("Checking for length (%v)", expectedLengthValue)
 
@@ -54,7 +54,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Successf("Found length")
+	logger.Successf("Length is correct")
 
 	return nil
 }
