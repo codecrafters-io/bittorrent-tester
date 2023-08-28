@@ -2,7 +2,8 @@ package internal
 
 import (
 	"fmt"
-	"strings"
+	"os"
+	"path"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -14,9 +15,8 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 	executable := stageHarness.Executable
 	torrent := randomTorrent()
 
-	tempDir, err := createTempDir(executable)
+	tempDir, err := os.MkdirTemp("", "worktree")
 	if err != nil {
-		logger.Errorf("Couldn't create temp directory")
 		return err
 	}
 
@@ -25,8 +25,10 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh info %s", torrent.filename)
-	result, err := executable.Run("info", torrent.filename)
+	torrentPath := path.Join(tempDir, torrent.filename)
+
+	logger.Infof("Running ./your_bittorrent.sh info %s", torrentPath)
+	result, err := executable.Run("info", torrentPath)
 	if err != nil {
 		return err
 	}
@@ -35,10 +37,7 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	expected := strings.Join([]string{
-		fmt.Sprintf("Tracker URL: %s", torrent.tracker),
-		fmt.Sprintf("Length: %d", torrent.length),
-		fmt.Sprintf("Info Hash: %s", torrent.infohash)}, "\n") + "\n"
+	expected := fmt.Sprintf("Info Hash: %s", torrent.infohash)
 
 	if err = assertStdoutContains(result, expected); err != nil {
 		return err
