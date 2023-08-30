@@ -23,7 +23,7 @@
 [33m[stage-4] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-5] [0m[94m[94mRunning tests for Stage #5: Parse torrent file[0m[0m
-[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree1879279207/codercat.gif.torrent[0m[0m
+[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree582657996/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -46,7 +46,7 @@
 [33m[stage-5] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-6] [0m[94m[94mRunning tests for Stage #6: Calculate info hash[0m[0m
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3127395850/codercat.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree2716879597/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -67,7 +67,7 @@
 [33m[stage-6] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-7] [0m[94m[94mRunning tests for Stage #7: Discover peers[0m[0m
-[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3223265737/test.torrent[0m[0m
+[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree2908930739/test.torrent[0m[0m
 [33m[your_program] [0m188.119.61.177:6881
 [33m[your_program] [0m71.224.0.29:51414
 [33m[your_program] [0m62.153.208.98:3652
@@ -80,7 +80,7 @@
 [33m[stage-7] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-8] [0m[94m[94mRunning tests for Stage #8: Peer handshake[0m[0m
-[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3348106943/test.torrent 127.0.0.1:65173[0m[0m
+[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree658797368/test.torrent 127.0.0.1:49670[0m[0m
 [33m[your_program] [0mPeer ID: ee8f5140bfc195c36b0567cd055ac9839e682ab0
 [33m[stage-8] [0m[92m[92mTest passed.[0m[0m
 
@@ -103,13 +103,9 @@
 [33m[stage-10] [0m[94m[94mRunning ./your_bittorrent.sh download_piece -o piece-3 congratulations.gif.torrent 3[0m[0m
 [33m[your_program] [0m# of peers 3
 [33m[your_program] [0mpeers: [178.62.82.89:51474 165.232.33.77:51483 178.62.85.20:51428]
-[33m[your_program] [0mstarting download for congratulations.gif
 [33m[your_program] [0madding piece with i: 3 len: 34460 hash: bded68d02de011a2b687f75b5833f46cce8e3e9c
 [33m[your_program] [0mtrying to start download worker
 [33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mhandshake complete with peer: 178.62.85.20:51428
-[33m[your_program] [0mwill send unchoke
-[33m[your_program] [0mwill send interested
 [33m[your_program] [0mcan't download because client is in choked state
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived unchoke message
@@ -119,7 +115,6 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: bded68d02de011a2b687f75b5833f46cce8e3e9c expected hash: bded68d02de011a2b687f75b5833f46cce8e3e9c
 [33m[your_program] [0m(100.00%) Downloaded piece #3 from 3 peers
 [33m[your_program] [0mPiece 3 downloaded to piece-3.
 [33m[stage-10] [0m[92m[92mTest passed.[0m[0m
@@ -145,21 +140,12 @@
 [33m[your_program] [0mtrying to start download worker
 [33m[your_program] [0mtrying to start download worker
 [33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mhandshake complete with peer: 178.62.82.89:51430
-[33m[your_program] [0mwill send unchoke
-[33m[your_program] [0mwill send interested
 [33m[your_program] [0mcan't download because client is in choked state
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mhandshake complete with peer: 165.232.33.77:51420
-[33m[your_program] [0mwill send unchoke
-[33m[your_program] [0mwill send interested
 [33m[your_program] [0mcan't download because client is in choked state
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mhandshake complete with peer: 178.62.85.20:51426
-[33m[your_program] [0mwill send unchoke
-[33m[your_program] [0mwill send interested
 [33m[your_program] [0mcan't download because client is in choked state
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived unchoke message
@@ -211,6 +197,10 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
@@ -249,25 +239,18 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: b8519b2ea9bb373ff567f644428156c98a1d00fc expected hash: b8519b2ea9bb373ff567f644428156c98a1d00fc
+[33m[your_program] [0mwill read message
+[33m[your_program] [0m(8.33%) Downloaded piece #0 from 5 peers
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0m(8.33%) Downloaded piece #1 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mfound hash: 3c34309faebf01e49c0f63c90b7edcc2259b6ad0 expected hash: 3c34309faebf01e49c0f63c90b7edcc2259b6ad0
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(16.67%) Downloaded piece #0 from 5 peers
+[33m[your_program] [0m(16.67%) Downloaded piece #1 from 5 peers
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: 9dc81366587536f48c2098a1d79692f2590fd9a6 expected hash: 9dc81366587536f48c2098a1d79692f2590fd9a6
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0m(25.00%) Downloaded piece #2 from 5 peers
 [33m[your_program] [0mreceived piece message
@@ -339,8 +322,6 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
@@ -357,7 +338,8 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: 033c61e717f8c0d1e55850680eb451e3543b6203 expected hash: 033c61e717f8c0d1e55850680eb451e3543b6203
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mwill read message
@@ -365,11 +347,9 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: 6f54e746ec369f65f32d45f77b1f1c37621fb965 expected hash: 6f54e746ec369f65f32d45f77b1f1c37621fb965
 [33m[your_program] [0mwill read message
 [33m[your_program] [0m(41.67%) Downloaded piece #4 from 5 peers
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: c656704b78107ed553bd0813f92fef780267c07b expected hash: c656704b78107ed553bd0813f92fef780267c07b
 [33m[your_program] [0mwill read message
 [33m[your_program] [0m(50.00%) Downloaded piece #5 from 5 peers
 [33m[your_program] [0mreceived piece message
@@ -379,8 +359,6 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
@@ -453,33 +431,28 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mfound hash: 7431b8683137d20ff594b1f1bf3f8835165d68fb expected hash: 7431b8683137d20ff594b1f1bf3f8835165d68fb
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
 [33m[your_program] [0m(58.33%) Downloaded piece #6 from 5 peers
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: 0432bd8e779608d27782b779c7738062e9b50ab5 expected hash: 0432bd8e779608d27782b779c7738062e9b50ab5
 [33m[your_program] [0mwill read message
 [33m[your_program] [0m(66.67%) Downloaded piece #7 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: d6bc0409a0f3a9503857669d47fe752d4577ea00 expected hash: d6bc0409a0f3a9503857669d47fe752d4577ea00
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0m(75.00%) Downloaded piece #8 from 5 peers
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
@@ -529,11 +502,10 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: 3d8db9e34db63b4ba1be27930911aa37b3f997dd expected hash: 3d8db9e34db63b4ba1be27930911aa37b3f997dd
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
 [33m[your_program] [0m(83.33%) Downloaded piece #11 from 5 peers
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
@@ -546,14 +518,16 @@
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: a86ee6abbc30cddb800a0b62d7a296111166d839 expected hash: a86ee6abbc30cddb800a0b62d7a296111166d839
+[33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived piece message
 [33m[your_program] [0mwill read message
+[33m[your_program] [0mreceived piece message
+[33m[your_program] [0mreceived piece message
 [33m[your_program] [0m(91.67%) Downloaded piece #9 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mfound hash: 783f52b70f0c902d56196bd3ee7f379b5db57e3b expected hash: 783f52b70f0c902d56196bd3ee7f379b5db57e3b
 [33m[your_program] [0m(100.00%) Downloaded piece #10 from 5 peers
 [33m[your_program] [0mDownloaded codercat.gif.torrent to codercat.gif.
 [33m[stage-11] [0m[92m[92mTest passed.[0m[0m
