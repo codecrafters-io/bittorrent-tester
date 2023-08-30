@@ -23,7 +23,7 @@
 [33m[stage-4] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-5] [0m[94m[94mRunning tests for Stage #5: Parse torrent file[0m[0m
-[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3597632334/codercat.gif.torrent[0m[0m
+[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree4234655029/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -46,7 +46,7 @@
 [33m[stage-5] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-6] [0m[94m[94mRunning tests for Stage #6: Calculate info hash[0m[0m
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree712745639/codercat.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree1453917777/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -67,7 +67,7 @@
 [33m[stage-6] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-7] [0m[94m[94mRunning tests for Stage #7: Discover peers[0m[0m
-[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3480859231/test.torrent[0m[0m
+[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree513624524/test.torrent[0m[0m
 [33m[your_program] [0m188.119.61.177:6881
 [33m[your_program] [0m71.224.0.29:51414
 [33m[your_program] [0m62.153.208.98:3652
@@ -80,7 +80,7 @@
 [33m[stage-7] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-8] [0m[94m[94mRunning tests for Stage #8: Peer handshake[0m[0m
-[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree1657072386/test.torrent 127.0.0.1:50167[0m[0m
+[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree4200426840/test.torrent 127.0.0.1:50513[0m[0m
 [33m[your_program] [0mPeer ID: ee8f5140bfc195c36b0567cd055ac9839e682ab0
 [33m[stage-8] [0m[92m[92mTest passed.[0m[0m
 
@@ -101,39 +101,10 @@
 
 [33m[stage-10] [0m[94m[94mRunning tests for Stage #10: Download a piece[0m[0m
 [33m[stage-10] [0m[94m[94mRunning ./your_bittorrent.sh download_piece -o piece-3 congratulations.gif.torrent 3[0m[0m
-[33m[your_program] [0madding piece with i: 3 len: 34460 hash: bded68d02de011a2b687f75b5833f46cce8e3e9c
-[33m[your_program] [0mtrying to start download worker
-[33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mreceived unchoke message
 [33m[your_program] [0mPiece 3 downloaded to piece-3.
 [33m[stage-10] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-11] [0m[94m[94mRunning tests for Stage #11: Download the whole file[0m[0m
 [33m[stage-11] [0m[94m[94mRunning ./your_bittorrent.sh download -o codercat.gif codercat.gif.torrent[0m[0m
-[33m[your_program] [0madding piece with i: 0 len: 262144 hash: 3c34309faebf01e49c0f63c90b7edcc2259b6ad0
-[33m[your_program] [0madding piece with i: 1 len: 262144 hash: b8519b2ea9bb373ff567f644428156c98a1d00fc
-[33m[your_program] [0madding piece with i: 2 len: 262144 hash: 9dc81366587536f48c2098a1d79692f2590fd9a6
-[33m[your_program] [0madding piece with i: 3 len: 262144 hash: 033c61e717f8c0d1e55850680eb451e3543b6203
-[33m[your_program] [0madding piece with i: 4 len: 262144 hash: 6f54e746ec369f65f32d45f77b1f1c37621fb965
-[33m[your_program] [0madding piece with i: 5 len: 262144 hash: c656704b78107ed553bd0813f92fef780267c07b
-[33m[your_program] [0madding piece with i: 6 len: 262144 hash: 7431b8683137d20ff594b1f1bf3f8835165d68fb
-[33m[your_program] [0madding piece with i: 7 len: 262144 hash: 0432bd8e779608d27782b779c7738062e9b50ab5
-[33m[your_program] [0madding piece with i: 8 len: 262144 hash: d6bc0409a0f3a9503857669d47fe752d4577ea00
-[33m[your_program] [0madding piece with i: 9 len: 262144 hash: a86ee6abbc30cddb800a0b62d7a296111166d839
-[33m[your_program] [0madding piece with i: 10 len: 262144 hash: 783f52b70f0c902d56196bd3ee7f379b5db57e3b
-[33m[your_program] [0madding piece with i: 11 len: 110536 hash: 3d8db9e34db63b4ba1be27930911aa37b3f997dd
-[33m[your_program] [0mtrying to start download worker
-[33m[your_program] [0mtrying to start download worker
-[33m[your_program] [0mtrying to start download worker
-[33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mreceived bitfield from peer
-[33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mreceived unchoke message
-[33m[your_program] [0mreceived unchoke message
-[33m[your_program] [0mreceived unchoke message
 [33m[your_program] [0mDownloaded codercat.gif.torrent to codercat.gif.
 [33m[stage-11] [0m[92m[92mTest passed.[0m[0m
