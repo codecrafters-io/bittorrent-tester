@@ -60,7 +60,7 @@ var testTorrents = []TestTorrentInfo{
 }
 
 func createTempDir(executable *tester_utils.Executable) (string, error) {
-	tempDir, err := os.MkdirTemp("", "worktree")
+	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
 		return "", err
 	}

@@ -153,7 +153,7 @@ func Stage_dl_piece() {
 		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
 		return
 	}
-	fmt.Printf("Piece %s downloaded to %s.", pieceIndexStr, outputPath)
+	// fmt.Printf("Piece %s downloaded to %s.", pieceIndexStr, outputPath)
 }
 
 func Stage_dl_file() {
@@ -170,5 +170,5 @@ func Stage_dl_file() {
 		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
 		return
 	}
-	fmt.Printf("Downloaded %s to %s.", torrentPath, outputPath)
+	// fmt.Printf("Downloaded %s to %s.", torrentPath, outputPath)
 }

@@ -17,7 +17,7 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	tempDir, err := os.MkdirTemp("", "worktree")
+	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
 		return err
 	}

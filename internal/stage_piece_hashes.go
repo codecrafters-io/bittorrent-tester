@@ -17,7 +17,7 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 
 	// TODO: Remove, don't change working directory
 	torrentFilename := "test.torrent"
-	tempDir, err := os.MkdirTemp("", "worktree")
+	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
 		logger.Errorf("Couldn't create temp directory")
 		return err

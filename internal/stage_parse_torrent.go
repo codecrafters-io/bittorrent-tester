@@ -15,7 +15,7 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 	executable := stageHarness.Executable
 	torrent := randomTorrent()
 
-	tempDir, err := os.MkdirTemp("", "worktree")
+	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
 		return err
 	}

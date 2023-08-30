@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"os"
 	"path"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -14,8 +15,7 @@ func testDownloadFile(stageHarness *tester_utils.StageHarness) error {
 
 	t := randomTorrent()
 
-	// TODO: Remove, don't change working directory
-	tempDir, err := createTempDir(executable)
+	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
 		logger.Errorf("Couldn't create temp directory")
 		return err
@@ -26,8 +26,11 @@ func testDownloadFile(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh download -o %s %s", t.outputFilename, t.filename)
-	result, err := executable.Run("download", "-o", t.outputFilename, t.filename)
+	torrentFilePath := path.Join(tempDir, t.filename)
+	downloadedFilePath := path.Join(tempDir, t.outputFilename)
+
+	logger.Infof("Running ./your_bittorrent.sh download -o %s %s", downloadedFilePath, torrentFilePath)
+	result, err := executable.Run("download", "-o", downloadedFilePath, torrentFilePath)
 	if err != nil {
 		return err
 	}
@@ -36,7 +39,6 @@ func testDownloadFile(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	downloadedFilePath := path.Join(tempDir, t.outputFilename)
 	if err = assertFileSize(downloadedFilePath, t.length); err != nil {
 		return err
 	}
