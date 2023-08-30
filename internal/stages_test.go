@@ -2,6 +2,7 @@ package internal
 
 import (
 	"os"
+	"regexp"
 	"testing"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -38,5 +39,8 @@ func TestStages(t *testing.T) {
 }
 
 func normalizeTesterOutput(testerOutput []byte) []byte {
+	re := regexp.MustCompile("Running ./your_bittorrent.sh .*")
+	testerOutput = re.ReplaceAll(testerOutput, []byte("Running ./your_bittorrent.sh <truncated>"))
+
 	return testerOutput
 }
