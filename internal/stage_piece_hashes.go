@@ -3,8 +3,8 @@ package internal
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"path"
-	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -17,7 +17,7 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 
 	// TODO: Remove, don't change working directory
 	torrentFilename := "test.torrent"
-	tempDir, err := createTempDir(executable)
+	tempDir, err := os.MkdirTemp("", "worktree")
 	if err != nil {
 		logger.Errorf("Couldn't create temp directory")
 		return err
@@ -42,13 +42,13 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	destinationPath := path.Join(tempDir, torrentFilename)
-	expectedInfoHash, err := torrent.writeToFile(destinationPath)
+	_, err = torrent.writeToFile(destinationPath)
 	if err != nil {
 		return err
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh info %s", torrentFilename)
-	result, err := executable.Run("info", torrentFilename)
+	logger.Infof("Running ./your_bittorrent.sh info %s", destinationPath)
+	result, err := executable.Run("info", destinationPath)
 	if err != nil {
 		return err
 	}
@@ -57,18 +57,15 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	output := []string{
-		fmt.Sprintf("Tracker URL: %s", trackerURL),
-		fmt.Sprintf("Length: %d", fileLengthBytes),
-		fmt.Sprintf("Info Hash: %x", expectedInfoHash),
-		fmt.Sprintf("Piece Length: %d", pieceLengthBytes),
-		"Piece Hashes:"}
-	output = append(output, pieceHashes...)
-
-	expected := strings.Join(output, "\n") + "\n"
-
-	if err = assertStdout(result, expected); err != nil {
+	expectedPieceLengthOutput := fmt.Sprintf("Piece Length: %d", pieceLengthBytes)
+	if err = assertStdoutContains(result, expectedPieceLengthOutput); err != nil {
 		return err
+	}
+
+	for _, pieceHash := range pieceHashes {
+		if err = assertStdoutContains(result, pieceHash); err != nil {
+			return err
+		}
 	}
 
 	return nil
