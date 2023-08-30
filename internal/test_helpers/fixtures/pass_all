@@ -23,7 +23,7 @@
 [33m[stage-4] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-5] [0m[94m[94mRunning tests for Stage #5: Parse torrent file[0m[0m
-[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree1850572134/codercat.gif.torrent[0m[0m
+[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3597632334/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -46,7 +46,7 @@
 [33m[stage-5] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-6] [0m[94m[94mRunning tests for Stage #6: Calculate info hash[0m[0m
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree74802262/codercat.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree712745639/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -67,7 +67,7 @@
 [33m[stage-6] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-7] [0m[94m[94mRunning tests for Stage #7: Discover peers[0m[0m
-[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree353875792/test.torrent[0m[0m
+[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree3480859231/test.torrent[0m[0m
 [33m[your_program] [0m188.119.61.177:6881
 [33m[your_program] [0m71.224.0.29:51414
 [33m[your_program] [0m62.153.208.98:3652
@@ -80,7 +80,7 @@
 [33m[stage-7] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-8] [0m[94m[94mRunning tests for Stage #8: Peer handshake[0m[0m
-[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree2389764791/test.torrent 127.0.0.1:49982[0m[0m
+[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/f1/bs24_53x44j26flrfvyg416m0000gn/T/worktree1657072386/test.torrent 127.0.0.1:50167[0m[0m
 [33m[your_program] [0mPeer ID: ee8f5140bfc195c36b0567cd055ac9839e682ab0
 [33m[stage-8] [0m[92m[92mTest passed.[0m[0m
 
@@ -105,14 +105,7 @@
 [33m[your_program] [0mtrying to start download worker
 [33m[your_program] [0mreceived bitfield from peer
 [33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived unchoke message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
 [33m[your_program] [0mPiece 3 downloaded to piece-3.
 [33m[stage-10] [0m[92m[92mTest passed.[0m[0m
 
@@ -135,393 +128,12 @@
 [33m[your_program] [0mtrying to start download worker
 [33m[your_program] [0mreceived bitfield from peer
 [33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived bitfield from peer
 [33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived bitfield from peer
 [33m[your_program] [0mcan't download because client is in choked state
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived unchoke message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived unchoke message
-[33m[your_program] [0mwill read message
 [33m[your_program] [0mreceived unchoke message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(8.33%) Downloaded piece #0 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(16.67%) Downloaded piece #1 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(25.00%) Downloaded piece #2 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(33.33%) Downloaded piece #3 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(41.67%) Downloaded piece #4 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(50.00%) Downloaded piece #5 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(58.33%) Downloaded piece #6 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(66.67%) Downloaded piece #7 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(75.00%) Downloaded piece #8 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0m(83.33%) Downloaded piece #11 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0mwill read message
-[33m[your_program] [0m(91.67%) Downloaded piece #9 from 5 peers
-[33m[your_program] [0mreceived piece message
-[33m[your_program] [0m(100.00%) Downloaded piece #10 from 5 peers
 [33m[your_program] [0mDownloaded codercat.gif.torrent to codercat.gif.
 [33m[stage-11] [0m[92m[92mTest passed.[0m[0m
