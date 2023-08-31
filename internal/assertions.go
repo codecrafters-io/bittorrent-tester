@@ -74,7 +74,11 @@ func assertExitCode(result tester_utils.ExecutableResult, expected int) error {
 func assertFileSize(downloadedFilePath string, expectedFileSize int64) error {
 	fileInfo, err := os.Stat(downloadedFilePath)
 	if err != nil {
-		return err
+		if os.IsNotExist(err) {
+			return fmt.Errorf("File does not exist: %s", downloadedFilePath)
+		} else {
+			return err
+		}
 	}
 
 	fileSize := fileInfo.Size()
