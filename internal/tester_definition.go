@@ -54,23 +54,23 @@ var testerDefinition = testerutils.TesterDefinition{
 		},
 		{
 			Number:                  7,
+			Slug:                    "hashes",
+			Title:                   "Piece hashes",
+			TestFunc:                testPieceHashes,
+			ShouldRunPreviousStages: true,
+		},
+		{
+			Number:                  8,
 			Slug:                    "peers",
 			Title:                   "Discover peers",
 			TestFunc:                testDiscoverPeers,
 			ShouldRunPreviousStages: true,
 		},
 		{
-			Number:                  8,
+			Number:                  9,
 			Slug:                    "handshake",
 			Title:                   "Peer handshake",
 			TestFunc:                testHandshake,
-			ShouldRunPreviousStages: true,
-		},
-		{
-			Number:                  9,
-			Slug:                    "hashes",
-			Title:                   "Piece hashes",
-			TestFunc:                testPieceHashes,
 			ShouldRunPreviousStages: true,
 		},
 		{

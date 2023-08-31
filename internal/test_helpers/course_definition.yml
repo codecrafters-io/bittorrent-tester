@@ -6,27 +6,27 @@ slug: "bittorrent"
 # Example: "Build your own Redis"
 name: "Build your own BitTorrent"
 
-# A short name for your course, this'll be used in copy like emails. 
+# A short name for your course, this'll be used in copy like emails.
 # Example: "Redis"
 short_name: "BitTorrent"
 
-# The release status for your course. 
+# The release status for your course.
 #
-# - alpha: Only visible to yourself and CodeCrafters staff. 
+# - alpha: Only visible to yourself and CodeCrafters staff.
 # - beta: Visible to all CodeCrafters users, but with a "beta" label.
 # - live: Visible to all CodeCrafters users, no label.
-# 
+#
 # Allowed values: "alpha", "beta", "live"
 release_status: "alpha"
 
 # This is shown on the course overview page. Markdown supported, recommended length ~30 words.
-# 
-# Recommended format: 
-# 
+#
+# Recommended format:
+#
 # > In this challenge, you'll build ABC that's capable of D, E, F and G. Along the way, we'll learn about X, Y, Z and more.
-# 
+#
 # Example:
-# 
+#
 # > In this challenge, you'll build a toy Redis clone that's capable of handling basic commands like PING, GET
 # > and SET. Along the way, we'll learn about event loops, the Redis Protocol and more.
 description_md: |
@@ -35,15 +35,15 @@ description_md: |
   Along the way, we’ll learn about how torrent files are structured, HTTP trackers, BitTorrent’s Peer Protocol, pipelining and more.
 
 # This is shown on the catalog. Plaintext only, recommended length ~10 words.
-# 
-# Recommended format: 
-# 
+#
+# Recommended format:
+#
 # > Learn about X, Y, Z and more
-# 
-# Example: 
+#
+# Example:
 #
 # > Learn about TCP servers, the Redis protocol and more
-# 
+#
 # **TODO**: Remove _md suffix since markdown isn't supported
 short_description_md: |
   Learn about .torrent files, the BitTorrent Peer Protocol and more
@@ -58,10 +58,10 @@ languages:
   - slug: "rust"
 
 marketing:
-  # Shown in the catalog. 
-  # 
+  # Shown in the catalog.
+  #
   # Recommended guidelines:
-  # 
+  #
   # - "easy": < 2h of work for an experienced developer
   # - "medium": > 6h of work for an experienced developer
   # - "hard": > 6h of work for an experienced developer
@@ -99,15 +99,15 @@ stages:
     # The name of the stage. This is shown in the course catalog, and on other course pages.
     name: "Decode bencoded strings"
 
-    # The difficulty of this stage. 
-    # 
+    # The difficulty of this stage.
+    #
     # Recommended guidelines, based on how long the stage will take an experienced developer to complete:
-    # 
-    # - Very Easy (< 5 minutes) 
-    # - Easy (5-10 minutes) 
-    # - Medium (30m-1h) 
+    #
+    # - Very Easy (< 5 minutes)
+    # - Easy (5-10 minutes)
+    # - Medium (30m-1h)
     # - Hard (> 1h)
-    # 
+    #
     # Allowed values: "very_easy", "easy", "medium", "hard"
     difficulty: very_easy
 
@@ -115,7 +115,7 @@ stages:
     description_md: |
         [Bencode](https://en.wikipedia.org/wiki/Bencode) (pronounced *Bee-encode*) is a serialization format used in [the BitTorrent protocol](https://www.bittorrent.org/beps/bep_0003.html). It is used in torrent files and in communication between trackers and peers.
 
-        Bencode supports four data types: 
+        Bencode supports four data types:
         - strings
         - integers
         - arrays
@@ -139,17 +139,9 @@ stages:
     name: "Decode bencoded integers"
     difficulty: easy
     description_md: |
-        In this stage, you’ll decode a bencoded integer value. 
+        In this stage, you’ll decode a bencoded integer value.
 
         Integers are encoded as `i<number>e`. For example, `52` is encoded as `i52e` and `-52` is encoded as `i-52e`.
-
-        You're encouraged to use a library to decode bencoded content, but you can create your own parser too.
-        {{#lang_is_go}}
-        For Go, the recommended library is [bencode-go](https://github.com/jackpal/bencode-go).
-        {{/lang_is_go}}
-        {{#lang_is_python}}
-        For Python, the recommended library is [bencode.py](https://pypi.org/project/bencode.py/)
-        {{/lang_is_python}}
 
         Here’s how the tester will execute your program:
 
@@ -157,6 +149,13 @@ stages:
         $ ./your_bittorrent.sh decode i52e
         52
         ```
+
+        {{#lang_is_go}}
+        If you'd prefer to use a library for this stage, [bencode-go](https://github.com/jackpal/bencode-go) is available for you to use.
+        {{/lang_is_go}}
+        {{#lang_is_python}}
+        If you'd prefer to use a library for this stage, [bencode.py](https://pypi.org/project/bencode.py/) is available for you to use.
+        {{/lang_is_python}}
     marketing_md: |
         In this stage, you’ll decode a bencoded integer.
 
@@ -166,25 +165,22 @@ stages:
     description_md: |
         In this stage, you’ll decode a bencoded list value.
 
-        A list of values is encoded as **l**&lt;*contents*&gt;**e** . The contents consist of bencoded elements of the list.
+        Lists are encoded as `l<bencoded_elements>e`.
 
-        For example, a list consisting of the string "hello" and the number 52 would be encoded as: `l5:helloi52ee`. Note the absence of separators between elements.
-
-        See [Bittorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#bencoding) for details on bencoding.
-
-        You're encouraged to use a library to decode bencoded content, but you can create your own parser too.
-        {{#lang_is_go}}
-        For Go, the recommended library is [bencode-go](https://github.com/jackpal/bencode-go).
-        {{/lang_is_go}}
-        {{#lang_is_python}}
-        For Python, the recommended library is [bencode.py](https://pypi.org/project/bencode.py/)
-        {{/lang_is_python}}
+        For example, `["hello", 52]` would be encoded as `l5:helloi52ee`. Note that there are no separators between the elements.
 
         Here’s how the tester will execute your program:
         ```
         $ ./your_bittorrent.sh decode l5:helloi52ee
         [“hello”,52]
         ```
+
+        {{#lang_is_go}}
+        If you'd prefer to use a library for this stage, [bencode-go](https://github.com/jackpal/bencode-go) is available for you to use.
+        {{/lang_is_go}}
+        {{#lang_is_python}}
+        If you'd prefer to use a library for this stage, [bencode.py](https://pypi.org/project/bencode.py/) is available for you to use.
+        {{/lang_is_python}}
     marketing_md: |
         In this stage, you’ll decode a bencoded list.
 
@@ -194,25 +190,22 @@ stages:
     description_md: |
         In this stage, you’ll decode a bencoded dictionary value.
 
-        A dictionary is encoded as **d**&lt;*contents*&gt;**e** . The elements of the dictionary are encoded with each key immediately followed by its value. All keys must be strings in lexicographical order.
+        A dictionary is encoded as `d<key1><value1>...<keyN><valueN>e`. `<key1>`, `<value1>` etc. correspond to the bencoded keys & values. The keys are sorted in lexicographical order.
 
-        A dictionary like {“foo”:“bar”, “hello”: 52} would be encoded as: `d3:foo3:bar5:helloi52ee`
-
-        See [Bittorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#bencoding) for details on bencoding.
-
-        You're encouraged to use a library to decode bencoded content, but you can create your own parser too.
-        {{#lang_is_go}}
-        For Go, the recommended library is [bencode-go](https://github.com/jackpal/bencode-go)
-        {{/lang_is_go}}
-        {{#lang_is_python}}
-        For Python, the recommended library is [bencode.py](https://pypi.org/project/bencode.py/)
-        {{/lang_is_python}}
+        For example, `{"hello": 52, "foo":"bar"}` would be encoded as: `d3:foo3:bar5:helloi52ee` (note that the keys were reordered).
 
         Here’s how the tester will execute your program:
         ```
         $ ./your_bittorrent.sh decode d3:foo3:bar5:helloi52ee
-        {“foo”:“bar”,“hello”:52}
+        {"foo":"bar","hello":52}
         ```
+
+        {{#lang_is_go}}
+        If you'd prefer to use a library for this stage, [bencode-go](https://github.com/jackpal/bencode-go) is available for you to use.
+        {{/lang_is_go}}
+        {{#lang_is_python}}
+        If you'd prefer to use a library for this stage, [bencode.py](https://pypi.org/project/bencode.py/) is available for you to use.
+        {{/lang_is_python}}
     marketing_md: |
         In this stage, you’ll decode a bencoded dictionary.
 
@@ -220,23 +213,34 @@ stages:
     name: "Parse torrent file"
     difficulty: easy
     description_md: |
-        In this stage, you’ll be parsing a torrent file and outputting information about the torrent. A torrent file is a small file containing metadata to facilitate sharing files over the internet. These files are essentially bencoded dictionaries, with the following keys:
+        In this stage, you'll parse a torrent file and print information about the torrent.
 
-        - __announce__: the URL of the tracker
-        - __info__: another dictionary with keys: length, name, piece length, pieces
+        A torrent file (also known as a [metainfo file](https://www.bittorrent.org/beps/bep_0003.html#metainfo-files)) contains a bencoded dictionary with the following values:
 
-        Having length key present means that torrent consists of a single file. In this case, length indicates size of the file in bytes. You’ll only be working with single file torrents during this challenge as torrents with multiple files contain different keys in their info dictionary.
+        - `announce`:
+            - URL to a "tracker", which is a central server that keeps track of peers participating in the sharing of a torrent.
+        - `info`:
+            - A dictionary with keys:
+                - `length`: size of the file in bytes, for single-file torrents
+                - `name`: suggested name to save the file / directory as
+                - `piece length`: number of bytes in each piece
+                - `pieces`: concatenated SHA-1 hashes of each piece
 
-        See [BitTorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#metainfo-files) to familiarize yourself with contents of the info dictionary.
+        **Note**: The `info` dictionary looks slightly different for multi-file torrents. For this challenge, we'll only implement support for single-file torrents.
+
+        In this stage, we'll focus on extracting the tracker URL and the length of the file (in bytes).
 
         Here’s how the tester will execute your program:
+
         ```
-        $ ./your_bittorrent.sh info test.torrent
+        $ ./your_bittorrent.sh info sample.torrent
         ```
+
         and here’s the output it expects:
+
         ```
-        Tracker URL: http://linuxtracker.org:2710/00000000000000000000000000000000/announce
-        Length: 406847488
+        Tracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
+        Length: 1048500
         ```
     marketing_md: |
         In this stage, you’ll parse a .torrent file and extract information about the torrent.
@@ -245,38 +249,114 @@ stages:
     name: "Calculate info hash"
     difficulty: easy
     description_md: |
-        Info hash is a unique identifier for a torrent file. It’s used to identify a torrent when talking to trackers or peers. It’s not stored in the torrent file but calculated using a cryptographic hash function (SHA-1). This ensures to protect the integrity of the torrent, as adding or removing pieces, or tampering with the length or name of the torrent would change the info hash value.
+        Info hash is a unique identifier for a torrent file. It's used when talking to trackers or peers.
 
-        In this stage, you’ll be calculating the info hash and printing it in hexadecimal format. 
+        In this stage, you'll calculate the info hash for a torrent file and print it in hexadecimal format.
 
-        Info hash is defined as the 20 byte SHA-1 hash of the bencoded form of the info dictionary in the torrent file (not hash of the whole file, just hash of the bencoded **info** dictionary).
+        To calculate the info hash, you'll need to:
+
+        - Extract the `info` dictionary from the torrent file
+        - Bencode the contents of the `info` dictionary, and calculate the SHA-1 hash
 
         Here’s how the tester will execute your program:
         ```
-        $ ./your_bittorrent.sh info test.torrent
+        $ ./your_bittorrent.sh info sample.torrent
         ```
         and here’s the output it expects:
         ```
-        Tracker URL: http://linuxtracker.org:2710/00000000000000000000000000000000/announce
-        Length: 406847488
-        Info Hash: 6d4795dee70aeb88e03e5336ca7c9fcf0a1e206d
+        Tracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
+        Length: 1048500
+        Info Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
         ```
     marketing_md: |
-        In this stage, you’ll calculate a unique identifier for a torrent, known as info hash, used in communication with trackers and peers.
+        In this stage, you'll calculate a unique identifier for a torrent, known as info hash, used in communication with trackers and peers.
+
+  - slug: "hashes"
+    name: "Piece hashes"
+    difficulty: easy
+    description_md: |
+        In a torrent, a file is split into equally-sized parts called **pieces**. A piece is usually 256 KB or 1 MB in size.
+
+        Each piece is assigned a SHA-1 hash value. On public networks, there may be malicious peers that send fake data. These hash values allow us to verify the integrity of each piece that we'll download.
+
+        Piece length and piece hashes are specified in the `info` dictionary of the torrent file under the following keys:
+
+        - `piece length`: number of bytes in each piece, an integer
+        - `pieces`: concatenated SHA-1 hashes of each piece (20 bytes each), a string
+
+        The [BitTorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#info-dictionary) has more information about these keys.
+
+        In this stage, the tester will expect your program to print piece length and a list of piece hashes in hexadecimal format.
+
+        Here's how the tester will execute your program:
+        ```
+        $ ./your_bittorrent.sh info sample.torrent
+        ```
+        and here's the output it expects:
+        ```
+        Tracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
+        Length: 1048500
+        Info Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
+        Piece Length: 262144
+        Piece Hashes:
+        ddf33172599fda84f0a209a3034f79f0b8aa5e22
+        795a618a1ee5275e952843b01a56ae4e142752ef
+        cdae2ef532d611a46b2cf7b64d578c09b3ac0b6e
+        098dadc0c19436f1927ea27b90eb18b1a2820a23
+        ```
+    marketing_md: |
+        In this stage, you'll extract hash values for each piece of the file. On public networks, there may be malicious peers sending fake data. Piece hashes will help us ensure the integrity of downloaded pieces.
+
 
   - slug: "peers"
     name: "Discover peers"
     difficulty: medium
     description_md: |
-        Trackers are central servers that maintain information about peers participating in the sharing and downloading of a torrent. BitTorrent protocol supports two types of trackers: [HTTP trackers](https://www.bittorrent.org/beps/bep_0003.html#trackers) and [UDP](https://www.bittorrent.org/beps/bep_0015.html) trackers. Over time, the protocol has evolved to support other mechanisms such as [Distributed Hash Tables (DHT)](http://bittorrent.org/beps/bep_0005.html) and [Peer Exchange (PEX)](http://bittorrent.org/beps/bep_0011.html) to allow peer discovery without relying on central trackers.
+        Trackers are central servers that maintain information about peers participating in the sharing and downloading of a torrent.
 
-        In this stage, you’ll be interacting with an HTTP tracker. You’ll make a GET request to a HTTP tracker to discover peers to download the file from. See [BitTorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#trackers) for an explanation of keys that need to be included in your GET request. The response will be a bencoded dictionary with two keys: __interval__ and __peers__
+        In this stage, you'll make a GET request to a HTTP tracker to discover peers to download the file from.
 
-        Trackers use a [compact representation](https://www.bittorrent.org/beps/bep_0023.html) of the peer list by default where the value of the **peers** key is a bencoded string rather than a bencoded list.
+        ### Tracker GET request
+
+        You'll need to make a request to the tracker URL you extracted in the previous stage, and include these query params:
+
+        - `info_hash`: the info hash of the torrent
+            - 20 bytes long, will need to be URL encoded
+            - **Note**: this is **NOT** the hexadecimal representation, which is 40 bytes long
+        - `peer_id`: a unique identifier for your client
+            - For the purposes of this challenge, it doesn't matter what you set this to.
+            - You can use `00112233445566778899`.
+        - `port`: the port your client is listening on
+            - For the purposes of this challenge, it doesn't matter what you set this to.
+            - You can use `6881`.
+        - `uploaded`: the total amount uploaded so far
+            - Since your client hasn't uploaded anything yet, you can set this to `0`.
+        - `downloaded`: the total amount downloaded so far
+            - Since your client hasn't downloaded anything yet, you can set this to `0`.
+        - `left`: the number of bytes left to download
+            - Since you client hasn't downloaded anything yet, this'll be the total length of the file (you've extracted this value from the torrent file in previous stages)
+        - `compact`: whether the peer list should use the [compact representation](https://www.bittorrent.org/beps/bep_0023.html)
+            - For the purposes of this challenge, set this to `1`.
+            - The compact representation is more commonly used in the wild, the non-compact representation is mostly supported for backward-compatibility.
+
+        Read [the BitTorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#trackers) for more information about these query parameters.
+
+        ### Tracker response
+
+        The tracker's response will be a bencoded dictionary with two keys:
+
+        - `interval`:
+            - An integer, indicating how often your client should make a request to the tracker.
+            - You can ignore this value for the purposes of this challenge.
+        - `peers`.
+            - A string, which contains list of peers that your client can connect to.
+            - Each peer is represented using 6 bytes. The first 4 bytes are the peer's IP address and the last 2 bytes are the peer's port number.
+
+        ---
 
         Here’s how the tester will execute your program:
         ```
-        $ ./your_bittorrent.sh peers test.torrent
+        $ ./your_bittorrent.sh peers sample.torrent
         ```
         and here’s the output it expects:
         ```
@@ -293,83 +373,90 @@ stages:
     description_md: |
         In this stage, you’ll establish a TCP connection with a peer and complete a handshake.
 
-        BitTorrent Protocol Specification defines a set of messages that are used to communicate between peers which is called the [peer protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol). The first step after establishing a TCP connection is to complete a handshake. The handshake is a message consisting of the following parts as described in the [peer protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol):
-        1. length of the protocol string (BitTorrent protocol) which is 19
-        2. the string 'BitTorrent protocol'
+        The handshake is a message consisting of the following parts as described in the [peer protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol):
+
+        1. length of the protocol string (BitTorrent protocol) which is `19`
+        2. the string `BitTorrent protocol`
         3. eight reserved bytes, which are all set to zero
         4. 20 byte sha1 infohash
-        5. 20 byte peer id (something we make up to identify ourselves)
+        5. 20 byte peer id (you can use `00112233445566778899` for this challenge)
 
-        After we send a handshake to our peer, we should receive a handshake back in the same format. You’ll print the peer id you’ve received during the handshake in hexadecimal format.
+        After we send a handshake to our peer, we should receive a handshake back in the same format.
+
+        Your program should print the hexadecimal representation of the peer id you've received during the handshake.
 
         Here’s how the tester will execute your program:
         ```
-        $ ./your_bittorrent.sh handshake test.torrent 118.119.61.177:6882
+        $ ./your_bittorrent.sh handshake sample.torrent <peer_ip>:<peer_port>
         ```
         and here’s the output it expects:
         ```
         Peer ID: 0102030405060708090a0b0c0d0e0f1011121314
         ```
+
+        **Note**: To get a peer IP & port to test this locally, run `./your_bittorrent.sh peers sample.torrent` and pick any peer from the list.
     marketing_md: |
         In this stage, you’ll establish a TCP connection with a peer and complete a handshake according to [BitTorrent Peer Protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol)
-
-  - slug: "hashes"
-    name: "Piece hashes"
-    difficulty: easy
-    description_md: |
-        In this stage, you’ll extract piece length and piece hashes from the torrent file.
-
-        In a torrent, a file is conceptually split into equally-sized parts called **pieces**. A piece is usually 256 KB or 1 MB in size, so a large file could be made up of thousands of pieces. See _piece length_ in [BitTorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#info-dictionary).
-
-        If you open a torrent file with a text editor, you’ll see a big binary blob. This is a bencoded string containing concatenated SHA-1 hash values of each piece. On public networks, there may be malicious peers that send fake data. These hash values allow us to verify the integrity of each piece that we’ll download. See _pieces_ in [BitTorrent Protocol Specification](https://www.bittorrent.org/beps/bep_0003.html#info-dictionary).
-
-        Your program will print piece length and piece hashes (in hexadecimal format).
-
-        Here’s how the tester will execute your program:
-        ```
-        $ ./your_bittorrent.sh info test.torrent
-        ```
-        and here’s the output it expects:
-        ```
-        Tracker URL: http://linuxtracker.org:2710/00000000000000000000000000000000/announce
-        Length: 1048500
-        Info Hash: 6d4795dee70aeb88e03e5336ca7c9fcf0a1e206d
-        Piece Length: 262144
-        Piece Hashes:
-        ddf33172599fda84f0a209a3034f79f0b8aa5e22
-        795a618a1ee5275e952843b01a56ae4e142752ef
-        cdae2ef532d611a46b2cf7b64d578c09b3ac0b6e
-        098dadc0c19436f1927ea27b90eb18b1a2820a23
-        ```
-    marketing_md: |
-        In this stage, you’ll extract hash values for each piece of the file. On public networks, there may be malicious peers sending fake data. Piece hashes will help us ensure the integrity of downloaded pieces.
 
   - slug: "dl-piece"
     name: "Download a piece"
     difficulty: hard
     description_md: |
-        In this stage, you’ll download one piece of the file and save it to disk.
+        In this stage, you'll download one piece and save it to disk. In the next stage we'll combine these pieces into a file.
 
-        To download a piece of the file from a peer, first you’ll need to establish a TCP connection and complete a handshake with the peer. After that, you’ll be sending and receiving [peer messages](https://www.bittorrent.org/beps/bep_0003.html#peer-messages). Peer messages consist of a message length prefix (4 bytes), message id (1 byte) and a payload (variable size).
+        To download a piece, your program will need to need to send [peer messages](https://www.bittorrent.org/beps/bep_0003.html#peer-messages) to a peer. The overall flow looks like this:
 
-        You’ll first receive a `bitfield` message indicating which pieces your peer has. Peers will have all the pieces downloaded during this challenge so you can read and ignore this message for now.
+        - Read the torrent file to get the tracker URL
+            - you've done this in previous stages
+        - Perform the tracker GET request to get a list of peers
+            - you've done this in previous stages
+        - Establish a TCP connection with a peer, and perform a handshake
+            - you've done this in previous stages
+        - Exchange multiple [peer messages](https://www.bittorrent.org/beps/bep_0003.html#peer-messages) to download the file
+            - **This is the part you'll implement in this stage**
 
-        You’ll send an `interest` message and wait until you receive an `unchoke` message back from your peer. Once you receive an `unchoke` message, you can start sending `request` messages as described in [peer messages](https://www.bittorrent.org/beps/bep_0003.html#peer-messages). To learn more about choking, a mechanism used to control the number of simultaneous downloads, please refer to the [peer protocol](https://www.bittorrent.org/beps/bep_0003.html#peer-protocol).
+        ### Peer Messages
 
-        To request a piece, you’ll need to break it down into parts called __blocks__. The default recommended block size is 16 kb. So to download a piece that is 128 kb in size, you would need to make 8 requests because our block size is 16 kb.
+        Peer messages consist of a message length prefix (4 bytes), message id (1 byte) and a payload (variable size).
 
-        Once you receive all the blocks and combine them, you’ll want to check the integrity of the piece. You can compare the piece hash specified in the torrent file with the hash value you calculate for the bytes you’ve downloaded.
+        Here are the peer messages you'll need to exchange once the handshake is complete:
+
+        - Wait for a `bitfield` message from the peer indicating which pieces it has
+            - The message id for this message is `5`.
+            - You can ignore the payload for now, the tracker we use for this challenge ensures that all peers have all pieces available.
+        - Send an `interested` message
+            - The message id for `interested` is `2`.
+            - The payload for this message is empty.
+        - Wait until you receive an `unchoke` message back
+            - The message id for `unchoke` is `1`.
+            - The payload for this message is empty.
+        - Break the piece into blocks of 16 kiB (16 * 1024 bytes) and send a `request` message for each block
+            - The message id for `request` is `6`.
+            - The payload for this message consists of:
+                - `index`: the zero-based piece index
+                - `begin`: the zero-based byte offset within the piece
+                    - This'll be `0` for the first block, `2^14` for the second block, 2*2^14 for the third block etc.
+                - `length`: set this to `2^14` (16 * 1024)
+        - Wait for a `piece` message for each block you've requested
+            - The message id for `piece` is `7`.
+            - The payload for this message consists of:
+                - `index`: the zero-based piece index
+                - `begin`: the zero-based byte offset within the piece
+                - `block`: the data for the piece, usually `2^14` bytes long
+
+        After receiving blocks and combining them into pieces, you'll want to check the integrity of each piece by comparing it's hash
+        with the piece hash value found in the torrent file.
 
         Here’s how the tester will execute your program:
         ```
-        $ ./your_bittorrent.sh download_piece -o /tmp/test-piece-0 test.torrent 0
+        $ ./your_bittorrent.sh download_piece -o /tmp/test-piece-0 sample.torrent 0
         ```
         and here’s the output it expects:
         ```
         Piece 0 downloaded to /tmp/test-piece-0.
         ```
 
-        **Optional:** To improve download speeds, you can consider pipelining your requests. [BitTorrent Economics Paper](http://bittorrent.org/bittorrentecon.pdf) recommends having 5 recommends pending at once, to avoid a delay between blocks being sent. For example, after requesting the first block, instead of waiting for the block to arrive before requesting the next block, try making 5 requests for blocks at once and every time a block arrives, a new request can be sent.
+        **Optional:** To improve download speeds, you can consider pipelining your requests. [BitTorrent Economics Paper](http://bittorrent.org/bittorrentecon.pdf) recommends having 5 requests pending at once, to avoid a delay between blocks being sent.
     marketing_md: |
         In this stage, you'll connect to a peer and download a piece of the file. You'll download the piece in blocks, which you'll later combine and verify using SHA-1, a cryptographic hash value.
 
@@ -383,11 +470,11 @@ stages:
 
         Here’s how the tester will execute your program:
         ```
-        $ ./your_bittorrent.sh download -o /tmp/test.iso test.torrent
+        $ ./your_bittorrent.sh download -o /tmp/test.txt sample.torrent
         ```
         and here’s the output it expects:
         ```
-        Downloaded test.torrent to /tmp/test.iso.
+        Downloaded test.torrent to /tmp/test.txt.
         ```
 
         **Optional:** To improve download speeds, you can download from multiple peers at once. You could have a work queue consisting of each piece that needs to be downloaded. Your worker (connection with a peer) could pick a piece from the work queue, attempt to download it, check the integrity, and write the downloaded piece into a buffer. Any failure (network issue, hashes not matching, peer not having the piece etc.) would put the piece back into the work queue to be tried again.
