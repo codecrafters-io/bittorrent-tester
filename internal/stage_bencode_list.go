@@ -41,7 +41,7 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	// Test for a nested list
-	nestedListEncoded := fmt.Sprintf("l%s%se", randomNumberEncoded, randomWordEncoded)
+	nestedListEncoded := fmt.Sprintf("ll%s%see", randomNumberEncoded, randomWordEncoded)
 
 	nestedList := []string{
 		fmt.Sprintf("[[%d,\"%s\"]]\n", randomNumber, randomWord),
