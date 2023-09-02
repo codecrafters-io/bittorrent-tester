@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
@@ -15,11 +16,13 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 
 	randomWord := randomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
-	listEncoded := fmt.Sprintf("l%si52ee", randomWordEncoded)
+	randomNumber := rand.Intn(1000)
+	randomNumberEncoded := fmt.Sprintf("i%de", randomNumber)
+	listEncoded := fmt.Sprintf("l%s%se", randomWordEncoded, randomNumberEncoded)
 
 	list := []string{
-		fmt.Sprintf("[\"%s\",52]\n", randomWord),
-		fmt.Sprintf("[\"%s\", 52]\n", randomWord),
+		fmt.Sprintf("[\"%s\",%d]\n", randomWord, randomNumber),
+		fmt.Sprintf("[\"%s\", %d]\n", randomWord, randomNumber),
 	}
 
 	logger.Infof("Running ./your_bittorrent.sh decode %s", listEncoded)
@@ -38,11 +41,11 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	// Test for a nested list
-	nestedListEncoded := fmt.Sprintf("ll%si52eee", randomWordEncoded)
+	nestedListEncoded := fmt.Sprintf("l%s%se", randomNumberEncoded, randomWordEncoded)
 
 	nestedList := []string{
-		fmt.Sprintf("[[\"%s\",52]]\n", randomWord),
-		fmt.Sprintf("[[\"%s\", 52]]\n", randomWord),
+		fmt.Sprintf("[[%d,\"%s\"]]\n", randomNumber, randomWord),
+		fmt.Sprintf("[[%d, \"%s\"]]\n", randomNumber, randomWord),
 	}
 
 	logger.Infof("Running ./your_bittorrent.sh decode %s", nestedListEncoded)
