@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strconv"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -149,8 +150,14 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 	queryParams := r.URL.Query()
-	if queryParams.Get("left") == "" {
+	left := queryParams.Get("left")
+	if left == "" {
 		logger.Errorf("Required parameter missing: left")
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
+		return
+	}
+	if _, err := strconv.Atoi(left); err != nil {
+		logger.Errorf("left needs to be a numeric value, received: %s", left)
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
 	}
