@@ -145,29 +145,29 @@ func listenAndServePeersResponse(address string, responseFilePath string, expect
 func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePath string, expectedInfoHash [20]byte, logger *tester_utils.Logger) {
 	if r.Method != "GET" {
 		logger.Errorf("HTTP method GET expected")
-		http.Error(w, "HTTP method GET expected", http.StatusBadRequest)
+		http.Error(w, "HTTP method GET expected", http.StatusMethodNotAllowed)
 		return
 	}
 	queryParams := r.URL.Query()
 	if queryParams.Get("left") == "" {
 		logger.Errorf("Required parameter missing: left")
-		http.Error(w, "Required parameter missing: left", http.StatusBadRequest)
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
 	}
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
 		logger.Errorf("Required parameter missing: info_hash")
-		http.Error(w, "Required parameter missing: info_hash", http.StatusBadRequest)
+		w.Write([]byte("d14:failure reason31:no info_hash parameter suppliede"))
 		return
 	}
 	if len(infoHash) == 40 {
 		logger.Errorf("info_hash needs to be 20 bytes long, don't use hexadecimal")
-		http.Error(w, "info_hash needs to be 20 bytes long, don't use hexadecimal", http.StatusBadRequest)
+		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
 		return
 	}
 	if len(infoHash) != 20 {
 		logger.Errorf("info_hash needs to be 20 bytes long, found: %d", len(infoHash))
-		http.Error(w, "info_hash needs to be 20 bytes long", http.StatusBadRequest)
+		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
 		return
 	}
 
@@ -175,13 +175,13 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 
 	if !bytes.Equal(receivedHash[:], expectedInfoHash[:]) {
 		logger.Errorf("info_hash correct length, but does not match expected value. It needs to be SHA-1 hash of the bencoded form of the info value from the metainfo file")
-		http.Error(w, "info_hash correct length, but does not match expected value", http.StatusBadRequest)
+		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
 		return
 	}
 
 	file, err := os.Open(responseFilePath)
 	if err != nil {
-		http.Error(w, "File not found", http.StatusNotFound)
+		http.Error(w, "Internal server error, file not found", http.StatusNotFound)
 		return
 	}
 	defer file.Close()
@@ -191,7 +191,5 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
-
-	w.Header().Set("Content-Type", "application/x-bittorrent")
 	w.Write(content)
 }
