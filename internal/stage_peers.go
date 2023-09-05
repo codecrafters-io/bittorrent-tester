@@ -167,6 +167,12 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
+	if queryParams.Get("downloaded") == "" {
+		logger.Errorf("Required parameter missing: downloaded")
+		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
+		return
+	}
+
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
 		logger.Errorf("Required parameter missing: info_hash")
