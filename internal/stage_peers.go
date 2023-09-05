@@ -187,8 +187,14 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
-	if queryParams.Get("uploaded") == "" {
+	uploaded := queryParams.Get("uploaded")
+	if uploaded == "" {
 		logger.Errorf("Required parameter missing: uploaded")
+		w.Write([]byte("d14:failure reason35:failed to parse parameter: uploadede"))
+		return
+	}
+	if _, err := strconv.Atoi(uploaded); err != nil {
+		logger.Errorf("uploaded needs to be a numeric value, received: %s", uploaded)
 		w.Write([]byte("d14:failure reason35:failed to parse parameter: uploadede"))
 		return
 	}
