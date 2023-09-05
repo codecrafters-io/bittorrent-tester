@@ -154,6 +154,13 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
 	}
+
+	if queryParams.Get("port") == "" {
+		logger.Errorf("Required parameter missing: port")
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: porte"))
+		return
+	}
+
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
 		logger.Errorf("Required parameter missing: info_hash")
