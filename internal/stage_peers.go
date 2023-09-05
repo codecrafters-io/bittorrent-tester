@@ -175,8 +175,14 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
-	if queryParams.Get("downloaded") == "" {
+	downloaded := queryParams.Get("downloaded")
+	if downloaded == "" {
 		logger.Errorf("Required parameter missing: downloaded")
+		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
+		return
+	}
+	if _, err := strconv.Atoi(downloaded); err != nil {
+		logger.Errorf("downloaded needs to be a numeric value, received: %s", downloaded)
 		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
 		return
 	}
