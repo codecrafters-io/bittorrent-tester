@@ -161,12 +161,6 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
-	if queryParams.Get("peer_id") == "" {
-		logger.Errorf("Required parameter missing: peer_id")
-		w.Write([]byte("d14:failure reason34:failed to parse parameter: peer_ide"))
-		return
-	}
-
 	if queryParams.Get("downloaded") == "" {
 		logger.Errorf("Required parameter missing: downloaded")
 		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
@@ -186,6 +180,17 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 	} else if queryParams.Get("compact") != "1" {
 		logger.Errorf("compact parameter value needs to be 1 for compact representation of peer list")
 		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
+		return
+	}
+
+	peerId := queryParams.Get("peer_id")
+	if peerId == "" {
+		logger.Errorf("Required parameter missing: peer_id")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: peer_ide"))
+		return
+	} else if len(peerId) != 20 {
+		logger.Errorf("peer_id needs to be a string of length 20")
+		w.Write([]byte("d14:failure reason31:failed to provide valid peer_ide"))
 		return
 	}
 
