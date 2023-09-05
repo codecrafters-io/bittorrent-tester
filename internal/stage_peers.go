@@ -179,6 +179,16 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
+	if queryParams.Get("compact") == "" {
+		logger.Errorf("Required parameter missing: compact")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
+		return
+	} else if queryParams.Get("compact") != "1" {
+		logger.Errorf("compact parameter value needs to be 1 for compact representation of peer list")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
+		return
+	}
+
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
 		logger.Errorf("Required parameter missing: info_hash")
