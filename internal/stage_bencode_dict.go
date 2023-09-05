@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -32,6 +33,26 @@ func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
 		fmt.Sprintf("{\"foo\": \"%s\", \"hello\": 52}\n", randomWord),
 	}
 	if err = assertStdoutList(result, list); err != nil {
+		return err
+	}
+
+	dictWithinDictEncoded := "d10:inner_dictd4:key16:value14:key2i42e8:list_keyl5:item15:item2i3eeee"
+	dictWithinDictExpectedJsonList := []string{
+		"{\"inner_dict\":{\"key1\":\"value1\",\"key2\":42,\"list_key\":[\"item1\",\"item2\",3]}}\n",
+		"{\"inner_dict\": {\"key1\": \"value1\", \"key2\": 42, \"list_key\": [\"item1\", \"item2\", 3]}}\n",
+	}
+	logger.Infof("Running ./your_bittorrent.sh decode %s", dictWithinDictEncoded)
+	logger.Infof("Expected output: %s", strings.TrimSpace(dictWithinDictExpectedJsonList[0]))
+	result, err = executable.Run("decode", dictWithinDictEncoded)
+	if err != nil {
+		return err
+	}
+
+	if err = assertExitCode(result, 0); err != nil {
+		return err
+	}
+
+	if err = assertStdoutList(result, dictWithinDictExpectedJsonList); err != nil {
 		return err
 	}
 
