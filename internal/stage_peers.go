@@ -161,6 +161,12 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
+	if queryParams.Get("peer_id") == "" {
+		logger.Errorf("Required parameter missing: peer_id")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: peer_ide"))
+		return
+	}
+
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
 		logger.Errorf("Required parameter missing: info_hash")
