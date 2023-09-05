@@ -110,7 +110,7 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	go listenAndServePeersResponse(address, destinationPath, expectedInfoHash, logger)
+	go listenAndServePeersResponse(address, destinationPath, expectedInfoHash, fileLengthBytes, logger)
 
 	logger.Infof("Running ./your_bittorrent.sh peers %s", torrentFilePath)
 	result, err := executable.Run("peers", torrentFilePath)
@@ -131,9 +131,9 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 	return nil
 }
 
-func listenAndServePeersResponse(address string, responseFilePath string, expectedInfoHash [20]byte, logger *tester_utils.Logger) {
+func listenAndServePeersResponse(address string, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *tester_utils.Logger) {
 	http.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
-		serveTrackerResponse(w, r, responseFilePath, expectedInfoHash, logger)
+		serveTrackerResponse(w, r, responseFilePath, expectedInfoHash, fileLengthBytes, logger)
 	})
 
 	logger.Debugf("Server started on port %s...\n", address)
@@ -143,7 +143,7 @@ func listenAndServePeersResponse(address string, responseFilePath string, expect
 	}
 }
 
-func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePath string, expectedInfoHash [20]byte, logger *tester_utils.Logger) {
+func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *tester_utils.Logger) {
 	if r.Method != "GET" {
 		logger.Errorf("HTTP method GET expected")
 		http.Error(w, "HTTP method GET expected", http.StatusMethodNotAllowed)
@@ -156,9 +156,14 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
 	}
-	if _, err := strconv.Atoi(left); err != nil {
+	leftNumber, err := strconv.Atoi(left)
+	if err != nil {
 		logger.Errorf("left needs to be a numeric value, received: %s", left)
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
+		return
+	} else if leftNumber > fileLengthBytes {
+		logger.Errorf("left needs to be less than or equal to file length (%d bytes), received: %s", fileLengthBytes, left)
+		w.Write([]byte("d14:failure reason27:provided invalid left valuee"))
 		return
 	}
 
