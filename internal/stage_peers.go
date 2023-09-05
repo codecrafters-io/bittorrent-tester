@@ -173,6 +173,12 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
+	if queryParams.Get("uploaded") == "" {
+		logger.Errorf("Required parameter missing: uploaded")
+		w.Write([]byte("d14:failure reason35:failed to parse parameter: uploadede"))
+		return
+	}
+
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
 		logger.Errorf("Required parameter missing: info_hash")
