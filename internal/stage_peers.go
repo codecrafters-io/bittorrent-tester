@@ -162,8 +162,15 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 		return
 	}
 
-	if queryParams.Get("port") == "" {
+	port := queryParams.Get("port")
+	if port == "" {
 		logger.Errorf("Required parameter missing: port")
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: porte"))
+		return
+	}
+	portNumber, err := strconv.Atoi(port)
+	if err != nil || portNumber < 0 || portNumber > 65536 {
+		logger.Errorf("port needs to be between 0 and 65536, received: %s", port)
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: porte"))
 		return
 	}
