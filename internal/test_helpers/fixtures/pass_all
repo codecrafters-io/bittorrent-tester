@@ -25,6 +25,7 @@
 
 [33m[stage-4] [0m[94m[94mRunning tests for Stage #4: Decode bencoded dictionaries[0m[0m
 [33m[stage-4] [0m[94m[94mRunning ./your_bittorrent.sh decode d3:foo4:pear5:helloi52ee[0m[0m
+[33m[stage-4] [0m[94m[94mExpected output: {"foo":"pear","hello":52}[0m[0m
 [33m[your_program] [0m{"foo":"pear","hello":52}
 [33m[stage-4] [0m[94m[94mRunning ./your_bittorrent.sh decode d10:inner_dictd4:key16:value14:key2i42e8:list_keyl5:item15:item2i3eeee[0m[0m
 [33m[stage-4] [0m[94m[94mExpected output: {"inner_dict":{"key1":"value1","key2":42,"list_key":["item1","item2",3]}}[0m[0m
@@ -32,7 +33,7 @@
 [33m[stage-4] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-5] [0m[94m[94mRunning tests for Stage #5: Parse torrent file[0m[0m
-[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents3232342176/codercat.gif.torrent[0m[0m
+[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1470622669/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -55,7 +56,7 @@
 [33m[stage-5] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-6] [0m[94m[94mRunning tests for Stage #6: Calculate info hash[0m[0m
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2654232818/codercat.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2277360506/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -76,7 +77,7 @@
 [33m[stage-6] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-7] [0m[94m[94mRunning tests for Stage #7: Piece hashes[0m[0m
-[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents889922005/test.torrent[0m[0m
+[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents4014132390/test.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bttracker.debian.org:6969/announce
 [33m[your_program] [0mLength: 1572864
 [33m[your_program] [0mInfo Hash: 9475d7d25bf53a7aeb20fd6d4569b80b3061afa1
@@ -91,7 +92,7 @@
 [33m[stage-7] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-8] [0m[94m[94mRunning tests for Stage #8: Discover peers[0m[0m
-[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2794713298/test.torrent[0m[0m
+[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents756502324/test.torrent[0m[0m
 [33m[your_program] [0m188.119.61.177:6881
 [33m[your_program] [0m71.224.0.29:51414
 [33m[your_program] [0m62.153.208.98:3652
@@ -104,14 +105,14 @@
 [33m[stage-8] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-9] [0m[94m[94mRunning tests for Stage #9: Peer handshake[0m[0m
-[33m[stage-9] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1440405408/test.torrent 127.0.0.1:52294[0m[0m
+[33m[stage-9] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents3250844410/test.torrent 127.0.0.1:52307[0m[0m
 [33m[your_program] [0mPeer ID: ee8f5140bfc195c36b0567cd055ac9839e682ab0
 [33m[stage-9] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-10] [0m[94m[94mRunning tests for Stage #10: Download a piece[0m[0m
-[33m[stage-10] [0m[94m[94mRunning ./your_bittorrent.sh download_piece -o /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents919480241/piece-3 /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents919480241/congratulations.gif.torrent 3[0m[0m
+[33m[stage-10] [0m[94m[94mRunning ./your_bittorrent.sh download_piece -o /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents4231552513/piece-3 /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents4231552513/congratulations.gif.torrent 3[0m[0m
 [33m[stage-10] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-11] [0m[94m[94mRunning tests for Stage #11: Download the whole file[0m[0m
-[33m[stage-11] [0m[94m[94mRunning ./your_bittorrent.sh download -o /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2797433851/codercat.gif /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2797433851/codercat.gif.torrent[0m[0m
+[33m[stage-11] [0m[94m[94mRunning ./your_bittorrent.sh download -o /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents552275425/codercat.gif /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents552275425/codercat.gif.torrent[0m[0m
 [33m[stage-11] [0m[92m[92mTest passed.[0m[0m
