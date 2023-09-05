@@ -14,6 +14,23 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
+	// Test empty list
+	emptyListEncoded := "le"
+	emptyListDecoded := "[]"
+	logger.Infof("Running ./your_bittorrent.sh decode %s", emptyListEncoded)
+	result, err := executable.Run("decode", emptyListEncoded)
+	if err != nil {
+		return err
+	}
+
+	if err = assertExitCode(result, 0); err != nil {
+		return err
+	}
+	if err = assertStdout(result, emptyListDecoded+"\n"); err != nil {
+		return err
+	}
+
+	// Test list with random word and random number
 	randomWord := randomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
 	randomNumber := rand.Intn(1000)
@@ -27,7 +44,7 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 
 	logger.Infof("Running ./your_bittorrent.sh decode %s", listEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(list[0]))
-	result, err := executable.Run("decode", listEncoded)
+	result, err = executable.Run("decode", listEncoded)
 	if err != nil {
 		return err
 	}
