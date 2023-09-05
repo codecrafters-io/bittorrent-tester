@@ -13,6 +13,23 @@ func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
+	emptyDictEncoded := "de"
+	emptyDictExpectedJson := "{}"
+	logger.Infof("Running ./your_bittorrent.sh decode %s", emptyDictEncoded)
+	logger.Infof("Expected output: %s", emptyDictExpectedJson)
+	result, err := executable.Run("decode", emptyDictEncoded)
+	if err != nil {
+		return err
+	}
+
+	if err = assertExitCode(result, 0); err != nil {
+		return err
+	}
+
+	if err = assertStdout(result, emptyDictExpectedJson+"\n"); err != nil {
+		return err
+	}
+
 	randomWord := randomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
 	// Keys must be strings and appear in sorted order
@@ -24,7 +41,7 @@ func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
 
 	logger.Infof("Running ./your_bittorrent.sh decode %s", randomDictEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(randomDictExpectedJsonList[0]))
-	result, err := executable.Run("decode", randomDictEncoded)
+	result, err = executable.Run("decode", randomDictEncoded)
 	if err != nil {
 		return err
 	}

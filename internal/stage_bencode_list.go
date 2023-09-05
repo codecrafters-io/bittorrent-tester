@@ -18,6 +18,7 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 	emptyListEncoded := "le"
 	emptyListDecoded := "[]"
 	logger.Infof("Running ./your_bittorrent.sh decode %s", emptyListEncoded)
+	logger.Infof("Expected output: %s", emptyListDecoded)
 	result, err := executable.Run("decode", emptyListEncoded)
 	if err != nil {
 		return err
