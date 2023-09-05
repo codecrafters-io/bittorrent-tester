@@ -65,6 +65,9 @@ func assertStderrContains(result tester_utils.ExecutableResult, expectedSubstrin
 func assertExitCode(result tester_utils.ExecutableResult, expected int) error {
 	actual := result.ExitCode
 	if expected != actual {
+		if expected == 0 {
+			return fmt.Errorf("Application didn't terminate successfully without errors. Expected %d as exit code, got: %d", expected, actual)
+		}
 		return fmt.Errorf("Expected %d as exit code, got: %d", expected, actual)
 	}
 
