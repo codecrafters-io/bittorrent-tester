@@ -4,12 +4,14 @@ import (
 	"bytes"
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
 	"io"
 	"log"
 	"net"
 	"os"
 	"strings"
 
+	tester_utils "github.com/codecrafters-io/tester-utils"
 	"github.com/jackpal/bencode-go"
 )
 
@@ -33,6 +35,8 @@ type TorrentFileInfo struct {
 	Private     int    `bencode:"private,omitempty"`
 	Source      string `bencode:"source,omitempty"`
 }
+
+const ProtocolName = "BitTorrent protocol"
 
 func (i *TorrentFileInfo) hash() ([20]byte, error) {
 	var buffer bytes.Buffer
@@ -107,7 +111,7 @@ func createPiecesStrFromFile(filePath string, pieceLengthBytes int) (string, err
 	return strings.Join(pieceHashes, ""), nil
 }
 
-func readHandshake(r io.Reader) (*Handshake, error) {
+func readHandshake(r io.Reader, logger *tester_utils.Logger) (*Handshake, error) {
 	// Handshake message contents:
 	// 1 byte protocol string length
 	// x byte protocol string
@@ -120,15 +124,27 @@ func readHandshake(r io.Reader) (*Handshake, error) {
 		return nil, err
 	}
 	protocolNameLength := int(lengthBuffer[0])
+	expectedProtocolNameLength := len(ProtocolName)
 
-	if protocolNameLength == 0 {
-		return nil, err
+	if protocolNameLength != expectedProtocolNameLength {
+		return nil, fmt.Errorf("first byte of handshake needs to be protocol string length, expected value %d but received: %d", expectedProtocolNameLength, protocolNameLength)
 	}
 
 	handshakeBuffer := make([]byte, protocolNameLength+8+20+20)
 	_, err = io.ReadFull(r, handshakeBuffer)
 	if err != nil {
 		return nil, err
+	}
+
+	protocolStr := string(handshakeBuffer[0:protocolNameLength])
+	if protocolStr != ProtocolName {
+		return nil, fmt.Errorf("unknown protocol name, expected: %s, actual: %s", ProtocolName, protocolStr)
+	}
+
+	expectedReservedBytes := []byte{0, 0, 0, 0, 0, 0, 0, 0}
+	actualReservedBytes := handshakeBuffer[protocolNameLength : protocolNameLength+8]
+	if !bytes.Equal(expectedReservedBytes, actualReservedBytes) {
+		logger.Infof("Did you send reserved bytes? expected bytes: %v but received: %v\n", expectedReservedBytes, actualReservedBytes)
 	}
 
 	var infoHash, peerID [20]byte
@@ -145,11 +161,11 @@ func readHandshake(r io.Reader) (*Handshake, error) {
 }
 
 func sendHandshake(conn net.Conn, infoHash [20]byte, peerID [20]byte) {
-	handshake := []byte{19}                                         // Protocol name length
-	handshake = append(handshake, []byte("BitTorrent protocol")...) // Protocol name
-	handshake = append(handshake, make([]byte, 8)...)               // Reserved bytes
-	handshake = append(handshake, infoHash[:]...)                   // Info hash
-	handshake = append(handshake, peerID[:]...)                     // Peer ID
+	handshake := []byte{19}                                // Protocol name length
+	handshake = append(handshake, []byte(ProtocolName)...) // Protocol name
+	handshake = append(handshake, make([]byte, 8)...)      // Reserved bytes
+	handshake = append(handshake, infoHash[:]...)          // Info hash
+	handshake = append(handshake, peerID[:]...)            // Peer ID
 
 	_, err := conn.Write(handshake)
 	if err != nil {

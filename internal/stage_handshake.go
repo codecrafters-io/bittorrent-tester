@@ -104,7 +104,7 @@ func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20
 func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logger *tester_utils.Logger) {
 	defer conn.Close()
 
-	handshake, err := readHandshake(conn)
+	handshake, err := readHandshake(conn, logger)
 	if err != nil {
 		logger.Errorf("error reading handshake", err)
 		return
