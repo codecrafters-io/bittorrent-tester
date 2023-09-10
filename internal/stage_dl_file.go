@@ -17,12 +17,12 @@ func testDownloadFile(stageHarness *tester_utils.StageHarness) error {
 
 	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
-		logger.Errorf("Couldn't create temp directory")
+		logger.Errorln("Couldn't create temp directory")
 		return err
 	}
 
 	if err := copyTorrent(tempDir, t.filename); err != nil {
-		logger.Errorf("Couldn't copy torrent file")
+		logger.Errorln("Couldn't copy torrent file")
 		return err
 	}
 

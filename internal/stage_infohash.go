@@ -21,7 +21,7 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	if err := copyTorrent(tempDir, torrent.filename); err != nil {
-		logger.Errorf("Couldn't copy torrent file")
+		logger.Errorln("Couldn't copy torrent file")
 		return err
 	}
 

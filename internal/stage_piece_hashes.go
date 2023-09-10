@@ -18,13 +18,13 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 	torrentFilename := "test.torrent"
 	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
-		logger.Errorf("Couldn't create temp directory")
+		logger.Errorln("Couldn't create temp directory")
 		return err
 	}
 
 	pieceHashes, err := createPieceHashes()
 	if err != nil {
-		logger.Errorf("error creating piece hashes")
+		logger.Errorln("internal error creating piece hashes")
 		return err
 	}
 	trackerURL := "http://bttracker.debian.org:6969/announce"

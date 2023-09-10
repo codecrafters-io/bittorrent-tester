@@ -79,13 +79,13 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 	destinationPath := path.Join(tempDir, response.filename)
 	sourcePath := getResponsePath(response.filename)
 	if err = copyFile(sourcePath, destinationPath); err != nil {
-		logger.Errorf("Couldn't copy sample response", err)
+		logger.Errorf("Couldn't copy sample response: %s", err)
 		return err
 	}
 
 	port, err := findFreePort()
 	if err != nil {
-		logger.Errorf("Error finding free port", err)
+		logger.Errorf("Error finding free port: %s", err)
 		return err
 	}
 
@@ -106,7 +106,7 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 	}
 	expectedInfoHash, err := torrent.writeToFile(torrentFilePath)
 	if err != nil {
-		logger.Errorf("Couldn't write torrent file", err)
+		logger.Errorf("Couldn't write torrent file: %s", err)
 		return err
 	}
 
@@ -139,20 +139,20 @@ func listenAndServePeersResponse(address string, responseFilePath string, expect
 	logger.Debugf("Server started on port %s...\n", address)
 	err := http.ListenAndServe(address, nil)
 	if err != nil {
-		logger.Errorf("Error:", err)
+		logger.Errorf("Error: %s", err)
 	}
 }
 
 func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *tester_utils.Logger) {
 	if r.Method != "GET" {
-		logger.Errorf("HTTP method GET expected")
+		logger.Errorln("HTTP method GET expected")
 		http.Error(w, "HTTP method GET expected", http.StatusMethodNotAllowed)
 		return
 	}
 	queryParams := r.URL.Query()
 	left := queryParams.Get("left")
 	if left == "" {
-		logger.Errorf("Required parameter missing: left")
+		logger.Errorln("Required parameter missing: left")
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
 	}
@@ -169,7 +169,7 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 
 	port := queryParams.Get("port")
 	if port == "" {
-		logger.Errorf("Required parameter missing: port")
+		logger.Errorln("Required parameter missing: port")
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: porte"))
 		return
 	}
@@ -182,7 +182,7 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 
 	downloaded := queryParams.Get("downloaded")
 	if downloaded == "" {
-		logger.Errorf("Required parameter missing: downloaded")
+		logger.Errorln("Required parameter missing: downloaded")
 		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
 		return
 	}
@@ -194,7 +194,7 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 
 	uploaded := queryParams.Get("uploaded")
 	if uploaded == "" {
-		logger.Errorf("Required parameter missing: uploaded")
+		logger.Errorln("Required parameter missing: uploaded")
 		w.Write([]byte("d14:failure reason35:failed to parse parameter: uploadede"))
 		return
 	}
@@ -205,34 +205,34 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 	}
 
 	if queryParams.Get("compact") == "" {
-		logger.Errorf("Required parameter missing: compact")
+		logger.Errorln("Required parameter missing: compact")
 		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
 		return
 	} else if queryParams.Get("compact") != "1" {
-		logger.Errorf("compact parameter value needs to be 1 for compact representation of peer list")
+		logger.Errorln("compact parameter value needs to be 1 for compact representation of peer list")
 		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
 		return
 	}
 
 	peerId := queryParams.Get("peer_id")
 	if peerId == "" {
-		logger.Errorf("Required parameter missing: peer_id")
+		logger.Errorln("Required parameter missing: peer_id")
 		w.Write([]byte("d14:failure reason34:failed to parse parameter: peer_ide"))
 		return
 	} else if len(peerId) != 20 {
-		logger.Errorf("peer_id needs to be a string of length 20")
+		logger.Errorln("peer_id needs to be a string of length 20")
 		w.Write([]byte("d14:failure reason31:failed to provide valid peer_ide"))
 		return
 	}
 
 	infoHash := queryParams.Get("info_hash")
 	if infoHash == "" {
-		logger.Errorf("Required parameter missing: info_hash")
+		logger.Errorln("Required parameter missing: info_hash")
 		w.Write([]byte("d14:failure reason31:no info_hash parameter suppliede"))
 		return
 	}
 	if len(infoHash) == 40 {
-		logger.Errorf("info_hash needs to be 20 bytes long, don't use hexadecimal")
+		logger.Errorln("info_hash needs to be 20 bytes long, don't use hexadecimal")
 		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
 		return
 	}
@@ -245,7 +245,7 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 	receivedHash := []byte(infoHash)
 
 	if !bytes.Equal(receivedHash[:], expectedInfoHash[:]) {
-		logger.Errorf("info_hash correct length, but does not match expected value. It needs to be SHA-1 hash of the bencoded form of the info value from the metainfo file")
+		logger.Errorln("info_hash correct length, but does not match expected value. It needs to be SHA-1 hash of the bencoded form of the info value from the metainfo file")
 		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
 		return
 	}

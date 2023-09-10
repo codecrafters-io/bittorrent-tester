@@ -24,7 +24,7 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 
 	port, err := findFreePort()
 	if err != nil {
-		logger.Errorf("Couldn't find free port", err)
+		logger.Errorf("Couldn't find free port: %s", err)
 		return err
 	}
 	address := fmt.Sprintf("127.0.0.1:%d", port)
@@ -45,7 +45,7 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 	torrentFilePath := path.Join(tempDir, torrentFilename)
 	infoHash, err := torrent.writeToFile(torrentFilePath)
 	if err != nil {
-		logger.Errorf("Error writing torrent file", err)
+		logger.Errorf("Error writing torrent file: %s", err)
 		return err
 	}
 
@@ -86,7 +86,7 @@ func randomHash() ([20]byte, error) {
 func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20]byte, logger *tester_utils.Logger) {
 	listener, err := net.Listen("tcp", address)
 	if err != nil {
-		logger.Errorf("Error:", err)
+		logger.Errorf("Error: %s", err)
 		return
 	}
 	defer listener.Close()
@@ -94,7 +94,7 @@ func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
-			logger.Errorf("Error accepting connection:", err)
+			logger.Errorf("Error accepting connection: %s", err)
 		}
 		logger.Debugf("Waiting for handshake message")
 		handleConnection(conn, myPeerID, infoHash, logger)
@@ -106,7 +106,7 @@ func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logge
 
 	handshake, err := readHandshake(conn, logger)
 	if err != nil {
-		logger.Errorf("error reading handshake", err)
+		logger.Errorf("error reading handshake: %s", err)
 		return
 	}
 	if !bytes.Equal(handshake.InfoHash[:], infoHash[:]) {
