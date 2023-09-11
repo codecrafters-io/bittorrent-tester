@@ -127,12 +127,18 @@ func readHandshake(r io.Reader, logger *tester_utils.Logger) (*Handshake, error)
 	expectedProtocolNameLength := len(ProtocolName)
 
 	if protocolNameLength != expectedProtocolNameLength {
+		if protocolNameLength == 49 {
+			logger.Errorln("Are you sending 19 as a string? 19 should be encoded as an 8 bit unsigned number (1 byte), not as ASCII-encoded characters")
+		}
 		return nil, fmt.Errorf("first byte of handshake needs to be protocol string length, expected value %d but received: %d", expectedProtocolNameLength, protocolNameLength)
 	}
 
 	handshakeBuffer := make([]byte, protocolNameLength+8+20+20)
 	_, err = io.ReadFull(r, handshakeBuffer)
 	if err != nil {
+		if err == io.ErrUnexpectedEOF {
+			logger.Errorln("Your handshake message might be shorter than expected. Expected to read 68 bytes (1 byte for protocol length, 19 bytes for protocol string, 8 bytes for reserved, 20 for info hash, 20 for peer id) but no more input was available.")
+		}
 		return nil, err
 	}
 
