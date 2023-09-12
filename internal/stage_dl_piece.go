@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"path"
+	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -90,6 +91,15 @@ func testDownloadPiece(stageHarness *tester_utils.StageHarness) error {
 
 		logger.Infof("Running ./your_bittorrent.sh download_piece -o %s %s %d", downloadedFilePath, torrentFilePath, t.pieceIndex)
 		result, err := executable.Run("download_piece", "-o", downloadedFilePath, torrentFilePath, fmt.Sprintf("%d", t.pieceIndex))
+		resultStr := string(result.Stdout)
+
+		if strings.Contains(resultStr, "Connection reset by peer") || strings.Contains(resultStr, "EOF") {
+			logger.Infoln("Connection reset by peer or EOF type of errors can be transient issues (try again), but they can also happen when peers receive unexpected messages (sending a REQUEST message with an incorrect offset/length, block size larger than 16 kb etc.)")
+			if t.pieceLength != 262144 {
+				logger.Infof("Last piece of the file can be less than piece length specified in torrent metadata. For instance, the length of this piece is %d", t.pieceLength)
+			}
+		}
+
 		if err != nil {
 			return err
 		}
