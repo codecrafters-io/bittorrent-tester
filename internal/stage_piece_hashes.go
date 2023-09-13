@@ -1,10 +1,12 @@
 package internal
 
 import (
+	"encoding/hex"
 	"fmt"
 	"math/rand"
 	"os"
 	"path"
+	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -63,11 +65,26 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 
 	for _, pieceHash := range pieceHashes {
 		if err = assertStdoutContains(result, pieceHash); err != nil {
+			if strings.Contains(string(result.Stdout), hashWithoutLeadingZeros(pieceHash)) {
+				logger.Errorln("Your piece hash value is shorter than 40 characters, it's missing a leading zero.")
+			}
 			return err
 		}
 	}
 
 	return nil
+}
+
+func hashWithoutLeadingZeros(hexString string) string {
+	bytes, decodeErr := hex.DecodeString(hexString)
+	if decodeErr != nil {
+		return ""
+	}
+	var withoutLeadingZeros string
+	for _, b := range bytes {
+		withoutLeadingZeros += fmt.Sprintf("%x", b)
+	}
+	return withoutLeadingZeros
 }
 
 func createPieceHashes() ([]string, error) {
