@@ -26,6 +26,13 @@ func TestStages(t *testing.T) {
 			StdoutFixturePath:   "./test_helpers/fixtures/init/success",
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
+		"handshake_with_peer_check": {
+			StageName:           "handshake",
+			CodePath:            "./test_helpers/scenarios/handshake/with_peer_check",
+			ExpectedExitCode:    0,
+			StdoutFixturePath:   "./test_helpers/fixtures/handshake/with_peer_check",
+			NormalizeOutputFunc: normalizeTesterOutput,
+		},
 		"pass_all": {
 			StageName:           "dl-file",
 			CodePath:            "./test_helpers/scenarios/pass_all",
