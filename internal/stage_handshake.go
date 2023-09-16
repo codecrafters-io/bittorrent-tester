@@ -22,13 +22,21 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	port, err := findFreePort()
+	peerPort, err := findFreePort()
 	if err != nil {
 		logger.Errorf("Couldn't find free port: %s", err)
 		return err
 	}
-	address := fmt.Sprintf("127.0.0.1:%d", port)
-	trackerURL := fmt.Sprintf("http://%s", address)
+	peerAddress := fmt.Sprintf("127.0.0.1:%d", peerPort)
+
+	trackerPort, err := findFreePort()
+	if err != nil {
+		logger.Errorf("Couldn't find free port: %s", err)
+		return err
+	}
+	trackerAddress := fmt.Sprintf("127.0.0.1:%d", trackerPort)
+
+	trackerURL := fmt.Sprintf("http://%s", trackerAddress)
 	pieceLengthBytes := 1024 * 256
 	fileLengthBytes := pieceLengthBytes * len(samplePieceHashes)
 	torrent := TorrentFile{
@@ -54,10 +62,12 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-	go waitAndHandlePeerConnection(address, expectedPeerID, infoHash, logger)
 
-	logger.Infof("Running ./your_bittorrent.sh handshake %s %s", torrentFilePath, address)
-	result, err := executable.Run("handshake", torrentFilePath, address)
+	// should also serve tracker here
+	go waitAndHandlePeerConnection(peerAddress, expectedPeerID, infoHash, logger)
+
+	logger.Infof("Running ./your_bittorrent.sh handshake %s %s", torrentFilePath, peerAddress)
+	result, err := executable.Run("handshake", torrentFilePath, peerAddress)
 	if err != nil {
 		return err
 	}
