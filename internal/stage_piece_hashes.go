@@ -29,6 +29,7 @@ func testPieceHashes(stageHarness *tester_utils.StageHarness) error {
 		logger.Errorln("internal error creating piece hashes")
 		return err
 	}
+	pieceHashes = append(pieceHashes, "70edcac2611a8829ebf467a6849f5d8408d9d8f4")
 	trackerURL := "http://bttracker.debian.org:6969/announce"
 	pieceLengthBytes := 256 * 1024
 	fileLengthBytes := pieceLengthBytes * len(pieceHashes)
