@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"path"
 
@@ -13,34 +14,39 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
-	torrent := randomTorrent()
 
 	tempDir, err := os.MkdirTemp("", "torrents")
 	if err != nil {
 		return err
 	}
 
-	if err := copyTorrent(tempDir, torrent.filename); err != nil {
-		logger.Errorln("Couldn't copy torrent file")
-		return err
-	}
+	shuffled := make([]TestTorrentInfo, len(testTorrents))
+	copy(shuffled, testTorrents)
+	rand.Shuffle(len(shuffled), func(i, j int) { shuffled[i], shuffled[j] = shuffled[j], shuffled[i] })
 
-	torrentPath := path.Join(tempDir, torrent.filename)
+	for _, torrent := range shuffled {
+		if err := copyTorrent(tempDir, torrent.filename); err != nil {
+			logger.Errorln("Couldn't copy torrent file")
+			return err
+		}
 
-	logger.Infof("Running ./your_bittorrent.sh info %s", torrentPath)
-	result, err := executable.Run("info", torrentPath)
-	if err != nil {
-		return err
-	}
+		torrentPath := path.Join(tempDir, torrent.filename)
 
-	if err = assertExitCode(result, 0); err != nil {
-		return err
-	}
+		logger.Infof("Running ./your_bittorrent.sh info %s", torrentPath)
+		result, err := executable.Run("info", torrentPath)
+		if err != nil {
+			return err
+		}
 
-	expected := fmt.Sprintf("Info Hash: %s", torrent.infohash)
+		if err = assertExitCode(result, 0); err != nil {
+			return err
+		}
 
-	if err = assertStdoutContains(result, expected); err != nil {
-		return err
+		expected := fmt.Sprintf("Info Hash: %s", torrent.infohash)
+
+		if err = assertStdoutContains(result, expected); err != nil {
+			return err
+		}
 	}
 
 	return nil
