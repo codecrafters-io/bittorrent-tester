@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"path"
+	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -45,6 +46,13 @@ func testInfoHash(stageHarness *tester_utils.StageHarness) error {
 		expected := fmt.Sprintf("Info Hash: %s", torrent.infohash)
 
 		if err = assertStdoutContains(result, expected); err != nil {
+			output := string(result.Stdout)
+			for _, incorrectHash := range torrent.incorrectSha1 {
+				if strings.Contains(output, incorrectHash) {
+					logger.Errorln("WARNING: In your bencoded info dictionary, ensure that keys appear in sorted order.")
+					break
+				}
+			}
 			return err
 		}
 	}
