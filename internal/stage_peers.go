@@ -245,7 +245,7 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePa
 	receivedHash := []byte(infoHash)
 
 	if !bytes.Equal(receivedHash[:], expectedInfoHash[:]) {
-		logger.Errorln("info_hash correct length, but does not match expected value. It needs to be SHA-1 hash of the bencoded form of the info value from the metainfo file")
+		logger.Errorln("info_hash correct length, but does not match expected value. It needs to be SHA-1 of the bencoded info dictionary from the torrent file")
 		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
 		return
 	}
