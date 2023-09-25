@@ -8,8 +8,6 @@ import (
 	"net"
 	"os"
 	"path"
-
-	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
 var samplePieceHashes = []string{
@@ -135,15 +133,6 @@ var testTorrents = []TestTorrentInfo{
 	},
 }
 
-func createTempDir(executable *tester_utils.Executable) (string, error) {
-	tempDir, err := os.MkdirTemp("", "torrents")
-	if err != nil {
-		return "", err
-	}
-	executable.WorkingDir = tempDir
-	return tempDir, nil
-}
-
 func copyTorrent(tempDir string, torrentFilename string) error {
 	destinationPath := path.Join(tempDir, torrentFilename)
 	sourcePath := getTorrentPath(torrentFilename)
@@ -216,13 +205,4 @@ func calculateSHA1(filePath string) (string, error) {
 
 	hashBytes := hash.Sum(nil)
 	return hex.EncodeToString(hashBytes), nil
-}
-
-func getFileSizeBytes(filePath string) (int64, error) {
-	fileInfo, err := os.Stat(filePath)
-	if err != nil {
-		return -1, err
-	}
-	fileSize := fileInfo.Size()
-	return fileSize, nil
 }
