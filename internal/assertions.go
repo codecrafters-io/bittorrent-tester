@@ -5,10 +5,10 @@ import (
 	"os"
 	"strings"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	executable "github.com/codecrafters-io/tester-utils/executable"
 )
 
-func assertStdoutList(result tester_utils.ExecutableResult, expected []string) error {
+func assertStdoutList(result executable.ExecutableResult, expected []string) error {
 	actual := string(result.Stdout)
 	if indexOf(expected, actual) == -1 {
 		return fmt.Errorf("Expected %q as stdout, got: %q", expected[0], actual)
@@ -26,7 +26,7 @@ func indexOf(slice []string, target string) int {
 	return -1
 }
 
-func assertStdout(result tester_utils.ExecutableResult, expected string) error {
+func assertStdout(result executable.ExecutableResult, expected string) error {
 	actual := string(result.Stdout)
 	if expected != actual {
 		return fmt.Errorf("Expected %q as stdout, got: %q", expected, actual)
@@ -35,7 +35,7 @@ func assertStdout(result tester_utils.ExecutableResult, expected string) error {
 	return nil
 }
 
-func assertStderr(result tester_utils.ExecutableResult, expected string) error {
+func assertStderr(result executable.ExecutableResult, expected string) error {
 	actual := string(result.Stderr)
 	if expected != actual {
 		return fmt.Errorf("Expected %q as stderr, got: %q", expected, actual)
@@ -44,7 +44,7 @@ func assertStderr(result tester_utils.ExecutableResult, expected string) error {
 	return nil
 }
 
-func assertStdoutContains(result tester_utils.ExecutableResult, expectedSubstring string) error {
+func assertStdoutContains(result executable.ExecutableResult, expectedSubstring string) error {
 	actual := string(result.Stdout)
 	if !strings.Contains(actual, expectedSubstring) {
 		return fmt.Errorf("Expected stdout to contain %q, got: %q", expectedSubstring, actual)
@@ -53,7 +53,7 @@ func assertStdoutContains(result tester_utils.ExecutableResult, expectedSubstrin
 	return nil
 }
 
-func assertStderrContains(result tester_utils.ExecutableResult, expectedSubstring string) error {
+func assertStderrContains(result executable.ExecutableResult, expectedSubstring string) error {
 	actual := string(result.Stderr)
 	if !strings.Contains(actual, expectedSubstring) {
 		return fmt.Errorf("Expected stderr to contain %q, got: %q", expectedSubstring, actual)
@@ -62,7 +62,7 @@ func assertStderrContains(result tester_utils.ExecutableResult, expectedSubstrin
 	return nil
 }
 
-func assertExitCode(result tester_utils.ExecutableResult, expected int) error {
+func assertExitCode(result executable.ExecutableResult, expected int) error {
 	actual := result.ExitCode
 	if expected != actual {
 		if expected == 0 {
