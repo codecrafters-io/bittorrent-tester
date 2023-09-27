@@ -9,6 +9,7 @@ import (
 	"path"
 	"strconv"
 
+	logger "github.com/codecrafters-io/tester-utils/logger"
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
@@ -131,7 +132,7 @@ func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
 	return nil
 }
 
-func listenAndServePeersResponse(address string, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *tester_utils.Logger) {
+func listenAndServePeersResponse(address string, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
 	http.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
 		serveTrackerResponse(w, r, responseFilePath, expectedInfoHash, fileLengthBytes, logger)
 	})
@@ -143,7 +144,7 @@ func listenAndServePeersResponse(address string, responseFilePath string, expect
 	}
 }
 
-func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *tester_utils.Logger) {
+func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseFilePath string, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
 	if r.Method != "GET" {
 		logger.Errorln("HTTP method GET expected")
 		http.Error(w, "HTTP method GET expected", http.StatusMethodNotAllowed)
