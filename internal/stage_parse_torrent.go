@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -43,6 +44,10 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 	logger.Debugf("Checking for tracker URL (%v)", expectedTrackerURLValue)
 
 	if err = assertStdoutContains(result, expectedTrackerURLValue); err != nil {
+		actual := string(result.Stdout)
+		if strings.Contains(actual, fmt.Sprintf("Tracker URL:%s", torrent.tracker)) {
+			logger.Errorln("There needs to be a space character after Tracker URL:")
+		}
 		return err
 	}
 
@@ -51,6 +56,10 @@ func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
 	logger.Debugf("Checking for length (%v)", expectedLengthValue)
 
 	if err = assertStdoutContains(result, expectedLengthValue); err != nil {
+		actual := string(result.Stdout)
+		if strings.Contains(actual, fmt.Sprintf("Length:%d", torrent.length)) {
+			logger.Errorln("There needs to be a space character after Length:")
+		}
 		return err
 	}
 
