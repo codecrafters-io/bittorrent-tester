@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 
+	logger "github.com/codecrafters-io/tester-utils/logger"
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
 
@@ -93,7 +94,7 @@ func randomHash() ([20]byte, error) {
 	return hash, nil
 }
 
-func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20]byte, logger *tester_utils.Logger) {
+func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20]byte, logger *logger.Logger) {
 	listener, err := net.Listen("tcp", address)
 	if err != nil {
 		logger.Errorf("Error: %s", err)
@@ -111,7 +112,7 @@ func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20
 	}
 }
 
-func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logger *tester_utils.Logger) {
+func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logger *logger.Logger) {
 	defer conn.Close()
 
 	handshake, err := readHandshake(conn, logger)

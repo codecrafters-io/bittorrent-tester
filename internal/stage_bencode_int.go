@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 
 	tester_utils "github.com/codecrafters-io/tester-utils"
 )
@@ -27,6 +28,10 @@ func testBencodeInt(stageHarness *tester_utils.StageHarness) error {
 
 	expected := randomNumber + "\n"
 	if err = assertStdout(result, expected); err != nil {
+		actual := string(result.Stdout)
+		if strings.Contains(actual, "\""+randomNumber+"\"") {
+			logger.Errorln("You need to print the number without quotes")
+		}
 		return err
 	}
 

@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	logger "github.com/codecrafters-io/tester-utils/logger"
 	"github.com/jackpal/bencode-go"
 )
 
@@ -111,7 +111,7 @@ func createPiecesStrFromFile(filePath string, pieceLengthBytes int) (string, err
 	return strings.Join(pieceHashes, ""), nil
 }
 
-func readHandshake(r io.Reader, logger *tester_utils.Logger) (*Handshake, error) {
+func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 	// Handshake message contents:
 	// 1 byte protocol string length
 	// x byte protocol string
