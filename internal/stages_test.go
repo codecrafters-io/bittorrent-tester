@@ -46,8 +46,16 @@ func TestStages(t *testing.T) {
 }
 
 func normalizeTesterOutput(testerOutput []byte) []byte {
-	re := regexp.MustCompile("Running ./your_bittorrent.sh .*")
-	testerOutput = re.ReplaceAll(testerOutput, []byte("Running ./your_bittorrent.sh <truncated>"))
+	replacements := map[string][]*regexp.Regexp{
+		"Running ./your_bittorrent.sh <truncated>": {regexp.MustCompile("Running ./your_bittorrent.sh .*")},
+		"127.0.0.1:xxxx":    {regexp.MustCompile("127.0.0.1:\\d+")},
+	}
+
+	for replacement, regexes := range replacements {
+		for _, regex := range regexes {
+			testerOutput = regex.ReplaceAll(testerOutput, []byte(replacement))
+		}
+	}
 
 	return testerOutput
 }
