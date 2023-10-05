@@ -3,9 +3,12 @@ module github.com/codecrafters-io/bittorrent-tester
 go 1.20
 
 require (
-	github.com/codecrafters-io/tester-utils v0.2.1
+	github.com/codecrafters-io/tester-utils v0.2.8
 	github.com/jackpal/bencode-go v1.0.0
 )
+
+// Use this to test locally
+// replace github.com/codecrafters-io/tester-utils v0.2.1 => /Users/rohitpaulk/experiments/codecrafters/tester-utils
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
