@@ -27,7 +27,7 @@ func TestStages(t *testing.T) {
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
 		"handshake_with_peer_check": {
-			StageName:           "handshake",
+			UntilStageSlug:      "handshake",
 			CodePath:            "./test_helpers/scenarios/handshake/with_peer_check",
 			ExpectedExitCode:    0,
 			StdoutFixturePath:   "./test_helpers/fixtures/handshake/with_peer_check",

@@ -1,13 +1,20 @@
 package internal
 
 import (
+	"bytes"
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
 	"io"
 	"math/rand"
 	"net"
+	"net/http"
 	"os"
 	"path"
+	"strconv"
+
+	logger "github.com/codecrafters-io/tester-utils/logger"
+	"github.com/jackpal/bencode-go"
 )
 
 var samplePieceHashes = []string{
@@ -205,4 +212,150 @@ func calculateSHA1(filePath string) (string, error) {
 
 	hashBytes := hash.Sum(nil)
 	return hex.EncodeToString(hashBytes), nil
+}
+
+func listenAndServePeersResponse(address string, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
+		serveTrackerResponse(w, r, responseContent, expectedInfoHash, fileLengthBytes, logger)
+	})
+
+	logger.Debugf("Server started on port %s...\n", address)
+	err := http.ListenAndServe(address, mux)
+	if err != nil {
+		logger.Errorf("Error: %s", err)
+	}
+}
+
+func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
+	if r.Method != "GET" {
+		logger.Errorln("HTTP method GET expected")
+		http.Error(w, "HTTP method GET expected", http.StatusMethodNotAllowed)
+		return
+	}
+	queryParams := r.URL.Query()
+	left := queryParams.Get("left")
+	if left == "" {
+		logger.Errorln("Required parameter missing: left")
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
+		return
+	}
+	leftNumber, err := strconv.Atoi(left)
+	if err != nil {
+		logger.Errorf("left needs to be a numeric value, received: %s", left)
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
+		return
+	} else if leftNumber > fileLengthBytes {
+		logger.Errorf("left needs to be less than or equal to file length (%d bytes), received: %s", fileLengthBytes, left)
+		w.Write([]byte("d14:failure reason27:provided invalid left valuee"))
+		return
+	}
+
+	port := queryParams.Get("port")
+	if port == "" {
+		logger.Errorln("Required parameter missing: port")
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: porte"))
+		return
+	}
+	portNumber, err := strconv.Atoi(port)
+	if err != nil || portNumber < 0 || portNumber > 65536 {
+		logger.Errorf("port needs to be between 0 and 65536, received: %s", port)
+		w.Write([]byte("d14:failure reason31:failed to parse parameter: porte"))
+		return
+	}
+
+	downloaded := queryParams.Get("downloaded")
+	if downloaded == "" {
+		logger.Errorln("Required parameter missing: downloaded")
+		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
+		return
+	}
+	if _, err := strconv.Atoi(downloaded); err != nil {
+		logger.Errorf("downloaded needs to be a numeric value, received: %s", downloaded)
+		w.Write([]byte("d14:failure reason37:failed to parse parameter: downloadedede"))
+		return
+	}
+
+	uploaded := queryParams.Get("uploaded")
+	if uploaded == "" {
+		logger.Errorln("Required parameter missing: uploaded")
+		w.Write([]byte("d14:failure reason35:failed to parse parameter: uploadede"))
+		return
+	}
+	if _, err := strconv.Atoi(uploaded); err != nil {
+		logger.Errorf("uploaded needs to be a numeric value, received: %s", uploaded)
+		w.Write([]byte("d14:failure reason35:failed to parse parameter: uploadede"))
+		return
+	}
+
+	if queryParams.Get("compact") == "" {
+		logger.Errorln("Required parameter missing: compact")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
+		return
+	} else if queryParams.Get("compact") != "1" {
+		logger.Errorln("compact parameter value needs to be 1 for compact representation of peer list")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: compacte"))
+		return
+	}
+
+	peerId := queryParams.Get("peer_id")
+	if peerId == "" {
+		logger.Errorln("Required parameter missing: peer_id")
+		w.Write([]byte("d14:failure reason34:failed to parse parameter: peer_ide"))
+		return
+	} else if len(peerId) != 20 {
+		logger.Errorln("peer_id needs to be a string of length 20")
+		w.Write([]byte("d14:failure reason31:failed to provide valid peer_ide"))
+		return
+	}
+
+	infoHash := queryParams.Get("info_hash")
+	if infoHash == "" {
+		logger.Errorln("Required parameter missing: info_hash")
+		w.Write([]byte("d14:failure reason31:no info_hash parameter suppliede"))
+		return
+	}
+	if len(infoHash) == 40 {
+		logger.Errorln("info_hash needs to be 20 bytes long, don't use hexadecimal")
+		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
+		return
+	}
+	if len(infoHash) != 20 {
+		logger.Errorf("info_hash needs to be 20 bytes long, found: %d", len(infoHash))
+		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
+		return
+	}
+
+	receivedHash := []byte(infoHash)
+
+	if !bytes.Equal(receivedHash[:], expectedInfoHash[:]) {
+		logger.Errorln("info_hash correct length, but does not match expected value. It needs to be SHA-1 of the bencoded info dictionary from the torrent file")
+		w.Write([]byte("d14:failure reason25:provided invalid infohashe"))
+		return
+	}
+
+	w.Write(responseContent)
+}
+
+func createPeersResponse(peerIP string, peerPort int) []byte {
+	peerBytes := make([]byte, 6)
+	peerIPAddress := net.ParseIP(peerIP).To4()
+
+	copy(peerBytes[:4], peerIPAddress)
+	peerBytes[4] = byte(peerPort >> 8)
+	peerBytes[5] = byte(peerPort)
+
+	response := map[string]interface{}{
+		"complete":    1,
+		"incomplete":  0,
+		"mininterval": 1800,
+		"peers":       peerBytes,
+	}
+
+	var buf bytes.Buffer
+	if err := bencode.Marshal(&buf, response); err != nil {
+		fmt.Println("Error encoding bencoded response:", err)
+		return nil
+	}
+	return buf.Bytes()
 }

@@ -8,8 +8,8 @@ import (
 	"os"
 	"path"
 
-	logger "github.com/codecrafters-io/tester-utils/logger"
 	tester_utils "github.com/codecrafters-io/tester-utils"
+	logger "github.com/codecrafters-io/tester-utils/logger"
 )
 
 func testHandshake(stageHarness *tester_utils.StageHarness) error {
@@ -35,9 +35,9 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 		logger.Errorf("Couldn't find free port: %s", err)
 		return err
 	}
-	trackerAddress := fmt.Sprintf("127.0.0.1:%d", trackerPort)
 
-	trackerURL := fmt.Sprintf("http://%s", trackerAddress)
+	trackerAddress := fmt.Sprintf("127.0.0.1:%d", trackerPort)
+	trackerURL := fmt.Sprintf("http://%s/announce/", trackerAddress)
 	pieceLengthBytes := 1024 * 256
 	fileLengthBytes := pieceLengthBytes * len(samplePieceHashes)
 	torrent := TorrentFile{
@@ -63,8 +63,8 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
-
-	// should also serve tracker here
+	peersResponse := createPeersResponse("127.0.0.1", peerPort)
+	go listenAndServePeersResponse(trackerAddress, peersResponse, infoHash, fileLengthBytes, logger)
 	go waitAndHandlePeerConnection(peerAddress, expectedPeerID, infoHash, logger)
 
 	logger.Infof("Running ./your_bittorrent.sh handshake %s %s", torrentFilePath, peerAddress)
