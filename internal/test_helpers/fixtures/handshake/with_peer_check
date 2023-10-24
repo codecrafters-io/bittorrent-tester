@@ -26,6 +26,9 @@ Debug = true
 [33m[stage-3] [0m[94m[94mRunning ./your_bittorrent.sh decode lli461e4:pearee[0m[0m
 [33m[stage-3] [0m[94m[94mExpected output: [[461,"pear"]][0m[0m
 [33m[your_program] [0m[[461,"pear"]]
+[33m[stage-3] [0m[94m[94mRunning ./your_bittorrent.sh decode lli4eei5ee[0m[0m
+[33m[stage-3] [0m[94m[94mExpected output: [[4],5][0m[0m
+[33m[your_program] [0m[[4],5]
 [33m[stage-3] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-4] [0m[94m[94mRunning tests for Stage #4: bencode-dict[0m[0m
@@ -41,7 +44,7 @@ Debug = true
 [33m[stage-4] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-5] [0m[94m[94mRunning tests for Stage #5: parse-torrent[0m[0m
-[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2052448423/codercat.gif.torrent[0m[0m
+[33m[stage-5] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2207864171/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -66,7 +69,7 @@ Debug = true
 [33m[stage-5] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-6] [0m[94m[94mRunning tests for Stage #6: infohash[0m[0m
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1703661002/itsworking.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents856298118/itsworking.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2549700
 [33m[your_program] [0mInfo Hash: 70edcac2611a8829ebf467a6849f5d8408d9d8f4
@@ -82,7 +85,7 @@ Debug = true
 [33m[your_program] [0m272a8ff8fc865b053d974a78681414b38077d7b1
 [33m[your_program] [0mb07128d3a6018062bfe779db96d3a93c05fb81d4
 [33m[your_program] [0m7affc94f0985b985eb888a36ec92652821a21be4
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1703661002/congratulations.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents856298118/congratulations.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 820892
 [33m[your_program] [0mInfo Hash: 1cad4a486798d952614c394eb15e75bec587fd08
@@ -92,7 +95,7 @@ Debug = true
 [33m[your_program] [0m69f885b3988a52ffb03591985402b6d5285940ab
 [33m[your_program] [0m76869e6c9c1f101f94f39de153e468be6a638f4f
 [33m[your_program] [0mbded68d02de011a2b687f75b5833f46cce8e3e9c
-[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1703661002/codercat.gif.torrent[0m[0m
+[33m[stage-6] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents856298118/codercat.gif.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -113,7 +116,7 @@ Debug = true
 [33m[stage-6] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-7] [0m[94m[94mRunning tests for Stage #7: hashes[0m[0m
-[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1607475511/test.torrent[0m[0m
+[33m[stage-7] [0m[94m[94mRunning ./your_bittorrent.sh info /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1460619742/test.torrent[0m[0m
 [33m[your_program] [0mTracker URL: http://bttracker.debian.org:6969/announce
 [33m[your_program] [0mLength: 1835008
 [33m[your_program] [0mInfo Hash: 1840a71323682db707d1e8c9761049e875c03656
@@ -129,8 +132,8 @@ Debug = true
 [33m[stage-7] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-8] [0m[94m[94mRunning tests for Stage #8: peers[0m[0m
-[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents2494430895/test.torrent[0m[0m
-[33m[stage-8] [0m[36m[36mServer started on port 127.0.0.1:51421...
+[33m[stage-8] [0m[94m[94mRunning ./your_bittorrent.sh peers /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1169253597/test.torrent[0m[0m
+[33m[stage-8] [0m[36m[36mServer started on port 127.0.0.1:51530...
 [0m[0m
 [33m[your_program] [0m188.119.61.177:6881
 [33m[your_program] [0m71.224.0.29:51414
@@ -144,8 +147,8 @@ Debug = true
 [33m[stage-8] [0m[92m[92mTest passed.[0m[0m
 
 [33m[stage-9] [0m[94m[94mRunning tests for Stage #9: handshake[0m[0m
-[33m[stage-9] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1326706543/test.torrent 127.0.0.1:51423[0m[0m
-[33m[stage-9] [0m[36m[36mServer started on port 127.0.0.1:51424...
+[33m[stage-9] [0m[94m[94mRunning ./your_bittorrent.sh handshake /var/folders/08/v_mzt9816270xbqv5t3xgzyr0000gn/T/torrents1324119407/test.torrent 127.0.0.1:51532[0m[0m
+[33m[stage-9] [0m[36m[36mServer started on port 127.0.0.1:51533...
 [0m[0m
 [33m[stage-9] [0m[36m[36mWaiting for handshake message[0m[0m
 [33m[stage-9] [0m[36m[36mReceived handshake: [infohash: c7e51462e85d8631c25f8c9b8c5479345a1de26b, peer_id: 3030313132323333343435353636373738383939]

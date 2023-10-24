@@ -81,5 +81,26 @@ func testBencodeList(stageHarness *tester_utils.StageHarness) error {
 		return err
 	}
 
+	// Test for a nested list: [[4], 5]
+	nestedListEncoded = "lli4eei5ee"
+	nestedList = []string{
+		"[[4],5]\n",
+		"[[4], 5]\n",
+	}
+	logger.Infof("Running ./your_bittorrent.sh decode %s", nestedListEncoded)
+	logger.Infof("Expected output: %s", strings.TrimSpace(nestedList[0]))
+	result, err = executable.Run("decode", nestedListEncoded)
+	if err != nil {
+		return err
+	}
+
+	if err = assertExitCode(result, 0); err != nil {
+		return err
+	}
+
+	if err = assertStdoutList(result, nestedList); err != nil {
+		return err
+	}
+
 	return nil
 }
