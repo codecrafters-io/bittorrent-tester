@@ -1,6 +1,6 @@
-[33m[stage-1] [0m[94m[94mRunning tests for Stage #1: bencode-string[0m[0m
-[33m[stage-1] [0m[94m[94mRunning ./your_bittorrent.sh decode 4:pear[0m[0m
+[33m[stage-1] [0m[94mRunning tests for Stage #1: bencode-string[0m
+[33m[stage-1] [0m[94mRunning ./your_bittorrent.sh decode 4:pear[0m
 [33m[your_program] [0m"pear"
-[33m[stage-1] [0m[94m[94mRunning ./your_bittorrent.sh decode 55:http://bittorrent-test-tracker.codecrafters.io/announce[0m[0m
+[33m[stage-1] [0m[94mRunning ./your_bittorrent.sh decode 55:http://bittorrent-test-tracker.codecrafters.io/announce[0m
 [33m[your_program] [0m"http://bittorrent-test-tracker.codecrafters.io/announce"
-[33m[stage-1] [0m[92m[92mTest passed.[0m[0m
+[33m[stage-1] [0m[92mTest passed.[0m
