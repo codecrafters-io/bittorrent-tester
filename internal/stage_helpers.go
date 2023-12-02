@@ -216,7 +216,7 @@ func calculateSHA1(filePath string) (string, error) {
 
 func listenAndServePeersResponse(address string, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/announce", func(w http.ResponseWriter, r *http.Request) {
 		serveTrackerResponse(w, r, responseContent, expectedInfoHash, fileLengthBytes, logger)
 	})
 
