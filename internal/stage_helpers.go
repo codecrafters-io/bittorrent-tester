@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"strconv"
@@ -216,8 +217,20 @@ func calculateSHA1(filePath string) (string, error) {
 
 func listenAndServePeersResponse(address string, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/announce", func(w http.ResponseWriter, r *http.Request) {
 		serveTrackerResponse(w, r, responseContent, expectedInfoHash, fileLengthBytes, logger)
+	})
+	
+	// Redirect /announce/ to /announce while preserving query parameters 
+	mux.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
+		parsedURL, err := url.Parse(r.URL.String())
+		if err != nil {
+			logger.Errorf("Error parsing URL: %s", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		parsedURL.Path = "/announce"
+		http.Redirect(w, r, parsedURL.String(), http.StatusMovedPermanently)
 	})
 
 	logger.Debugf("Server started on port %s...\n", address)

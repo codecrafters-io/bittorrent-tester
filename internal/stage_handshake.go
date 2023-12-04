@@ -37,7 +37,7 @@ func testHandshake(stageHarness *tester_utils.StageHarness) error {
 	}
 
 	trackerAddress := fmt.Sprintf("127.0.0.1:%d", trackerPort)
-	trackerURL := fmt.Sprintf("http://%s/announce/", trackerAddress)
+	trackerURL := fmt.Sprintf("http://%s/announce", trackerAddress)
 	pieceLengthBytes := 1024 * 256
 	fileLengthBytes := pieceLengthBytes * len(samplePieceHashes)
 	torrent := TorrentFile{
