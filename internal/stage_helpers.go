@@ -255,11 +255,15 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseConten
 	}
 	leftNumber, err := strconv.Atoi(left)
 	if err != nil {
-		logger.Errorf("left needs to be a numeric value, received: %s", left)
+		logger.Errorf("left parameter needs to be a numeric value, received: %s", left)
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
+	} else if leftNumber == 0 {
+		logger.Errorf("left parameter needs to be greater than zero to receive peers, received: %s", left)
+		w.Write([]byte("d8:completei4e10:incompletei0e8:intervali60e12:min intervali60ee"))
+		return
 	} else if leftNumber > fileLengthBytes {
-		logger.Errorf("left needs to be less than or equal to file length (%d bytes), received: %s", fileLengthBytes, left)
+		logger.Errorf("left parameter needs to be less than or equal to file length (%d bytes), received: %s", fileLengthBytes, left)
 		w.Write([]byte("d14:failure reason27:provided invalid left valuee"))
 		return
 	}
