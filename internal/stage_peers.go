@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
 type DiscoverPeersTestCase struct {
@@ -60,7 +60,7 @@ func randomResponse() DiscoverPeersTestCase {
 	return discoverPeersResponses[rand.Intn(len(discoverPeersResponses))]
 }
 
-func testDiscoverPeers(stageHarness *tester_utils.StageHarness) error {
+func testDiscoverPeers(stageHarness *test_case_harness.TestCaseHarness) error {
 	initRandom()
 
 	logger := stageHarness.Logger

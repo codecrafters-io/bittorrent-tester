@@ -5,10 +5,10 @@ import (
 	"math/rand"
 	"strings"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
-func testBencodeInt(stageHarness *tester_utils.StageHarness) error {
+func testBencodeInt(stageHarness *test_case_harness.TestCaseHarness) error {
 	initRandom()
 
 	logger := stageHarness.Logger

@@ -7,7 +7,7 @@ import (
 	"path"
 	"strings"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
 type DownloadPieceTest struct {
@@ -64,7 +64,7 @@ var downloadPieceTests = [][]DownloadPieceTest{
 	},
 }
 
-func testDownloadPiece(stageHarness *tester_utils.StageHarness) error {
+func testDownloadPiece(stageHarness *test_case_harness.TestCaseHarness) error {
 	initRandom()
 
 	randomIndex := rand.Intn(len(downloadPieceTests))

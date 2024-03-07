@@ -6,10 +6,10 @@ import (
 	"path"
 	"strings"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
-func testParseTorrent(stageHarness *tester_utils.StageHarness) error {
+func testParseTorrent(stageHarness *test_case_harness.TestCaseHarness) error {
 	initRandom()
 
 	logger := stageHarness.Logger
