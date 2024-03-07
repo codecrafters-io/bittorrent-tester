@@ -8,11 +8,11 @@ import (
 	"os"
 	"path"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
 	logger "github.com/codecrafters-io/tester-utils/logger"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
-func testHandshake(stageHarness *tester_utils.StageHarness) error {
+func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 	initRandom()
 
 	logger := stageHarness.Logger

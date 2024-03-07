@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	tester_utils "github.com/codecrafters-io/tester-utils"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
-func testBencodeDict(stageHarness *tester_utils.StageHarness) error {
+func testBencodeDict(stageHarness *test_case_harness.TestCaseHarness) error {
 	initRandom()
 
 	logger := stageHarness.Logger
