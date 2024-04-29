@@ -3,7 +3,7 @@ module github.com/codecrafters-io/bittorrent-tester
 go 1.20
 
 require (
-	github.com/codecrafters-io/tester-utils v0.2.20
+	github.com/codecrafters-io/tester-utils v0.2.21
 	github.com/jackpal/bencode-go v1.0.0
 )
 
