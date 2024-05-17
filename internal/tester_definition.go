@@ -11,47 +11,47 @@ var testerDefinition = tester_definition.TesterDefinition{
 	ExecutableFileName: "your_bittorrent.sh",
 	TestCases: []tester_definition.TestCase{
 		{
-			Slug:     "bencode-string",
+			Slug:     "ns2",
 			TestFunc: testBencodeString,
 		},
 		{
-			Slug:     "bencode-int",
+			Slug:     "eb4",
 			TestFunc: testBencodeInt,
 		},
 		{
-			Slug:     "bencode-list",
+			Slug:     "ah1",
 			TestFunc: testBencodeList,
 		},
 		{
-			Slug:     "bencode-dict",
+			Slug:     "mn6",
 			TestFunc: testBencodeDict,
 		},
 		{
-			Slug:     "parse-torrent",
+			Slug:     "ow9",
 			TestFunc: testParseTorrent,
 		},
 		{
-			Slug:     "infohash",
+			Slug:     "rb2",
 			TestFunc: testInfoHash,
 		},
 		{
-			Slug:     "hashes",
+			Slug:     "bf7",
 			TestFunc: testPieceHashes,
 		},
 		{
-			Slug:     "peers",
+			Slug:     "fi9",
 			TestFunc: testDiscoverPeers,
 		},
 		{
-			Slug:     "handshake",
+			Slug:     "ca4",
 			TestFunc: testHandshake,
 		},
 		{
-			Slug:     "dl-piece",
+			Slug:     "nd2",
 			TestFunc: testDownloadPiece,
 		},
 		{
-			Slug:     "dl-file",
+			Slug:     "jv8",
 			TestFunc: testDownloadFile,
 			Timeout:  90 * time.Second,
 		},

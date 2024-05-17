@@ -13,28 +13,28 @@ func TestStages(t *testing.T) {
 
 	testCases := map[string]tester_utils_testing.TesterOutputTestCase{
 		"bencoded_string_failure": {
-			UntilStageSlug:      "bencode-string",
+			UntilStageSlug:      "ns2",
 			CodePath:            "./test_helpers/scenarios/init/failure",
 			ExpectedExitCode:    1,
 			StdoutFixturePath:   "./test_helpers/fixtures/init/failure",
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
 		"bencoded_string_success": {
-			UntilStageSlug:      "bencode-string",
+			UntilStageSlug:      "ns2",
 			CodePath:            "./test_helpers/scenarios/init/success",
 			ExpectedExitCode:    0,
 			StdoutFixturePath:   "./test_helpers/fixtures/init/success",
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
 		"handshake_with_peer_check": {
-			UntilStageSlug:      "handshake",
+			UntilStageSlug:      "ca4",
 			CodePath:            "./test_helpers/scenarios/handshake/with_peer_check",
 			ExpectedExitCode:    0,
 			StdoutFixturePath:   "./test_helpers/fixtures/handshake/with_peer_check",
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
 		"pass_all": {
-			UntilStageSlug:      "dl-file",
+			UntilStageSlug:      "jv8",
 			CodePath:            "./test_helpers/scenarios/pass_all",
 			ExpectedExitCode:    0,
 			StdoutFixturePath:   "./test_helpers/fixtures/pass_all",
