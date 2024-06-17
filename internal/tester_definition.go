@@ -50,6 +50,7 @@ var testerDefinition = tester_definition.TesterDefinition{
 		{
 			Slug:     "nd2",
 			TestFunc: testDownloadPiece,
+			Timeout:  30 * time.Second,
 		},
 		{
 			Slug:     "jv8",

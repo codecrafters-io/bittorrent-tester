@@ -31,7 +31,7 @@ func testDownloadFile(stageHarness *test_case_harness.TestCaseHarness) error {
 	downloadedFilePath := path.Join(tempDir, t.outputFilename)
 
 	logger.Infof("Running ./%s download -o %s %s", path.Base(executable.Path), downloadedFilePath, torrentFilePath)
-	result, err := executable.Run("download", "-o", downloadedFilePath, torrentFilePath)
+	result, err := executable.Run("download", "-o", path.Base(executable.Path), downloadedFilePath, torrentFilePath)
 	if err != nil {
 		return err
 	}
