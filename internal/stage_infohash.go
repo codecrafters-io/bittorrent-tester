@@ -33,7 +33,7 @@ func testInfoHash(stageHarness *test_case_harness.TestCaseHarness) error {
 
 		torrentPath := path.Join(tempDir, torrent.filename)
 
-		logger.Infof("Running ./your_bittorrent.sh info %s", torrentPath)
+		logger.Infof("Running ./%s info %s", path.Base(executable.Path), torrentPath)
 		result, err := executable.Run("info", torrentPath)
 		if err != nil {
 			return err

@@ -16,6 +16,7 @@ func testDownloadFile(stageHarness *test_case_harness.TestCaseHarness) error {
 	t := randomTorrent()
 
 	tempDir, err := os.MkdirTemp("", "torrents")
+	logger.Infof("Temp dir: %s", tempDir)
 	if err != nil {
 		logger.Errorln("Couldn't create temp directory")
 		return err
@@ -29,7 +30,7 @@ func testDownloadFile(stageHarness *test_case_harness.TestCaseHarness) error {
 	torrentFilePath := path.Join(tempDir, t.filename)
 	downloadedFilePath := path.Join(tempDir, t.outputFilename)
 
-	logger.Infof("Running ./your_bittorrent.sh download -o %s %s", downloadedFilePath, torrentFilePath)
+	logger.Infof("Running ./%s download -o %s %s", path.Base(executable.Path), downloadedFilePath, torrentFilePath)
 	result, err := executable.Run("download", "-o", downloadedFilePath, torrentFilePath)
 	if err != nil {
 		return err

@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"path"
 	"strings"
 
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
@@ -15,7 +16,7 @@ func testBencodeDict(stageHarness *test_case_harness.TestCaseHarness) error {
 
 	emptyDictEncoded := "de"
 	emptyDictExpectedJson := "{}"
-	logger.Infof("Running ./your_bittorrent.sh decode %s", emptyDictEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), emptyDictEncoded)
 	logger.Infof("Expected output: %s", emptyDictExpectedJson)
 	result, err := executable.Run("decode", emptyDictEncoded)
 	if err != nil {
@@ -39,7 +40,7 @@ func testBencodeDict(stageHarness *test_case_harness.TestCaseHarness) error {
 		fmt.Sprintf("{\"foo\": \"%s\", \"hello\": 52}\n", randomWord),
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh decode %s", randomDictEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), randomDictEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(randomDictExpectedJsonList[0]))
 	result, err = executable.Run("decode", randomDictEncoded)
 	if err != nil {
@@ -59,7 +60,7 @@ func testBencodeDict(stageHarness *test_case_harness.TestCaseHarness) error {
 		"{\"inner_dict\":{\"key1\":\"value1\",\"key2\":42,\"list_key\":[\"item1\",\"item2\",3]}}\n",
 		"{\"inner_dict\": {\"key1\": \"value1\", \"key2\": 42, \"list_key\": [\"item1\", \"item2\", 3]}}\n",
 	}
-	logger.Infof("Running ./your_bittorrent.sh decode %s", dictWithinDictEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), dictWithinDictEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(dictWithinDictExpectedJsonList[0]))
 	result, err = executable.Run("decode", dictWithinDictEncoded)
 	if err != nil {

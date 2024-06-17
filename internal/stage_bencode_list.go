@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"math/rand"
+	"path"
 	"strings"
 
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
@@ -17,7 +18,7 @@ func testBencodeList(stageHarness *test_case_harness.TestCaseHarness) error {
 	// Test empty list
 	emptyListEncoded := "le"
 	emptyListDecoded := "[]"
-	logger.Infof("Running ./your_bittorrent.sh decode %s", emptyListEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), emptyListEncoded)
 	logger.Infof("Expected output: %s", emptyListDecoded)
 	result, err := executable.Run("decode", emptyListEncoded)
 	if err != nil {
@@ -43,7 +44,7 @@ func testBencodeList(stageHarness *test_case_harness.TestCaseHarness) error {
 		fmt.Sprintf("[\"%s\", %d]\n", randomWord, randomNumber),
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh decode %s", listEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), listEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(list[0]))
 	result, err = executable.Run("decode", listEncoded)
 	if err != nil {
@@ -66,7 +67,7 @@ func testBencodeList(stageHarness *test_case_harness.TestCaseHarness) error {
 		fmt.Sprintf("[[%d, \"%s\"]]\n", randomNumber, randomWord),
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh decode %s", nestedListEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), nestedListEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(nestedList[0]))
 	result, err = executable.Run("decode", nestedListEncoded)
 	if err != nil {
@@ -87,7 +88,7 @@ func testBencodeList(stageHarness *test_case_harness.TestCaseHarness) error {
 		"[[4],5]\n",
 		"[[4], 5]\n",
 	}
-	logger.Infof("Running ./your_bittorrent.sh decode %s", nestedListEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), nestedListEncoded)
 	logger.Infof("Expected output: %s", strings.TrimSpace(nestedList[0]))
 	result, err = executable.Run("decode", nestedListEncoded)
 	if err != nil {

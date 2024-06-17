@@ -89,7 +89,7 @@ func testDownloadPiece(stageHarness *test_case_harness.TestCaseHarness) error {
 		expectedFilename := fmt.Sprintf("piece-%d", t.pieceIndex)
 		downloadedFilePath := path.Join(tempDir, expectedFilename)
 
-		logger.Infof("Running ./your_bittorrent.sh download_piece -o %s %s %d", downloadedFilePath, torrentFilePath, t.pieceIndex)
+		logger.Infof("Running ./%s download_piece -o %s %s %d", path.Base(executable.Path), downloadedFilePath, torrentFilePath, t.pieceIndex)
 		result, err := executable.Run("download_piece", "-o", downloadedFilePath, torrentFilePath, fmt.Sprintf("%d", t.pieceIndex))
 		resultStr := string(result.Stdout)
 

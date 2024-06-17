@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"path"
 
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
@@ -15,7 +16,7 @@ func testBencodeString(stageHarness *test_case_harness.TestCaseHarness) error {
 	randomWord := randomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
 
-	logger.Infof("Running ./your_bittorrent.sh decode %s", randomWordEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), randomWordEncoded)
 	result, err := executable.Run("decode", randomWordEncoded)
 	if err != nil {
 		return err
@@ -32,8 +33,7 @@ func testBencodeString(stageHarness *test_case_harness.TestCaseHarness) error {
 
 	trackerURL := "http://bittorrent-test-tracker.codecrafters.io/announce"
 	trackerURLEncoded := fmt.Sprintf("%d:%s", len(trackerURL), trackerURL)
-
-	logger.Infof("Running ./your_bittorrent.sh decode %s", trackerURLEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), trackerURLEncoded)
 	result, err = executable.Run("decode", trackerURLEncoded)
 	if err != nil {
 		return err
