@@ -16,7 +16,6 @@ func testDownloadFile(stageHarness *test_case_harness.TestCaseHarness) error {
 	t := randomTorrent()
 
 	tempDir, err := os.MkdirTemp("", "torrents")
-	logger.Infof("Temp dir: %s", tempDir)
 	if err != nil {
 		logger.Errorln("Couldn't create temp directory")
 		return err
