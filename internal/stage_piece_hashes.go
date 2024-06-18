@@ -49,7 +49,7 @@ func testPieceHashes(stageHarness *test_case_harness.TestCaseHarness) error {
 		return err
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh info %s", destinationPath)
+	logger.Infof("Running ./%s info %s", path.Base(executable.Path), destinationPath)
 	result, err := executable.Run("info", destinationPath)
 	if err != nil {
 		return err

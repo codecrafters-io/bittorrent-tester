@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.22.1
 
 require (
-	github.com/codecrafters-io/tester-utils v0.2.25
+	github.com/codecrafters-io/tester-utils v0.2.26
 	github.com/jackpal/bencode-go v1.0.0
 )
 

@@ -7,8 +7,9 @@ import (
 )
 
 var testerDefinition = tester_definition.TesterDefinition{
-	AntiCheatTestCases: []tester_definition.TestCase{},
-	ExecutableFileName: "your_bittorrent.sh",
+	AntiCheatTestCases:       []tester_definition.TestCase{},
+	ExecutableFileName:       "your_program.sh",
+	LegacyExecutableFileName: "your_bittorrent.sh",
 	TestCases: []tester_definition.TestCase{
 		{
 			Slug:     "ns2",

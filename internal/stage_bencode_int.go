@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"math/rand"
+	"path"
 	"strings"
 
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
@@ -16,7 +17,7 @@ func testBencodeInt(stageHarness *test_case_harness.TestCaseHarness) error {
 
 	randomNumber := fmt.Sprintf("%d", rand.Intn(2147483647))
 	randomNumberEncoded := fmt.Sprintf("i%se", randomNumber)
-	logger.Infof("Running ./your_bittorrent.sh decode %s", randomNumberEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), randomNumberEncoded)
 	result, err := executable.Run("decode", randomNumberEncoded)
 	if err != nil {
 		return err
@@ -37,7 +38,7 @@ func testBencodeInt(stageHarness *test_case_harness.TestCaseHarness) error {
 
 	largeNumber := "4294967300"
 	largeNumberEncoded := fmt.Sprintf("i%se", largeNumber)
-	logger.Infof("Running ./your_bittorrent.sh decode %s", largeNumberEncoded)
+	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), largeNumberEncoded)
 	result, err = executable.Run("decode", largeNumberEncoded)
 	if err != nil {
 		return err
@@ -52,7 +53,7 @@ func testBencodeInt(stageHarness *test_case_harness.TestCaseHarness) error {
 		return err
 	}
 
-	logger.Infof("Running ./your_bittorrent.sh decode i-52e")
+	logger.Infof("Running ./%s decode i-52e", path.Base(executable.Path))
 	result, err = executable.Run("decode", "i-52e")
 	if err != nil {
 		return err

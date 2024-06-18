@@ -114,7 +114,7 @@ func testDiscoverPeers(stageHarness *test_case_harness.TestCaseHarness) error {
 
 	go listenAndServePeersResponse(address, peersResponse, expectedInfoHash, fileLengthBytes, logger)
 
-	logger.Infof("Running ./your_bittorrent.sh peers %s", torrentFilePath)
+	logger.Infof("Running ./%s peers %s", path.Base(executable.Path), torrentFilePath)
 	result, err := executable.Run("peers", torrentFilePath)
 
 	if err != nil {
