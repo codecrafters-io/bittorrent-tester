@@ -1,11 +1,15 @@
 package internal
 
 import (
+	"bytes"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"math/rand"
+	"net"
 
 	logger "github.com/codecrafters-io/tester-utils/logger"
+	"github.com/jackpal/bencode-go"
 )
 
 type MagnetTestParams struct {
@@ -147,4 +151,104 @@ func decodeInfoHash(infoHashStr string) ([20]byte, error) {
 	}
 	copy(infoHash[:], decodedBytes)
 	return infoHash, nil
+}
+
+func receiveAndAssertExtensionHandshake(conn net.Conn, logger *logger.Logger) (id uint8, err error) {
+	defer logOnExit(logger, &err)
+
+	msg, err := receiveExtensionHandshake(conn, logger)
+	if err != nil {
+		return 0, fmt.Errorf("error receiving extension handshake: %v", err)
+	}
+
+	metadataExtensionID, err := assertExtensionHandshake(msg, logger)
+	if err != nil {
+		return 0, err
+	}
+
+	return metadataExtensionID, nil
+}
+
+func receiveExtensionHandshake(conn net.Conn, logger *logger.Logger) (*Message, error) {
+	logger.Debugln("Waiting to receive extension handshake message")
+	msg, err := readMessage(conn)
+	if err != nil {
+		return nil, err
+	}
+	logger.Infof("Received extension handshake with payload: %s", string(msg.Payload))
+	return msg, nil
+}
+
+func assertExtensionHandshake(msg *Message, logger *logger.Logger) (uint8, error) {
+	if msg.ID != MsgExtended {
+		return 0, fmt.Errorf("expected message id: %d, actual: %d", MsgExtended, msg.ID)
+	}
+
+	if len(msg.Payload) < 2 {
+		return 0, fmt.Errorf("expecting a larger payload size than %d", len(msg.Payload))
+	}
+
+	if msg.Payload[0] != 0 {
+		return 0, fmt.Errorf("expected extension handshake message id: %d, actual: %d. First byte of payload indicates extension message id and it needs to be zero for extension handshake", 0, msg.Payload[0])
+	}
+
+	metadataExtensionID, err := extractMetadataExtensionID(msg, logger)
+	if err != nil {
+		return 0, err
+	}
+	
+	return metadataExtensionID, nil
+}
+
+func extractMetadataExtensionID(msg *Message, logger *logger.Logger) (id uint8, err error) {
+	defer logOnExit(logger, &err)
+
+	logger.Debugln("Checking metadata extension id received")
+
+	handshake, err := bencode.Decode(bytes.NewReader(msg.Payload[1:]))
+	if err != nil {
+		return 0, fmt.Errorf("error decoding bencoded dictionary in message payload starting at payload index 1, error message: %s", err)
+	}
+	dict, ok := handshake.(map[string]interface{})
+	if !ok {
+		return 0, errors.New("bencoded dictionary missing or wrong type in payload, expected a dictionary with string keys")
+	}
+	inner, exists := dict["m"]
+	if !exists {
+		return 0, errors.New("dictionary under key m is missing or wrong type")
+	}
+
+	innerDict, ok := inner.(map[string]interface{})
+	if !ok {
+		return 0, errors.New("dictionary under key m is of wrong type, expected a dictionary with string keys")
+	}
+	value, exists := innerDict["ut_metadata"]
+	if exists {
+		theirMetadataExtensionID, ok := value.(int64)
+		if !ok {
+			return 0, errors.New("value for ut_metadata needs to be an integer, it's wrong type")
+		}
+		if theirMetadataExtensionID <= 0 {
+			return 0, errors.New("value for ut_metadata needs to be greater than zero")
+		}
+		theirMetadataExtensionIDUint8, err := safeINT64toUINT8(theirMetadataExtensionID)
+		if err != nil {
+			return 0, err
+		}
+		return theirMetadataExtensionIDUint8, nil
+	} else {
+		return 0, errors.New("ut_metadata key is missing in dictionary under key m during extension handshake")
+	}
+}
+
+func safeINT64toUINT8(i any) (uint8, error) {
+	if value, ok := i.(int64); ok {
+        if value < 0 || value > 255 {
+			return 0, fmt.Errorf("number out of range for uint8")
+        } else {
+            return uint8(value), nil
+        }
+	} else {
+		return 0, fmt.Errorf("expected int64, received different type")
+	}
 }
