@@ -11,6 +11,7 @@ import (
 
 	"github.com/codecrafters-io/grep-starter-go/bencode"
 	"github.com/codecrafters-io/grep-starter-go/client"
+	"github.com/codecrafters-io/grep-starter-go/magnet"
 	"github.com/codecrafters-io/grep-starter-go/p2p"
 	"github.com/codecrafters-io/grep-starter-go/parser"
 	"github.com/codecrafters-io/grep-starter-go/peers"
@@ -22,36 +23,49 @@ func main() {
 
 	command := os.Args[1]
 
-	if command == "decode" {
-		// Uncomment this block to pass the first stage
-		//
-		data := os.Args[2]
-		//fmt.Println("data", data)
-		sarp3, err := bencode.Decode(strings.NewReader(data))
-		if err != nil {
-			fmt.Println("Error decoding", err)
-			return
-		}
-		jsonBytes, err := json.Marshal(sarp3)
-		if err != nil {
-			fmt.Println("Error encoding JSON", err)
-			return
-		}
-		fmt.Println(string(jsonBytes))
-	} else if command == "info" {
+	switch command {
+	case "decode":
+		Stage_init()
+	case "info":
 		Stage_infohash()
-	} else if command == "peers" {
+	case "peers":
 		Stage_tracker_get()
-	} else if command == "handshake" {
+	case "handshake":
 		Stage_handshake()
-	} else if command == "download_piece" {
+	case "download_piece":
 		Stage_dl_piece()
-	} else if command == "download" {
+	case "download":
 		Stage_dl_file()
-	} else {
+	case "magnet_parse":
+		Stage_magnet_parse()
+	case "magnet_handshake":
+		Stage_magnet_handshake(false)
+	case "magnet_info":
+		Stage_magnet_handshake(true)
+	case "magnet_download_piece":
+		Stage_magnet_dl_piece()
+	case "magnet_download":
+		Stage_magnet_dl_file()
+	default:
 		fmt.Println("Unknown command: " + command)
 		os.Exit(1)
 	}
+}
+
+func Stage_init() {
+	data := os.Args[2]
+	//fmt.Println("data", data)
+	sarp3, err := bencode.Decode(strings.NewReader(data))
+	if err != nil {
+		fmt.Println("Error decoding", err)
+		return
+	}
+	jsonBytes, err := json.Marshal(sarp3)
+	if err != nil {
+		fmt.Println("Error encoding JSON", err)
+		return
+	}
+	fmt.Println(string(jsonBytes))
 }
 
 func Stage_infohash() {
@@ -148,7 +162,8 @@ func Stage_dl_piece() {
 		return
 	}
 
-	err = p2p.DownloadToFile(&torrentFile, outputPath, pieceIndex)
+	myPeerID := generateMyPeerID()
+	err = p2p.DownloadToFile(&torrentFile, outputPath, pieceIndex, nil, myPeerID)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
 		return
@@ -165,10 +180,118 @@ func Stage_dl_file() {
 		return
 	}
 
-	err = p2p.DownloadToFile(&torrentFile, outputPath, -1)
+	myPeerID := generateMyPeerID()
+	err = p2p.DownloadToFile(&torrentFile, outputPath, -1, nil, myPeerID)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
 		return
 	}
 	// fmt.Printf("Downloaded %s to %s.", torrentPath, outputPath)
+}
+
+func Stage_magnet_parse() {
+	magnetURL := os.Args[2]
+	link, err := magnet.Parse(magnetURL)
+	if err != nil {
+		fmt.Println("Error", err)
+	}
+
+	for _, tracker := range(link.Trackers) {
+		fmt.Printf("Tracker URL: %s\n", tracker)
+	}
+	fmt.Printf("Info Hash: %s\n", link.InfoHash)
+}
+
+func Stage_magnet_handshake(shouldSendMetadata bool) {
+	magnetUrl := os.Args[2]
+	
+	myPeerID := generateMyPeerID()
+	peers, err := p2p.FetchPeers(magnetUrl, myPeerID)
+	if err != nil {
+		fmt.Println("Error", err)
+		return
+	}
+
+	peer := peers[0].String()
+	myTorrent, err := p2p.FetchTorrentMetadata(magnetUrl, peer, myPeerID, shouldSendMetadata)
+	if err != nil {
+		fmt.Println("Error", err)
+		return
+	}
+
+	if shouldSendMetadata {
+		fmt.Printf("Tracker URL: %s\n", myTorrent.Announce)
+		fmt.Printf("Length: %d\n", myTorrent.Length)
+		fmt.Printf("Info Hash: %x\n", myTorrent.InfoHash)
+		fmt.Printf("Piece Length: %d\n", myTorrent.PieceLength)
+		fmt.Printf("Piece Hashes:\n")
+		for _, hash := range(myTorrent.PieceHashes) {
+			fmt.Printf("%x\n", hash)
+		}
+	}
+}
+
+func generateMyPeerID() [20]byte {
+	myid := []byte("00112233445566778899")
+	var peerID [20]byte
+	copy(peerID[:], myid)
+	return peerID
+}
+
+func Stage_magnet_dl_piece() {
+	outputPath := os.Args[3]
+	magnetUrl := os.Args[4]
+	pieceIndexStr := os.Args[5]
+
+	pieceIndex, err := strconv.Atoi(pieceIndexStr)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	myPeerID := generateMyPeerID()
+	peers, err := p2p.FetchPeers(magnetUrl, myPeerID)
+	if err != nil {
+		fmt.Println("Error", err)
+		return
+	}
+	
+	peer := peers[0].String()
+	torrentFile, err := p2p.FetchTorrentMetadata(magnetUrl, peer, myPeerID, true)
+	if err != nil {
+		return
+	}
+
+	err = p2p.DownloadToFile(torrentFile, outputPath, pieceIndex, peers, myPeerID)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
+		return
+	}
+	fmt.Printf("Piece %s downloaded to %s.", pieceIndexStr, outputPath)
+}
+
+func Stage_magnet_dl_file() {
+	outputPath := os.Args[3]
+	magnetUrl := os.Args[4]
+
+	myPeerID := generateMyPeerID()
+	peers, err := p2p.FetchPeers(magnetUrl, myPeerID)
+	if err != nil {
+		fmt.Println("Error", err)
+		return
+	}
+
+	peer := peers[0].String()
+	torrentFile, err := p2p.FetchTorrentMetadata(magnetUrl, peer, myPeerID, true)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
+		return
+	}
+
+	err = p2p.DownloadToFile(torrentFile, outputPath, -1, peers, myPeerID)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
+		return
+	}
+	fmt.Printf("Downloaded to %s.", outputPath)
 }

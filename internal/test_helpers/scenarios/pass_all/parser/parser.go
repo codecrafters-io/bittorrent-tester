@@ -3,6 +3,7 @@ package parser
 import (
 	"bytes"
 	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"os"
 
@@ -118,4 +119,27 @@ func (bto *bencodeTorrent) toTorrentFile() (torrent.TorrentFile, error) {
 		Name:        bto.Info.Name,
 	}
 	return t, nil
+}
+
+func DecodeInfoHash(infoHashStr string) ([20]byte, error) {
+	var infoHash [20]byte
+	decodedBytes, err := hex.DecodeString(infoHashStr)
+	if err != nil {
+		return infoHash, err
+	}
+	copy(infoHash[:], decodedBytes)
+	return infoHash, nil
+}
+
+func FromByteArray(data []byte, announceUrl string) (torrent.TorrentFile, error) {
+	bi := bencodeInfo{}
+	err := bencode.Unmarshal(bytes.NewReader(data), &bi)
+	if err != nil {
+		return torrent.TorrentFile{}, err
+	}
+	bto := bencodeTorrent{
+		Announce: announceUrl,
+		Info:     bi,
+	}
+	return bto.toTorrentFile()
 }
