@@ -52,16 +52,6 @@ var samplePieceHashes = []string{
 	"aec2d7eb1db539c2a9d24d023fb916b79234b769",
 }
 
-type TestTorrentInfo struct {
-	filename       string
-	outputFilename string
-	tracker        string
-	infohash       string
-	length         int64
-	expectedSha1   string
-	incorrectSha1  []string
-}
-
 var testTorrents = []TestTorrentInfo{
 	{
 		filename:       "codercat.gif.torrent",

@@ -13,28 +13,53 @@ import (
 )
 
 type MagnetTestParams struct {
-	TrackerAddress         string
-	PeerPort               int
-	PeerAddress            string
-	PeersResponse          []byte
-	ExpectedInfoHash       [20]byte
-	ExpectedReservedBytes  []byte
-	ExpectedPeerID         [20]byte
-	MyMetadataExtensionID  uint8
-	MagnetUrlEncoded       string
-	MagnetLinkInfo         MagnetTestTorrentInfo
-	Logger                 *logger.Logger
+	TrackerAddress 			string
+	PeerPort 				int
+	PeerAddress 			string
+	PeersResponse 			[]byte
+	ExpectedInfoHash 		[20]byte
+	ExpectedReservedBytes 	[]byte
+	ExpectedPeerID 			[20]byte
+	MyMetadataExtensionID 	uint8
+	MagnetUrlEncoded		string
+	MagnetLinkInfo			MagnetTestTorrentInfo
+	Logger 					*logger.Logger
 }
 
 type MagnetTestTorrentInfo struct {
-	Filename           string
-	InfoHashStr        string
-	FileLengthBytes    int
-	PieceLengthBytes   int
-	MetadataSizeBytes  int
-	Bitfield           []byte
-	PieceHashes        []string
-	ExpectedSha1       string
+	Filename 				string
+	InfoHashStr       		string
+	FileLengthBytes         int
+	PieceLengthBytes		int
+	MetadataSizeBytes		int
+	Bitfield				[]byte
+	PieceHashes				[]string
+	ExpectedSha1			string
+}
+
+func (m *MagnetTestParams) toTrackerParams() TrackerParams {
+	return TrackerParams {
+		trackerAddress: m.TrackerAddress,
+		peersResponse: m.PeersResponse,
+		expectedInfoHash: m.ExpectedInfoHash,
+		fileLengthBytes: m.MagnetLinkInfo.FileLengthBytes,
+		logger: m.Logger,
+		myMetadataExtensionID: m.MyMetadataExtensionID,
+	}
+}
+
+func (m *MagnetTestParams) toPeerConnectionParams() PeerConnectionParams {
+	return PeerConnectionParams {
+		address: m.PeerAddress,
+		myPeerID: m.ExpectedPeerID,
+		infoHash: m.ExpectedInfoHash,
+		expectedReservedBytes: [][]byte{m.ExpectedReservedBytes},
+		myMetadataExtensionID: m.MyMetadataExtensionID,
+		metadataSizeBytes: m.MagnetLinkInfo.MetadataSizeBytes,
+		bitfield: m.MagnetLinkInfo.Bitfield,
+		magnetLink: m.MagnetLinkInfo,
+		logger: m.Logger,
+	}
 }
 
 var magnetTestTorrents = []MagnetTestTorrentInfo {
@@ -80,31 +105,6 @@ var magnetTestTorrents = []MagnetTestTorrentInfo {
 	},
 }
 
-func (m *MagnetTestParams) toTrackerParams() TrackerParams {
-	return TrackerParams {
-		trackerAddress: m.TrackerAddress,
-		peersResponse: m.PeersResponse,
-		expectedInfoHash: m.ExpectedInfoHash,
-		fileLengthBytes: m.MagnetLinkInfo.FileLengthBytes,
-		logger: m.Logger,
-		myMetadataExtensionID: m.MyMetadataExtensionID,
-	}
-}
-
-func (m *MagnetTestParams) toPeerConnectionParams() PeerConnectionParams {
-	return PeerConnectionParams {
-		address: m.PeerAddress,
-		myPeerID: m.ExpectedPeerID,
-		infoHash: m.ExpectedInfoHash,
-		expectedReservedBytes: [][]byte{m.ExpectedReservedBytes},
-		myMetadataExtensionID: m.MyMetadataExtensionID,
-		metadataSizeBytes: m.MagnetLinkInfo.MetadataSizeBytes,
-		bitfield: m.MagnetLinkInfo.Bitfield,
-		magnetLink: m.MagnetLinkInfo,
-		logger: m.Logger,
-	}
-}
-
 func NewMagnetTestParams(magnetLink MagnetTestTorrentInfo, logger *logger.Logger) (*MagnetTestParams, error) {
 	params := MagnetTestParams{}
 
@@ -122,7 +122,6 @@ func NewMagnetTestParams(magnetLink MagnetTestTorrentInfo, logger *logger.Logger
 	}
 	trackerAddress :=  fmt.Sprintf("127.0.0.1:%d", trackerPort)
 	params.TrackerAddress = trackerAddress
-
 	infoHashStr := magnetLink.InfoHashStr
 	params.MagnetUrlEncoded = "magnet:?xt=urn:btih:" + infoHashStr + "&dn=" + magnetLink.Filename + "&tr=http%3A%2F%2F" + trackerAddress + "%2Fannounce"
 
