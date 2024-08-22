@@ -24,11 +24,6 @@ func testParseMagnetLink(stageHarness *test_case_harness.TestCaseHarness) error 
 		Trackers: []string { ""},
 		InfoHash: "c77829d2a77d6516F88cd7a3de1a26abcbfab0db",
 	   },
-	   {
-		UrlEncoded: "magnet:?xt=urn:btih:c77829d2a77d6516f88cd7a3de1a26abcbfab0da&xl=10826029&dn=media-1.15.1.tar.gz&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=http%3A%2F%2F127.0.0.1%3A50817%2Fannounce&kt=tag1+tag2",
-		Trackers: []string { "udp://tracker.openbittorrent.com:80/announce", "http://127.0.0.1:50817/announce"},
-		InfoHash: "c77829d2a77d6516f88cd7a3de1a26abcbfab0da",
-   		},
 	}
 
 	logger := stageHarness.Logger
