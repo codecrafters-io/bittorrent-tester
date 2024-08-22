@@ -1,14 +1,14 @@
 package internal
 
 type MagnetTestTorrentInfo struct {
-	Filename 				string
-	InfoHashStr       		string
-	FileLengthBytes         int
-	PieceLengthBytes		int
-	MetadataSizeBytes		int
-	Bitfield				[]byte
-	PieceHashes				[]string
-	ExpectedSha1			string
+	Filename           string
+	InfoHashStr        string
+	FileLengthBytes    int
+	PieceLengthBytes   int
+	MetadataSizeBytes  int
+	Bitfield           []byte
+	PieceHashes        []string
+	ExpectedSha1       string
 }
 
 var magnetTestTorrents = []MagnetTestTorrentInfo {
