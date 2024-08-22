@@ -154,6 +154,10 @@ func randomTorrent() TestTorrentInfo {
 	return testTorrents[rand.Intn(len(testTorrents))]
 }
 
+func randomMagnetLink() MagnetTestTorrentInfo {
+	return magnetTestTorrents[rand.Intn(len(magnetTestTorrents))]
+}
+
 func getTorrentPath(filename string) string {
 	return path.Join(getProjectDir(), "torrents", filename)
 }
