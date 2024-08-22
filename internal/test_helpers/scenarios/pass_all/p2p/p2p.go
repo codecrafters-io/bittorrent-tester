@@ -2,7 +2,6 @@ package p2p
 
 import (
 	"bytes"
-	"crypto/rand"
 	"crypto/sha1"
 	"fmt"
 	"net"
@@ -10,8 +9,11 @@ import (
 
 	"time"
 
+	"github.com/codecrafters-io/grep-starter-go/bencode"
 	"github.com/codecrafters-io/grep-starter-go/client"
+	"github.com/codecrafters-io/grep-starter-go/magnet"
 	"github.com/codecrafters-io/grep-starter-go/message"
+	"github.com/codecrafters-io/grep-starter-go/parser"
 	"github.com/codecrafters-io/grep-starter-go/peers"
 	"github.com/codecrafters-io/grep-starter-go/torrent"
 )
@@ -57,7 +59,8 @@ func TalkToPeer(torrentFile torrent.TorrentFile, peer string, peerID [20]byte, i
 		return
 	}
 
-	handshake, err := client.CompleteHandshake(conn, infoHash, peerID)
+	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
+	handshake, err := client.CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		fmt.Println("error", err)
 		conn.Close()
@@ -73,20 +76,22 @@ func TalkToPeer(torrentFile torrent.TorrentFile, peer string, peerID [20]byte, i
 }
 
 // DownloadToFile downloads a torrent and writes it to a file
-func DownloadToFile(t *torrent.TorrentFile, savePath string, pieceIndex int) error {
-	var peerID [20]byte
-	_, err := rand.Read(peerID[:])
-	if err != nil {
-		return err
+func DownloadToFile(t *torrent.TorrentFile, savePath string, pieceIndex int, peerlist []peers.Peer, peerID [20]byte) error {
+	var myPeers []peers.Peer
+	var err error
+
+	if peerlist == nil {
+		myPeers, err = client.RequestPeers(t, peerID, peers.Port)
+		if err != nil {
+			return err
+		}
+	} else {
+		myPeers = peerlist
 	}
 
 	//fmt.Printf("my peer id: %x\n", peerID)
-	peers, err := client.RequestPeers(t, peerID, peers.Port)
-	if err != nil {
-		return err
-	}
-	// fmt.Println("# of peers", len(peers))
-	// fmt.Println("peers:", peers)
+	// fmt.Println("# of peers", len(myPeers))
+	// fmt.Println("peers:", myPeers)
 	/*
 		m.Seed(time.Now().UnixNano())
 		random := m.Intn(len(peers))
@@ -95,7 +100,7 @@ func DownloadToFile(t *torrent.TorrentFile, savePath string, pieceIndex int) err
 	*/
 
 	torrent := Torrent{
-		Peers:       peers, // TODO: Remove
+		Peers:       myPeers, // TODO: Remove
 		PeerID:      peerID,
 		InfoHash:    t.InfoHash,
 		PieceHashes: t.PieceHashes,
@@ -287,7 +292,8 @@ func attemptDownloadPiece(c *client.Client, pw *pieceWork) ([]byte, error) {
 
 func (t *Torrent) startDownloadWorker(peer peers.Peer, workQueue chan *pieceWork, resultQueue chan *pieceResult) {
 	// fmt.Println("trying to start download worker")
-	c, err := client.New(peer.String(), t.PeerID, t.InfoHash)
+	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
+	c, err := client.New(peer.String(), t.PeerID, t.InfoHash, extensions)
 	if err != nil {
 		fmt.Errorf("error connecting to peer", err)
 		return
@@ -337,4 +343,112 @@ func (t *Torrent) startDownloadWorker(peer peers.Peer, workQueue chan *pieceWork
 		c.SendHave(pw.index)
 		resultQueue <- &pieceResult{pw.index, buf}
 	}
+}
+
+func FetchPeers(magnetUrl string, myPeerID [20]byte) ([]peers.Peer, error) {
+	link, _ := magnet.Parse(magnetUrl)
+	// fmt.Println("magnet info hash", link.InfoHash)
+	// fmt.Println("magnet trackers", link.Trackers)
+	infoHash, err := parser.DecodeInfoHash(link.InfoHash)
+	if err != nil {
+		return nil, err
+	}
+
+	torrentFile := torrent.TorrentFile{
+		Announce: link.Trackers[0],
+		InfoHash: infoHash,
+		Length:   999,
+	}
+	/*
+		Peer 0: 167.71.141.80:51463
+		Peer 1: 167.71.141.82:51413
+		Peer 2: 134.209.186.165:51448
+	*/
+
+	peers, error := client.RequestPeers(&torrentFile, myPeerID, peers.Port)
+	if error != nil {
+		return nil, err
+	}
+
+	fmt.Println("Received peers from tracker", link.Trackers[0])
+	peer_str := make([]string, len(peers))
+	for i, peer := range peers {
+		peer_str[i] = peer.String()
+		fmt.Printf("Peer %d: %s\n", i, peer_str[i])
+	}
+	return peers, nil
+}
+
+func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shouldRequestMetadata bool) (*torrent.TorrentFile, error) {
+	var empty torrent.TorrentFile
+
+	link, _ := magnet.Parse(magnetUrl)
+	// fmt.Println("magnet info hash", link.InfoHash)
+	// fmt.Println("magnet trackers", link.Trackers)
+	infoHash, err := parser.DecodeInfoHash(link.InfoHash)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("Connecting to %s\n", peer)
+	extensions := []byte {0, 0, 0, 0, 0, 16, 0, 0}
+	conn, err := client.New(peer, myPeerID, infoHash, extensions)
+	if err != nil {
+		return &empty, err
+	}
+
+	fmt.Println("Sending my extension handshake")
+	err = conn.SendExtensionHandshake()
+	if err != nil {
+		return &empty, err
+	}
+
+	fmt.Println("Waiting for peer extension handshake response")
+	msg, err := conn.Read()
+	if err != nil {
+		return &empty, err
+	}
+
+	fmt.Println("Received extension handshake payload", string(msg.Payload))
+	handshake, err := bencode.Decode(bytes.NewReader(msg.Payload[1:]))
+	if err != nil {
+		fmt.Println("Error decoding", err)
+		return &empty, nil
+	}
+
+	dict := handshake.(map[string]interface{})
+	fmt.Printf("Peer Extensions: %v\n", dict)
+	
+	metadataSize := dict["metadata_size"].(int64)
+	fmt.Println("metadata size", metadataSize)
+
+	metadataExtensionID := dict["m"].(map[string]interface{})["ut_metadata"]
+	fmt.Println("Peer Metadata Extension ID:", metadataExtensionID)
+
+	if(!shouldRequestMetadata) {
+		return &empty, nil
+	}
+
+	fmt.Println("Sending metadata request for index 0")
+	err = conn.SendMetadataRequest(uint8(metadataExtensionID.(int64)), 0)
+	if err != nil {
+		return &empty, err
+	}
+
+	fmt.Println("Waiting for metadata response for index 0")
+	msg, err = conn.Read()
+	if err != nil {
+		return &empty, err
+	}
+
+	fmt.Printf("Received msg payload: %s with length: %d\n", string(msg.Payload), len(msg.Payload))
+
+	rest := msg.FindMetadataPayloadIndex()
+	fmt.Println("Torrent metadata starts at index", rest)
+
+	myTorrent, torrentErr := parser.FromByteArray(msg.Payload[1+rest:], link.Trackers[0])
+	if torrentErr != nil {
+		return &empty, nil
+	}
+	return &myTorrent, nil
 }

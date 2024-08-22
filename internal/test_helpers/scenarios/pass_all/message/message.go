@@ -1,9 +1,12 @@
 package message
 
 import (
+	"bytes"
 	"encoding/binary"
 	"fmt"
 	"io"
+
+	"github.com/codecrafters-io/grep-starter-go/bencode"
 )
 
 type messageID uint8
@@ -27,6 +30,8 @@ const (
 	MsgPiece messageID = 7
 	// MsgCancel cancels a request
 	MsgCancel messageID = 8
+	// Extension messages (BEP 10)
+	MsgExtended messageID = 20
 )
 
 // Message stores ID and payload of a message
@@ -34,6 +39,20 @@ type Message struct {
 	ID      messageID
 	Payload []byte
 }
+
+type bencodeMetadataExtensionMsg struct {
+	Piece     int   `bencode:"piece"`
+	TotalSize int   `bencode:"total_size,omitempty"`
+	Type      uint8 `bencode:"msg_type"`
+}
+
+const (
+	HandshakeExtendedID uint8 = 0
+
+	RequestMetadataExtensionMsgType uint8 = 0
+	DataMetadataExtensionMsgType    uint8 = 1
+	RejectMetadataExtensionMsgType  uint8 = 2
+)
 
 // FormatRequest creates a REQUEST message
 func FormatRequest(index, begin, length int) *Message {
@@ -164,4 +183,55 @@ func (m *Message) String() string {
 		return m.name()
 	}
 	return fmt.Sprintf("%s [%d]", m.name(), len(m.Payload))
+}
+
+func FormatExtensionHandshake() *Message {
+	dict := make(map[string]interface{})
+	inner := make(map[string]int64)
+	inner["ut_metadata"] = 9 // random value
+	dict["m"] = inner
+	var buf bytes.Buffer
+	err := bencode.Marshal(&buf, dict)
+	if err != nil {
+		fmt.Println("Error encoding", err)
+	}
+	payload := formatExtendedPayload(buf, HandshakeExtendedID)
+	return &Message{ID: MsgExtended, Payload: payload}
+}
+
+func formatExtendedPayload(buf bytes.Buffer, extensionId uint8) []byte {
+	payload := make([]byte, 1+buf.Len())
+	payload[0] = uint8(extensionId)
+	copy(payload[1:], buf.Bytes())
+	return payload
+}
+
+func (m *Message) FindMetadataPayloadIndex() int {
+	reader := bytes.NewReader(m.Payload[1:])
+	torr, _ := bencode.Decode(reader)
+	var buf bytes.Buffer
+	inner := torr.(map[string]interface{})
+	err := bencode.Marshal(&buf, bencodeMetadataExtensionMsg{
+		Piece: int(inner["piece"].(int64)),
+		Type:  uint8(inner["msg_type"].(int64)),
+		TotalSize: int(inner["total_size"].(int64)),
+	})
+	if err != nil {
+		fmt.Println("Err", err)
+	}
+	return buf.Len()
+}
+
+func FormatMetadataExtensionMessage(extensionID uint8, msgType uint8, piece int) *Message {
+	var buf bytes.Buffer
+	err := bencode.Marshal(&buf, bencodeMetadataExtensionMsg{
+		Piece: piece,
+		Type:  msgType,
+	})
+	if err != nil {
+		fmt.Println("Error encoding:", err)
+	}
+	payload := formatExtendedPayload(buf, extensionID)
+	fmt.Println("extended message payload", string(payload))
+	return &Message{ID: MsgExtended, Payload: payload}
 }

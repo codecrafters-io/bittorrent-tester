@@ -92,11 +92,11 @@ func RequestPeers(t *torrent.TorrentFile, peerID [20]byte, port uint16) ([]peers
 	return peers.Unmarshal([]byte(trackerResp.Peers))
 }
 
-func CompleteHandshake(conn net.Conn, infohash, peerID [20]byte) (*handshake.Handshake, error) {
+func CompleteHandshake(conn net.Conn, infohash, peerID [20]byte, extensions []byte) (*handshake.Handshake, error) {
 	conn.SetDeadline(time.Now().Add(3 * time.Second))
 	defer conn.SetDeadline(time.Time{}) // Disable the deadline
 
-	req := handshake.New(infohash, peerID)
+	req := handshake.New(infohash, peerID, extensions)
 	_, err := conn.Write(req.Serialize())
 	if err != nil {
 		fmt.Println("hmm1")
@@ -137,13 +137,13 @@ func recvBitfield(conn net.Conn) ([]byte, error) {
 
 // New connects with a peer, completes a handshake, and receives a handshake
 // returns an err if any of those fail.
-func New(peer string, peerID, infoHash [20]byte) (*Client, error) {
+func New(peer string, peerID, infoHash [20]byte, extensions []byte) (*Client, error) {
 	conn, err := net.DialTimeout("tcp", peer, 3*time.Second)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = CompleteHandshake(conn, infoHash, peerID)
+	_, err = CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		conn.Close()
 		return nil, err
@@ -207,5 +207,18 @@ func (c *Client) SendUnchoke() error {
 func (c *Client) SendHave(index int) error {
 	msg := message.FormatHave(index)
 	_, err := c.Conn.Write(msg.Serialize())
+	return err
+}
+
+func (c *Client) SendExtensionHandshake() error {
+	req := message.FormatExtensionHandshake()
+	serialized := req.Serialize()
+	_, err := c.Conn.Write(serialized)
+	return err
+}
+
+func (c *Client) SendMetadataRequest(extensionID uint8, index int) error {
+	req := message.FormatMetadataExtensionMessage(extensionID, message.RequestMetadataExtensionMsgType, index)
+	_, err := c.Conn.Write(req.Serialize())
 	return err
 }
