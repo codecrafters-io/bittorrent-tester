@@ -22,10 +22,10 @@ func testMagnetSendExtendedHandshake(stageHarness *test_case_harness.TestCaseHar
 		return err
 	}
 
-	go listenAndServePeersResponse(params.toTrackerParams())
+	go listenAndServeTrackerResponse(params.toTrackerParams())
 	go waitAndHandlePeerConnection(params.toPeerConnectionParams(), handleSendExtensionHandshake)
 
-	logger.Infof("Running ./your_bittorrent.sh magnet_handshake %s", escape(params.MagnetUrlEncoded))
+	logger.Infof("Running ./your_bittorrent.sh magnet_handshake %q", params.MagnetUrlEncoded)
 	result, err := executable.Run("magnet_handshake", params.MagnetUrlEncoded)
 	if err != nil {
 		return err
