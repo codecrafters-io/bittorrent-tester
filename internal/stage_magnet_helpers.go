@@ -122,7 +122,7 @@ func NewMagnetTestParams(magnetLink MagnetTestTorrentInfo, logger *logger.Logger
 	}
 	trackerAddress :=  fmt.Sprintf("127.0.0.1:%d", trackerPort)
 	params.TrackerAddress = trackerAddress
-	
+
 	infoHashStr := magnetLink.InfoHashStr
 	params.MagnetUrlEncoded = "magnet:?xt=urn:btih:" + infoHashStr + "&dn=" + magnetLink.Filename + "&tr=http%3A%2F%2F" + trackerAddress + "%2Fannounce"
 
