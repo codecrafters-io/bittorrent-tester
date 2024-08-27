@@ -60,7 +60,10 @@ func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 		return err
 	}
 
-	expectedReservedBytes := []byte{0, 0, 0, 0, 0, 0, 0, 0}
+	expectedReservedBytes := [][]byte{
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 16, 0, 0},
+	}
 
 	peersResponse := createPeersResponse("127.0.0.1", peerPort)
 
