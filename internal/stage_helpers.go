@@ -24,7 +24,7 @@ type PeerConnectionParams struct {
 	address string
 	myPeerID [20]byte
 	infoHash [20]byte
-	expectedReservedBytes []byte
+	expectedReservedBytes [][]byte
 	myMetadataExtensionID uint8
 	metadataSizeBytes int
 	bitfield []byte
@@ -414,8 +414,8 @@ func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err erro
 		return fmt.Errorf("error reading handshake: %s", err)
 	}
 	
-	if !bytes.Equal(handshake.Reserved[:], peer.expectedReservedBytes) {
-		return fmt.Errorf("did you send reserved bytes? expected bytes: %v but received: %v", peer.expectedReservedBytes, handshake.Reserved)
+	if !isEqualToOneOf(handshake.Reserved[:], peer.expectedReservedBytes...) {
+		return fmt.Errorf("did you send reserved bytes? expected bytes: %v but received: %v", peer.expectedReservedBytes[0], handshake.Reserved)
 	}
 
 	if !bytes.Equal(handshake.InfoHash[:], peer.infoHash[:]) {
@@ -426,7 +426,7 @@ func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err erro
 	logger.Debugf("Sending back handshake with peer_id: %x", peer.myPeerID)
 	
 	var reservedBytes [8]byte 
-	copy(reservedBytes[:], peer.expectedReservedBytes)
+	copy(reservedBytes[:], peer.expectedReservedBytes[0])
 
 	err = sendHandshake(conn, reservedBytes, handshake.InfoHash, peer.myPeerID)
 	if err != nil {
@@ -460,4 +460,13 @@ func randomHash() ([20]byte, error) {
 		return [20]byte{}, err
 	}
 	return hash, nil
+}
+
+func isEqualToOneOf(target []byte, arrays ...[]byte) bool {
+	for _, array := range arrays {
+		if bytes.Equal(target, array) {
+			return true
+		}
+	}
+	return false
 }

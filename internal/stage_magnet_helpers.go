@@ -92,7 +92,7 @@ func (m *MagnetTestParams) toPeerConnectionParams() PeerConnectionParams {
 		address: m.PeerAddress,
 		myPeerID: m.ExpectedPeerID,
 		infoHash: m.ExpectedInfoHash,
-		expectedReservedBytes: m.ExpectedReservedBytes,
+		expectedReservedBytes: [][]byte{m.ExpectedReservedBytes},
 		myMetadataExtensionID: m.MyMetadataExtensionID,
 		metadataSizeBytes: m.MagnetLinkInfo.MetadataSizeBytes,
 		bitfield: m.MagnetLinkInfo.Bitfield,
