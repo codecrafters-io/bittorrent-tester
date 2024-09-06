@@ -6,7 +6,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
-	"log"
 	"net"
 	"os"
 	"strings"
@@ -17,6 +16,7 @@ import (
 
 type Handshake struct {
 	ProtocolStr string
+	Reserved    [8]byte
 	InfoHash    [20]byte
 	PeerID      [20]byte
 }
@@ -153,12 +153,15 @@ func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 		logger.Infof("Did you send reserved bytes? expected bytes: %v but received: %v\n", expectedReservedBytes, actualReservedBytes)
 	}
 
+	var reservedBytes [8]byte
+	copy(reservedBytes[:], handshakeBuffer[protocolNameLength : protocolNameLength+8])
 	var infoHash, peerID [20]byte
 	copy(infoHash[:], handshakeBuffer[protocolNameLength+8:protocolNameLength+8+20])
 	copy(peerID[:], handshakeBuffer[protocolNameLength+8+20:])
 
 	handshake := Handshake{
 		ProtocolStr: string(handshakeBuffer[0:protocolNameLength]),
+		Reserved:    reservedBytes,
 		InfoHash:    infoHash,
 		PeerID:      peerID,
 	}
@@ -166,15 +169,16 @@ func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 	return &handshake, nil
 }
 
-func sendHandshake(conn net.Conn, infoHash [20]byte, peerID [20]byte) {
+func sendHandshake(conn net.Conn, reserved [8]byte, infoHash [20]byte, peerID [20]byte) error {
 	handshake := []byte{19}                                // Protocol name length
 	handshake = append(handshake, []byte(ProtocolName)...) // Protocol name
-	handshake = append(handshake, make([]byte, 8)...)      // Reserved bytes
+	handshake = append(handshake, reserved[:]...)          // Reserved bytes
 	handshake = append(handshake, infoHash[:]...)          // Info hash
 	handshake = append(handshake, peerID[:]...)            // Peer ID
 
 	_, err := conn.Write(handshake)
 	if err != nil {
-		log.Fatal("Error sending handshake:", err)
+		return fmt.Errorf("error sending handshake: %v", err)
 	}
+	return nil
 }

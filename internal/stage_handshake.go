@@ -1,14 +1,11 @@
 package internal
 
 import (
-	"bytes"
 	"fmt"
-	"math/rand"
 	"net"
 	"os"
 	"path"
 
-	logger "github.com/codecrafters-io/tester-utils/logger"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -63,9 +60,32 @@ func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 		return err
 	}
 
+	expectedReservedBytes := [][]byte{
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 16, 0, 0},
+	}
+
 	peersResponse := createPeersResponse("127.0.0.1", peerPort)
-	go listenAndServePeersResponse(trackerAddress, peersResponse, infoHash, fileLengthBytes, logger)
-	go waitAndHandlePeerConnection(peerAddress, expectedPeerID, infoHash, logger)
+
+	go listenAndServeTrackerResponse(
+		TrackerParams {
+			trackerAddress: trackerAddress,
+			peersResponse: peersResponse,
+			expectedInfoHash: infoHash,
+			fileLengthBytes: fileLengthBytes,
+			logger: logger,
+	})
+
+	go waitAndHandlePeerConnection(
+		PeerConnectionParams {
+			address: peerAddress,
+			myPeerID: expectedPeerID,
+			infoHash: infoHash,
+			expectedReservedBytes: expectedReservedBytes,
+			logger: logger,
+		},
+		handleHandshake,
+	)
 
 	logger.Infof("Running ./%s handshake %s %s", path.Base(executable.Path), torrentFilePath, peerAddress)
 	result, err := executable.Run("handshake", torrentFilePath, peerAddress)
@@ -86,46 +106,11 @@ func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 	return nil
 }
 
-func randomHash() ([20]byte, error) {
-	var hash [20]byte
-	if _, err := rand.Read(hash[:]); err != nil {
-		return [20]byte{}, err
-	}
-	return hash, nil
-}
-
-func waitAndHandlePeerConnection(address string, myPeerID [20]byte, infoHash [20]byte, logger *logger.Logger) {
-	listener, err := net.Listen("tcp", address)
-	if err != nil {
-		logger.Errorf("Error: %s", err)
-		return
-	}
-	defer listener.Close()
-
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			logger.Errorf("Error accepting connection: %s", err)
-		}
-		logger.Debugf("Waiting for handshake message")
-		handleConnection(conn, myPeerID, infoHash, logger)
-	}
-}
-
-func handleConnection(conn net.Conn, myPeerID [20]byte, infoHash [20]byte, logger *logger.Logger) {
+func handleHandshake(conn net.Conn, params PeerConnectionParams) {
 	defer conn.Close()
 
-	handshake, err := readHandshake(conn, logger)
+	err := receiveAndSendHandshake(conn, params)
 	if err != nil {
-		logger.Errorf("error reading handshake: %s", err)
 		return
 	}
-	if !bytes.Equal(handshake.InfoHash[:], infoHash[:]) {
-		logger.Errorf("expected infohash %x but got %x", infoHash, handshake.InfoHash)
-		return
-	}
-
-	logger.Debugf("Received handshake: [infohash: %x, peer_id: %x]\n", handshake.InfoHash, handshake.PeerID)
-	logger.Debugf("Sending back handshake with peer_id: %x", myPeerID)
-	sendHandshake(conn, handshake.InfoHash, myPeerID)
 }

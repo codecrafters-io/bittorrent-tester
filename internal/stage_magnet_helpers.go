@@ -1,5 +1,27 @@
 package internal
 
+import (
+	"encoding/hex"
+	"fmt"
+	"math/rand"
+
+	logger "github.com/codecrafters-io/tester-utils/logger"
+)
+
+type MagnetTestParams struct {
+	TrackerAddress         string
+	PeerPort               int
+	PeerAddress            string
+	PeersResponse          []byte
+	ExpectedInfoHash       [20]byte
+	ExpectedReservedBytes  []byte
+	ExpectedPeerID         [20]byte
+	MyMetadataExtensionID  uint8
+	MagnetUrlEncoded       string
+	MagnetLinkInfo         MagnetTestTorrentInfo
+	Logger                 *logger.Logger
+}
+
 type MagnetTestTorrentInfo struct {
 	Filename           string
 	InfoHashStr        string
@@ -52,4 +74,78 @@ var magnetTestTorrents = []MagnetTestTorrentInfo {
 		Bitfield: []byte {224},
 		ExpectedSha1: "b1807e3d7920a559df2a2f0f555a404dec66a63e",
 	},
+}
+
+func (m *MagnetTestParams) toTrackerParams() TrackerParams {
+	return TrackerParams {
+		trackerAddress: m.TrackerAddress,
+		peersResponse: m.PeersResponse,
+		expectedInfoHash: m.ExpectedInfoHash,
+		fileLengthBytes: m.MagnetLinkInfo.FileLengthBytes,
+		logger: m.Logger,
+		myMetadataExtensionID: m.MyMetadataExtensionID,
+	}
+}
+
+func (m *MagnetTestParams) toPeerConnectionParams() PeerConnectionParams {
+	return PeerConnectionParams {
+		address: m.PeerAddress,
+		myPeerID: m.ExpectedPeerID,
+		infoHash: m.ExpectedInfoHash,
+		expectedReservedBytes: [][]byte{m.ExpectedReservedBytes},
+		myMetadataExtensionID: m.MyMetadataExtensionID,
+		metadataSizeBytes: m.MagnetLinkInfo.MetadataSizeBytes,
+		bitfield: m.MagnetLinkInfo.Bitfield,
+		magnetLink: m.MagnetLinkInfo,
+		logger: m.Logger,
+	}
+}
+
+func NewMagnetTestParams(magnetLink MagnetTestTorrentInfo, logger *logger.Logger) (*MagnetTestParams, error) {
+	params := MagnetTestParams{}
+
+	peerPort, err := findFreePort()
+	if err != nil {
+		return nil, fmt.Errorf("couldn't find free port: %s", err)
+	}
+	params.PeerPort = peerPort
+	params.PeerAddress = fmt.Sprintf("127.0.0.1:%d", peerPort)
+	params.PeersResponse = createPeersResponse("127.0.0.1", peerPort)
+
+	trackerPort, err := findFreePort()
+	if err != nil {
+		return nil, fmt.Errorf("couldn't find free port: %s", err)
+	}
+	trackerAddress :=  fmt.Sprintf("127.0.0.1:%d", trackerPort)
+	params.TrackerAddress = trackerAddress
+
+	infoHashStr := magnetLink.InfoHashStr
+	params.MagnetUrlEncoded = "magnet:?xt=urn:btih:" + infoHashStr + "&dn=" + magnetLink.Filename + "&tr=http%3A%2F%2F" + trackerAddress + "%2Fannounce"
+
+	infoHash, err := decodeInfoHash(infoHashStr)
+	if err != nil {
+		return nil, fmt.Errorf("error decoding infohash: %v", err)
+	}
+	params.ExpectedInfoHash = infoHash
+
+	expectedPeerID, err := randomHash()
+	if err != nil {
+		return nil, fmt.Errorf("error generating random peer id: %v", err)
+	}
+	params.ExpectedPeerID = expectedPeerID
+	params.ExpectedReservedBytes = []byte{0, 0, 0, 0, 0, 16, 0, 0}
+	params.MyMetadataExtensionID = uint8(rand.Intn(255) + 1)
+	params.MagnetLinkInfo = magnetLink
+	params.Logger = logger
+	return &params, nil
+}
+
+func decodeInfoHash(infoHashStr string) ([20]byte, error) {
+	var infoHash [20]byte
+	decodedBytes, err := hex.DecodeString(infoHashStr)
+	if err != nil {
+		return infoHash, err
+	}
+	copy(infoHash[:], decodedBytes)
+	return infoHash, nil
 }

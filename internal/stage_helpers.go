@@ -18,6 +18,29 @@ import (
 	"github.com/jackpal/bencode-go"
 )
 
+type ConnectionHandler func(net.Conn, PeerConnectionParams)
+
+type PeerConnectionParams struct {
+	address string
+	myPeerID [20]byte
+	infoHash [20]byte
+	expectedReservedBytes [][]byte
+	myMetadataExtensionID uint8
+	metadataSizeBytes int
+	bitfield []byte
+	magnetLink MagnetTestTorrentInfo
+	logger *logger.Logger
+}
+
+type TrackerParams struct {
+	trackerAddress string
+	peersResponse []byte
+	expectedInfoHash [20]byte
+	fileLengthBytes int
+	logger *logger.Logger
+	myMetadataExtensionID uint8
+}
+
 var samplePieceHashes = []string{
 	"ddf33172599fda84f0a209a3034f79f0b8aa5e22",
 	"795a618a1ee5275e952843b01a56ae4e142752ef",
@@ -219,10 +242,11 @@ func calculateSHA1(filePath string) (string, error) {
 	return hex.EncodeToString(hashBytes), nil
 }
 
-func listenAndServePeersResponse(address string, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
+func listenAndServeTrackerResponse(p TrackerParams) {
+	logger := p.logger
 	mux := http.NewServeMux()
 	mux.HandleFunc("/announce", func(w http.ResponseWriter, r *http.Request) {
-		serveTrackerResponse(w, r, responseContent, expectedInfoHash, fileLengthBytes, logger)
+		serveTrackerResponse(w, r, p.peersResponse, p.expectedInfoHash, p.fileLengthBytes, p.logger)
 	})
 	
 	// Redirect /announce/ to /announce while preserving query parameters 
@@ -237,8 +261,8 @@ func listenAndServePeersResponse(address string, responseContent []byte, expecte
 		http.Redirect(w, r, parsedURL.String(), http.StatusMovedPermanently)
 	})
 
-	logger.Debugf("Server started on port %s...\n", address)
-	err := http.ListenAndServe(address, mux)
+	logger.Debugf("Tracker started on address %s...\n", p.trackerAddress)
+	err := http.ListenAndServe(p.trackerAddress, mux)
 	if err != nil {
 		logger.Errorf("Error: %s", err)
 	}
@@ -379,4 +403,70 @@ func createPeersResponse(peerIP string, peerPort int) []byte {
 		return nil
 	}
 	return buf.Bytes()
+}
+
+func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err error) {
+	defer logOnExit(peer.logger, &err)
+
+	logger := peer.logger
+	handshake, err := readHandshake(conn, logger)
+	if err != nil {
+		return fmt.Errorf("error reading handshake: %s", err)
+	}
+	
+	if !isEqualToOneOf(handshake.Reserved[:], peer.expectedReservedBytes...) {
+		return fmt.Errorf("did you send reserved bytes? expected bytes: %v but received: %v", peer.expectedReservedBytes[0], handshake.Reserved)
+	}
+
+	if !bytes.Equal(handshake.InfoHash[:], peer.infoHash[:]) {
+		return fmt.Errorf("expected infohash %x but got %x", peer.infoHash, handshake.InfoHash)
+	}
+
+	logger.Debugf("Received handshake: [infohash: %x, peer_id: %x]\n", handshake.InfoHash, handshake.PeerID)
+	logger.Debugf("Sending back handshake with peer_id: %x", peer.myPeerID)
+	
+	var reservedBytes [8]byte 
+	copy(reservedBytes[:], peer.expectedReservedBytes[0])
+
+	err = sendHandshake(conn, reservedBytes, handshake.InfoHash, peer.myPeerID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func waitAndHandlePeerConnection(p PeerConnectionParams, handler ConnectionHandler) {
+	logger := p.logger
+	logger.Debugf("Peer listening on address: %s", p.address)
+	listener, err := net.Listen("tcp", p.address)
+	if err != nil {
+		logger.Errorf("Error: %s", err)
+		return
+	}
+	defer listener.Close()
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			logger.Errorf("Error accepting connection: %s", err)
+		}
+		handler(conn, p)
+	}
+}
+
+func randomHash() ([20]byte, error) {
+	var hash [20]byte
+	if _, err := rand.Read(hash[:]); err != nil {
+		return [20]byte{}, err
+	}
+	return hash, nil
+}
+
+func isEqualToOneOf(target []byte, arrays ...[]byte) bool {
+	for _, array := range arrays {
+		if bytes.Equal(target, array) {
+			return true
+		}
+	}
+	return false
 }
