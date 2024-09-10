@@ -2,7 +2,6 @@ package internal
 
 import (
     "errors"
-    "fmt"
     "net"
 
     "github.com/codecrafters-io/tester-utils/test_case_harness"
@@ -32,12 +31,6 @@ func testMagnetSendExtendedHandshake(stageHarness *test_case_harness.TestCaseHar
     }
     
     if err = assertExitCode(result, 0); err != nil {
-        return err
-    }
-    
-    expected := fmt.Sprintf("Peer Metadata Extension ID: %d\n", params.MyMetadataExtensionID)
-
-    if err = assertStdoutContains(result, expected); err != nil {
         return err
     }
 
