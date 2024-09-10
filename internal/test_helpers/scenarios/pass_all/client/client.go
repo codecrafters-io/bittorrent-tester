@@ -109,7 +109,6 @@ func CompleteHandshake(conn net.Conn, infohash, peerID [20]byte, extensions []by
 		fmt.Println("hmm2")
 		return nil, err
 	}
-
 	//fmt.Printf("received handshake from peer: %x\n", res.PeerID)
 	if !bytes.Equal(res.InfoHash[:], infohash[:]) {
 		return nil, fmt.Errorf("Expected infohash %x but got %x", res.InfoHash, infohash)
