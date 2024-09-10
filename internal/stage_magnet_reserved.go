@@ -41,10 +41,10 @@ func testMagnetReserved(stageHarness *test_case_harness.TestCaseHarness) error {
     return nil
 }
 
-func handleReservedBytes(conn net.Conn, params PeerConnectionParams) {
+func handleReservedBytes(conn net.Conn, p PeerConnectionParams) {
     defer conn.Close()
 
-    if err := receiveAndSendHandshake(conn, params); err != nil {
+    if err := receiveAndSendHandshake(conn, p); err != nil {
         return
     }
 }
