@@ -1,6 +1,7 @@
 package internal
 
 import (
+    "fmt"
     "errors"
     "net"
 
@@ -31,6 +32,12 @@ func testMagnetSendExtendedHandshake(stageHarness *test_case_harness.TestCaseHar
     }
     
     if err = assertExitCode(result, 0); err != nil {
+        return err
+    }
+
+    expected := fmt.Sprintf("Peer ID: %x\n", params.ExpectedPeerID)
+
+    if err = assertStdoutContains(result, expected); err != nil {
         return err
     }
 
