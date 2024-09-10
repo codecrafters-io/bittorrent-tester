@@ -39,9 +39,9 @@ func main() {
 	case "magnet_parse":
 		Stage_magnet_parse()
 	case "magnet_handshake":
-		Stage_magnet_handshake()
+		Stage_magnet_handshake(false)
 	case "magnet_info":
-		Stage_magnet_info(true)
+		Stage_magnet_handshake(true)
 	case "magnet_download_piece":
 		Stage_magnet_dl_piece()
 	case "magnet_download":
@@ -141,8 +141,7 @@ func Stage_handshake() {
 		first := peers[random]
 		fmt.Printf("random: %d peer: %s\n", random, first)
 	*/
-	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
-	p2p.TalkToPeer(peer, peerID, torrentFile.InfoHash, extensions)
+	p2p.TalkToPeer(peer, peerID, torrentFile.InfoHash)
 }
 
 func Stage_dl_piece() {
@@ -202,24 +201,7 @@ func Stage_magnet_parse() {
 	fmt.Printf("Info Hash: %s\n", link.InfoHash)
 }
 
-func Stage_magnet_handshake() {
-	magnetUrl := os.Args[2]
-	link, err := magnet.Parse(magnetUrl)
-
-	myPeerID := generateMyPeerID()
-	peers, err := p2p.FetchPeers(magnetUrl, myPeerID)
-	if err != nil {
-		fmt.Println("Error", err)
-		return
-	}
-
-	peer := peers[0].String()
-	infoHash, err := parser.DecodeInfoHash(link.InfoHash)
-	extensions := []byte {0, 0, 0, 0, 0, 16, 0, 0}
-	p2p.TalkToPeer(peer, myPeerID, infoHash, extensions)
-}
-
-func Stage_magnet_info(shouldSendMetadata bool) {
+func Stage_magnet_handshake(shouldSendMetadata bool) {
 	magnetUrl := os.Args[2]
 	
 	myPeerID := generateMyPeerID()

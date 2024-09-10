@@ -52,13 +52,14 @@ type pieceProgress struct {
 const MaxBlockSizeKb = 16 * 1024
 const MaxBacklogSize = 5
 
-func TalkToPeer(peer string, peerID [20]byte, infoHash [20]byte, extensions []byte) {
+func TalkToPeer(peer string, peerID [20]byte, infoHash [20]byte) {
 	conn, err := net.DialTimeout("tcp", peer, 3*time.Second)
 	if err != nil {
 		fmt.Println("error", err)
 		return
 	}
-
+	
+	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
 	handshake, err := client.CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		fmt.Println("error", err)
