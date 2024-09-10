@@ -110,3 +110,33 @@ func readMessage(r io.Reader) (*Message, error) {
 
     return &m, nil
 }
+
+type bencodeMetadataExtensionMsg struct {
+    Piece     int   `bencode:"piece"`
+    TotalSize int   `bencode:"total_size,omitempty"`
+    Type      uint8 `bencode:"msg_type"`
+}
+
+func createMetadataDataMessage(extensionID uint8, metadataSize int, piece int, torrentInfo TorrentFileInfo, logger *logger.Logger) (m *Message, err error) {
+    defer logOnExit(logger, &err)
+
+    var buf bytes.Buffer
+    err = bencode.Marshal(&buf, bencodeMetadataExtensionMsg{
+        Piece: piece,
+        Type:  1, // data msg
+        TotalSize: metadataSize,
+    })
+    if err != nil {
+        return nil, err
+    }
+
+    var infoDict bytes.Buffer
+    err = bencode.Marshal(&infoDict, torrentInfo)
+    if err != nil {
+        return nil, err
+    }
+    buf.Write(infoDict.Bytes())
+
+    payload := formatExtendedPayload(buf, extensionID)
+    return &Message{ID: MsgExtended, Payload: payload}, nil
+}
