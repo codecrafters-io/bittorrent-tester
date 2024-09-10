@@ -47,4 +47,12 @@ func handleReservedBytes(conn net.Conn, p PeerConnectionParams) {
     if err := receiveAndSendHandshake(conn, p); err != nil {
         return
     }
+
+    if err := sendBitfieldMessage(conn, p.bitfield, p.logger); err != nil {
+        return
+    }
+
+    if err := sendExtensionHandshake(conn, p.myMetadataExtensionID, p.metadataSizeBytes, p.logger); err != nil {
+        return
+    }
 }
