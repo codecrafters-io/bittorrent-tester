@@ -112,6 +112,7 @@ func createPiecesStrFromFile(filePath string, pieceLengthBytes int) (string, err
 }
 
 func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
+	logger.Debugln("Waiting to receive handshake message")
 	// Handshake message contents:
 	// 1 byte protocol string length
 	// x byte protocol string
@@ -147,12 +148,6 @@ func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 		return nil, fmt.Errorf("unknown protocol name, expected: %s, actual: %s", ProtocolName, protocolStr)
 	}
 
-	expectedReservedBytes := []byte{0, 0, 0, 0, 0, 0, 0, 0}
-	actualReservedBytes := handshakeBuffer[protocolNameLength : protocolNameLength+8]
-	if !bytes.Equal(expectedReservedBytes, actualReservedBytes) {
-		logger.Infof("Did you send reserved bytes? expected bytes: %v but received: %v\n", expectedReservedBytes, actualReservedBytes)
-	}
-
 	var reservedBytes [8]byte
 	copy(reservedBytes[:], handshakeBuffer[protocolNameLength : protocolNameLength+8])
 	var infoHash, peerID [20]byte
@@ -160,7 +155,7 @@ func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 	copy(peerID[:], handshakeBuffer[protocolNameLength+8+20:])
 
 	handshake := Handshake{
-		ProtocolStr: string(handshakeBuffer[0:protocolNameLength]),
+		ProtocolStr: protocolStr,
 		Reserved:    reservedBytes,
 		InfoHash:    infoHash,
 		PeerID:      peerID,
