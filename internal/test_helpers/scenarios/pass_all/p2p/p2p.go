@@ -58,7 +58,7 @@ func TalkToPeer(torrentFile torrent.TorrentFile, peer string, peerID [20]byte, i
 		fmt.Println("error", err)
 		return
 	}
-	
+
 	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
 	handshake, err := client.CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
