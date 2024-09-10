@@ -52,7 +52,7 @@ type pieceProgress struct {
 const MaxBlockSizeKb = 16 * 1024
 const MaxBacklogSize = 5
 
-func TalkToPeer(peer string, peerID [20]byte, infoHash [20]byte) {
+func TalkToPeer(torrentFile torrent.TorrentFile, peer string, peerID [20]byte, infoHash [20]byte) {
 	conn, err := net.DialTimeout("tcp", peer, 3*time.Second)
 	if err != nil {
 		fmt.Println("error", err)
@@ -60,13 +60,13 @@ func TalkToPeer(peer string, peerID [20]byte, infoHash [20]byte) {
 	}
 	
 	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
-	_, err = client.CompleteHandshake(conn, infoHash, peerID, extensions)
+	handshake, err := client.CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		fmt.Println("error", err)
 		conn.Close()
 		return
 	}
-	//fmt.Printf("Peer ID: %x\n", handshake.PeerID)
+	fmt.Printf("Peer ID: %x\n", handshake.PeerID)
 	/*
 		for i := 0; i < len(torrentFile.PieceHashes); i++ {
 			fmt.Printf("Piece #%d: %t\n", i, client.HasPiece(c.Bitfield, i))
@@ -396,6 +396,7 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 	if err != nil {
 		return &empty, err
 	}
+	fmt.Printf("Peer ID: %x\n", conn.Handshake.PeerID)
 
 	fmt.Println("Sending my extension handshake")
 	err = conn.SendExtensionHandshake()

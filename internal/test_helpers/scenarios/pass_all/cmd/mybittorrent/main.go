@@ -141,7 +141,7 @@ func Stage_handshake() {
 		first := peers[random]
 		fmt.Printf("random: %d peer: %s\n", random, first)
 	*/
-	p2p.TalkToPeer(peer, peerID, torrentFile.InfoHash)
+	p2p.TalkToPeer(torrentFile, peer, peerID, torrentFile.InfoHash)
 }
 
 func Stage_dl_piece() {
