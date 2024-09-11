@@ -60,13 +60,13 @@ func TalkToPeer(torrentFile torrent.TorrentFile, peer string, peerID [20]byte, i
 	}
 
 	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
-	_, err = client.CompleteHandshake(conn, infoHash, peerID, extensions)
+	handshake, err := client.CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		fmt.Println("error", err)
 		conn.Close()
 		return
 	}
-	//fmt.Printf("Peer ID: %x\n", handshake.PeerID)
+	fmt.Printf("Peer ID: %x\n", handshake.PeerID)
 	/*
 		for i := 0; i < len(torrentFile.PieceHashes); i++ {
 			fmt.Printf("Piece #%d: %t\n", i, client.HasPiece(c.Bitfield, i))
