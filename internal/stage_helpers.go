@@ -245,6 +245,7 @@ func calculateSHA1(filePath string) (string, error) {
 }
 
 func listenAndServeTrackerResponse(p TrackerParams) {
+	time.Sleep(1 * time.Millisecond) // for deterministic output ordering in fixtures
 	logger := p.logger
 	mux := http.NewServeMux()
 	mux.HandleFunc("/announce", func(w http.ResponseWriter, r *http.Request) {
@@ -444,7 +445,7 @@ func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err erro
 
 func waitAndHandlePeerConnection(p PeerConnectionParams, handler ConnectionHandler) {
 	logger := p.logger
-	time.Sleep(1 * time.Millisecond) // for deterministic output ordering in fixtures
+	time.Sleep(2 * time.Millisecond) // for deterministic output ordering in fixtures
 	logger.Debugf("Peer listening on address: %s", p.address)
 	listener, err := net.Listen("tcp", p.address)
 	if err != nil {
