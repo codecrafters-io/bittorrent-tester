@@ -76,5 +76,9 @@ var testerDefinition = tester_definition.TesterDefinition{
             Slug: "ns5",
             TestFunc: testMagnetRequestMetadata,
         },
+        {
+            Slug: "zh1",
+            TestFunc: testMagnetSendMetadata,
+        },
     },
 }
