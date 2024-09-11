@@ -267,7 +267,7 @@ func Stage_magnet_dl_piece() {
 		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
 		return
 	}
-	fmt.Printf("Piece %s downloaded to %s.", pieceIndexStr, outputPath)
+	//fmt.Printf("Piece %s downloaded to %s.", pieceIndexStr, outputPath)
 }
 
 func Stage_magnet_dl_file() {
@@ -293,5 +293,5 @@ func Stage_magnet_dl_file() {
 		fmt.Fprintf(os.Stderr, "error downloading file: %v", err)
 		return
 	}
-	fmt.Printf("Downloaded to %s.", outputPath)
+	//fmt.Printf("Downloaded to %s.", outputPath)
 }
