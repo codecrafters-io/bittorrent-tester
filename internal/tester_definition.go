@@ -72,5 +72,9 @@ var testerDefinition = tester_definition.TesterDefinition{
             Slug: "jk6",
             TestFunc: testMagnetReceiveExtendedHandshake,
         },
+        {
+            Slug: "ns5",
+            TestFunc: testMagnetRequestMetadata,
+        },
     },
 }
