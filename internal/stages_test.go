@@ -34,7 +34,7 @@ func TestStages(t *testing.T) {
 			NormalizeOutputFunc: normalizeTesterOutput,
 		},
 		"pass_all": {
-			UntilStageSlug:      "dv7",
+			UntilStageSlug:      "hw0",
 			CodePath:            "./test_helpers/scenarios/pass_all",
 			ExpectedExitCode:    0,
 			StdoutFixturePath:   "./test_helpers/fixtures/pass_all",

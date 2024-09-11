@@ -60,34 +60,5 @@ var testerDefinition = tester_definition.TesterDefinition{
             Slug: "hw0",
             TestFunc: testParseMagnetLink,
         },
-        {
-            Slug: "pk2",
-            TestFunc: testMagnetReserved,
-        },
-        {
-            Slug: "xi4",
-            TestFunc: testMagnetSendExtendedHandshake,
-        },
-        {
-            Slug: "jk6",
-            TestFunc: testMagnetReceiveExtendedHandshake,
-        },
-        {
-            Slug: "ns5",
-            TestFunc: testMagnetRequestMetadata,
-        },
-        {
-            Slug: "zh1",
-            TestFunc: testMagnetSendMetadata,
-        },
-        {
-            Slug: "qv6",
-            TestFunc: testMagnetDownloadPiece,
-        },
-        {
-            Slug: "dv7",
-            TestFunc: testMagnetDownloadFile,
-            Timeout:  90 * time.Second,
-        },
     },
 }
