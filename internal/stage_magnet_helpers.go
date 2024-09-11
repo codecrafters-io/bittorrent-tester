@@ -176,7 +176,7 @@ func receiveExtensionHandshake(conn net.Conn, logger *logger.Logger) (*Message, 
 	if err != nil {
 		return nil, err
 	}
-	logger.Infof("Received extension handshake with payload: %s", string(msg.Payload))
+	logger.Debugf("Received extension handshake with payload: %s", string(msg.Payload))
 	return msg, nil
 }
 

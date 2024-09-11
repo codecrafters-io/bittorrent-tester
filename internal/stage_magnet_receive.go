@@ -34,9 +34,9 @@ func testMagnetReceiveExtendedHandshake(stageHarness *test_case_harness.TestCase
 
 	expected := fmt.Sprintf("Peer ID: %x\n", params.ExpectedPeerID)
 
-    if err = assertStdoutContains(result, expected); err != nil {
-        return err
-    }
+	if err = assertStdoutContains(result, expected); err != nil {
+		return err
+	}
 	
 	expected = fmt.Sprintf("Peer Metadata Extension ID: %d\n", params.MyMetadataExtensionID)
 
