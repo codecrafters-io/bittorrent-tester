@@ -396,6 +396,7 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 	if err != nil {
 		return &empty, err
 	}
+	fmt.Printf("Peer ID: %x\n", conn.Handshake.PeerID)
 
 	fmt.Println("Sending my extension handshake")
 	err = conn.SendExtensionHandshake()

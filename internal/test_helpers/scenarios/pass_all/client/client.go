@@ -45,6 +45,7 @@ type Client struct {
 	infoHash  [20]byte
 	peerID    [20]byte
 	Integrity int
+	Handshake *handshake.Handshake
 }
 
 func RequestPeers(t *torrent.TorrentFile, peerID [20]byte, port uint16) ([]peers.Peer, error) {
@@ -143,7 +144,7 @@ func New(peer string, peerID, infoHash [20]byte, extensions []byte) (*Client, er
 		return nil, err
 	}
 
-	_, err = CompleteHandshake(conn, infoHash, peerID, extensions)
+	handshake, err := CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		conn.Close()
 		return nil, err
@@ -163,6 +164,7 @@ func New(peer string, peerID, infoHash [20]byte, extensions []byte) (*Client, er
 		peer:     peer,
 		infoHash: infoHash,
 		peerID:   peerID,
+		Handshake: handshake,
 	}, nil
 }
 

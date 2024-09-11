@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"path"
+	"time"
 
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
@@ -75,6 +76,8 @@ func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 			fileLengthBytes: fileLengthBytes,
 			logger: logger,
 	})
+
+	time.Sleep(1 * time.Millisecond) // for deterministic output ordering in fixtures
 
 	go waitAndHandlePeerConnection(
 		PeerConnectionParams {

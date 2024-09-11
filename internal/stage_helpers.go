@@ -13,6 +13,7 @@ import (
 	"os"
 	"path"
 	"strconv"
+	"strings"
 
 	logger "github.com/codecrafters-io/tester-utils/logger"
 	"github.com/jackpal/bencode-go"
@@ -415,7 +416,12 @@ func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err erro
 	}
 	
 	if !isEqualToOneOf(handshake.Reserved[:], peer.expectedReservedBytes...) {
-		return fmt.Errorf("did you send reserved bytes? expected bytes: %v but received: %v", peer.expectedReservedBytes[0], handshake.Reserved)
+		var formattedStrings []string
+		for _, byteSlice := range peer.expectedReservedBytes {
+			formattedString := fmt.Sprintf("%v", byteSlice)
+			formattedStrings = append(formattedStrings, formattedString)
+		}
+		return fmt.Errorf("did you send reserved bytes? expected bytes: %s but received: %v", strings.Join(formattedStrings, " or "), handshake.Reserved)
 	}
 
 	if !bytes.Equal(handshake.InfoHash[:], peer.infoHash[:]) {
