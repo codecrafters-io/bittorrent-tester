@@ -14,7 +14,6 @@ import (
 	"path"
 	"strconv"
 	"strings"
-	"time"
 
 	logger "github.com/codecrafters-io/tester-utils/logger"
 	"github.com/jackpal/bencode-go"
