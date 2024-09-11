@@ -232,6 +232,6 @@ func FormatMetadataExtensionMessage(extensionID uint8, msgType uint8, piece int)
 		fmt.Println("Error encoding:", err)
 	}
 	payload := formatExtendedPayload(buf, extensionID)
-	fmt.Println("extended message payload", string(payload))
+	//fmt.Println("extended message payload", string(payload))
 	return &Message{ID: MsgExtended, Payload: payload}
 }
