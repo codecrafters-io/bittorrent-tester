@@ -64,5 +64,9 @@ var testerDefinition = tester_definition.TesterDefinition{
             Slug: "pk2",
             TestFunc: testMagnetReserved,
         },
+        {
+            Slug: "xi4",
+            TestFunc: testMagnetSendExtendedHandshake,
+        },
     },
 }
