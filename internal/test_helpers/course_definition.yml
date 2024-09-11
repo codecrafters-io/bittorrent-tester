@@ -844,3 +844,47 @@ stages:
       ```
     marketing_md: |-
       In this stage, you'll receive torrent metadata from a peer.
+
+  - slug: "qv6"
+    primary_extension_slug: "magnet-links"
+    name: "Download a piece"
+    difficulty: hard
+    description_md: |-
+      In this stage, you'll download one piece and save it to disk using a magnet link.
+
+      The overall flow looks like this:
+      - Parse magnet link to get the tracker URL
+      - Perform the tracker GET request to get the list of peers
+      - Establish a TCP connection with a peer, perform a handshake and receive bitfields
+      - Receive and send supported extension names and IDs
+      - Request and receive torrent metadata from a peer
+      - Exchange multiple peer messages to download the file
+
+      Here's how the tester will execute your program:
+      ```
+      $ ./your_bittorent.sh magnet_download_piece -o /tmp/test-piece-0 <magnet_link> 0
+      ```
+      and here's the output it expects:
+      ```
+      Piece 0 downloaded to /tmp/test-piece-0.
+      ```
+    marketing_md: |-
+      In this stage, you'll download one piece and save it to disk using a magnet link.
+
+  - slug: "dv7"
+    primary_extension_slug: "magnet-links"
+    name: "Download the whole file"
+    difficulty: hard
+    description_md: |-
+      In this stage, you'll download the entire file and save it to disk using a magnet link.
+
+      Here's how the tester will execute your program:
+      ```
+      $ ./your_bittorent.sh magnet_download -o /tmp/sample <magnet_link>
+      ```
+      and here's the output it expects:
+      ```
+      Downloaded to /tmp/sample.
+      ```
+    marketing_md: |-
+      In this stage, you'll download the entire file and save it to disk using a magnet link.
