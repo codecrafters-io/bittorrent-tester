@@ -60,5 +60,9 @@ var testerDefinition = tester_definition.TesterDefinition{
             Slug: "hw0",
             TestFunc: testParseMagnetLink,
         },
+        {
+            Slug: "pk2",
+            TestFunc: testMagnetReserved,
+        },
     },
 }
