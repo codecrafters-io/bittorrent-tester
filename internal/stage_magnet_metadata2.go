@@ -37,20 +37,28 @@ func testMagnetSendMetadata(stageHarness *test_case_harness.TestCaseHarness) err
         return err
     }
 
+    logger.Successln("✓ Tracker URL is correct.")
+
     expected = fmt.Sprintf("Length: %d", params.MagnetLinkInfo.FileLengthBytes)
     if err = assertStdoutContains(result, expected); err != nil {
         return err
     }
+
+    logger.Successln("✓ Length is correct.")
 
     expected = fmt.Sprintf("Info Hash: %s", params.MagnetLinkInfo.InfoHashStr)
     if err = assertStdoutContains(result, expected); err != nil {
         return err
     }
 
+    logger.Successln("✓ Info Hash is correct.")
+
     expected = fmt.Sprintf("Piece Length: %d", params.MagnetLinkInfo.PieceLengthBytes)
     if err = assertStdoutContains(result, expected); err != nil {
         return err
     }
+
+    logger.Successln("✓ Piece Length is correct.")
 
     pieceHashes := params.MagnetLinkInfo.PieceHashes
     for _, pieceHash := range pieceHashes {
@@ -58,6 +66,8 @@ func testMagnetSendMetadata(stageHarness *test_case_harness.TestCaseHarness) err
             return err
         }
     }
+
+    logger.Successln("✓ Piece Hashes are correct.")
 
     return nil
 }

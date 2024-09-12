@@ -31,9 +31,13 @@ func testParseMagnetLink(stageHarness *test_case_harness.TestCaseHarness) error 
 		return err
 	}
 
+	logger.Successln("✓ Info Hash is correct.")
+
 	trackerStr := fmt.Sprintf("Tracker URL: %s\n", trackerUrl)
 	if err = assertStdoutContains(result, trackerStr); err != nil {
 		return err
 	}
+
+	logger.Successln("✓ Tracker URL is correct.")
 	return nil
 }

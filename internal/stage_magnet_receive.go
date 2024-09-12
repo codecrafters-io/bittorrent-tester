@@ -37,12 +37,16 @@ func testMagnetReceiveExtendedHandshake(stageHarness *test_case_harness.TestCase
 	if err = assertStdoutContains(result, expected); err != nil {
 		return err
 	}
+
+	logger.Successln("✓ Peer ID is correct.")
 	
 	expected = fmt.Sprintf("Peer Metadata Extension ID: %d\n", params.MyMetadataExtensionID)
 
 	if err = assertStdoutContains(result, expected); err != nil {
 		return err
 	}
+
+	logger.Successln("✓ Peer Metadata Extension ID is correct.")
 
 	return nil
 }
