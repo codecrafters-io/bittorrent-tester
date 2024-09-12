@@ -370,11 +370,11 @@ func FetchPeers(magnetUrl string, myPeerID [20]byte) ([]peers.Peer, error) {
 		return nil, err
 	}
 
-	fmt.Println("Received peers from tracker", link.Trackers[0])
+	//fmt.Println("Received peers from tracker", link.Trackers[0])
 	peer_str := make([]string, len(peers))
 	for i, peer := range peers {
 		peer_str[i] = peer.String()
-		fmt.Printf("Peer %d: %s\n", i, peer_str[i])
+		//fmt.Printf("Peer %d: %s\n", i, peer_str[i])
 	}
 	return peers, nil
 }
@@ -390,7 +390,7 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 		return nil, err
 	}
 
-	fmt.Printf("Connecting to %s\n", peer)
+	//fmt.Printf("Connecting to %s\n", peer)
 	extensions := []byte {0, 0, 0, 0, 0, 16, 0, 0}
 	conn, err := client.New(peer, myPeerID, infoHash, extensions)
 	if err != nil {
@@ -398,19 +398,19 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 	}
 	fmt.Printf("Peer ID: %x\n", conn.Handshake.PeerID)
 
-	fmt.Println("Sending my extension handshake")
+	//fmt.Println("Sending my extension handshake")
 	err = conn.SendExtensionHandshake()
 	if err != nil {
 		return &empty, err
 	}
 
-	fmt.Println("Waiting for peer extension handshake response")
+	//fmt.Println("Waiting for peer extension handshake response")
 	msg, err := conn.Read()
 	if err != nil {
 		return &empty, err
 	}
 
-	fmt.Println("Received extension handshake payload", string(msg.Payload))
+	//fmt.Println("Received extension handshake payload", string(msg.Payload))
 	handshake, err := bencode.Decode(bytes.NewReader(msg.Payload[1:]))
 	if err != nil {
 		fmt.Println("Error decoding", err)
@@ -418,10 +418,10 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 	}
 
 	dict := handshake.(map[string]interface{})
-	fmt.Printf("Peer Extensions: %v\n", dict)
+	//fmt.Printf("Peer Extensions: %v\n", dict)
 	
-	metadataSize := dict["metadata_size"].(int64)
-	fmt.Println("metadata size", metadataSize)
+	//metadataSize := dict["metadata_size"].(int64)
+	//fmt.Println("metadata size", metadataSize)
 
 	metadataExtensionID := dict["m"].(map[string]interface{})["ut_metadata"]
 	fmt.Println("Peer Metadata Extension ID:", metadataExtensionID)
@@ -430,22 +430,22 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 		return &empty, nil
 	}
 
-	fmt.Println("Sending metadata request for index 0")
+	//fmt.Println("Sending metadata request for index 0")
 	err = conn.SendMetadataRequest(uint8(metadataExtensionID.(int64)), 0)
 	if err != nil {
 		return &empty, err
 	}
 
-	fmt.Println("Waiting for metadata response for index 0")
+	//fmt.Println("Waiting for metadata response for index 0")
 	msg, err = conn.Read()
 	if err != nil {
 		return &empty, err
 	}
 
-	fmt.Printf("Received msg payload: %s with length: %d\n", string(msg.Payload), len(msg.Payload))
+	//fmt.Printf("Received msg payload: %s with length: %d\n", string(msg.Payload), len(msg.Payload))
 
 	rest := msg.FindMetadataPayloadIndex()
-	fmt.Println("Torrent metadata starts at index", rest)
+	//fmt.Println("Torrent metadata starts at index", rest)
 
 	myTorrent, torrentErr := parser.FromByteArray(msg.Payload[1+rest:], link.Trackers[0])
 	if torrentErr != nil {

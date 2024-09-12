@@ -37,9 +37,13 @@ func testMagnetDownloadFile(stageHarness *test_case_harness.TestCaseHarness) err
         return err
     }
 
+    logger.Successln("✓ File size is correct.")
+
     if err = assertFileSHA1(downloadedFilePath, t.ExpectedSha1); err != nil {
         return err
     }
+
+    logger.Successln("✓ File SHA-1 is correct.")
 
     return nil
 }
