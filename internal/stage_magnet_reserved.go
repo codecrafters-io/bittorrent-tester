@@ -45,6 +45,7 @@ func testMagnetReserved(stageHarness *test_case_harness.TestCaseHarness) error {
 
 func closeConnection(conn net.Conn, logger *logger.Logger) {
     logger.Debugln("Closing connection")
+    // Wait in case other party wants to send extra data
     time.Sleep(1 * time.Second)
     err := conn.Close()
     if err != nil {

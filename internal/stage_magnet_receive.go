@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"net"
+	"time"
 
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
@@ -66,4 +67,11 @@ func handleReceiveExtensionHandshake(conn net.Conn, p PeerConnectionParams) {
 	if err := sendExtensionHandshake(conn, p.myMetadataExtensionID, p.metadataSizeBytes, logger); err != nil {
 		return
 	}
+
+	if _, err := receiveAndAssertExtensionHandshake(conn, logger); err != nil {
+        return
+    }
+
+	// Wait in case other party wants to send extra data
+	time.Sleep(1 * time.Second)
 }
