@@ -3,7 +3,9 @@ package internal
 import (
 	"fmt"
 	"net"
+	"time"
 
+	logger "github.com/codecrafters-io/tester-utils/logger"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -41,8 +43,17 @@ func testMagnetReserved(stageHarness *test_case_harness.TestCaseHarness) error {
     return nil
 }
 
+func closeConnection(conn net.Conn, logger *logger.Logger) {
+    logger.Debugln("Closing connection")
+    time.Sleep(2 * time.Second)
+    err := conn.Close()
+    if err != nil {
+        logger.Debugf("Error closing connection: %v", err)
+    }
+}
+
 func handleReservedBytes(conn net.Conn, p PeerConnectionParams) {
-    defer conn.Close()
+    defer closeConnection(conn, p.logger)
 
     if err := receiveAndSendHandshake(conn, p); err != nil {
         return
