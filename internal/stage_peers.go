@@ -118,6 +118,7 @@ func testDiscoverPeers(stageHarness *test_case_harness.TestCaseHarness) error {
 		expectedInfoHash: expectedInfoHash,
 		fileLengthBytes: fileLengthBytes,
 		logger: logger,
+		isMagnetLinkTest: false,
 	})
 
 	logger.Infof("Running ./%s peers %s", path.Base(executable.Path), torrentFilePath)

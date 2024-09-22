@@ -88,6 +88,7 @@ func (m *MagnetTestParams) toTrackerParams() TrackerParams {
 		fileLengthBytes: m.MagnetLinkInfo.FileLengthBytes,
 		logger: m.Logger,
 		myMetadataExtensionID: m.MyMetadataExtensionID,
+		isMagnetLinkTest: true,
 	}
 }
 
