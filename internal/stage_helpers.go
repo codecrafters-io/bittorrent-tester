@@ -280,7 +280,7 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseConten
 	left := queryParams.Get("left")
 	if left == "" {
 		if isMagnetLinkTest {
-			logger.Errorln("Required parameter \"left\" is missing in peers request. Use a placeholder value like left=999 for magnet links as file size is not known in advance.")
+			logger.Errorln("Required parameter \"left\" is missing in peers request. Use a placeholder value like left=1 for magnet links as file size is not known in advance.")
 		} else {
 			logger.Errorln("Required parameter missing: left")
 		}
