@@ -4,6 +4,7 @@ package internal
 import (
     "bytes"
     "encoding/binary"
+    "errors"
     "io"
     "net"
 
@@ -84,7 +85,7 @@ func formatExtendedPayload(buf bytes.Buffer, extensionId uint8) []byte {
 }
 
 // Read parses a message from a stream. Returns `nil` on keep-alive message
-func readMessage(r io.Reader) (*Message, error) {
+func readMessage(r io.Reader, logger *logger.Logger) (*Message, error) {
     lengthBuf := make([]byte, 4)
     _, err := io.ReadFull(r, lengthBuf)
     if err != nil {
@@ -100,6 +101,9 @@ func readMessage(r io.Reader) (*Message, error) {
     messageBuf := make([]byte, length)
     _, err = io.ReadFull(r, messageBuf)
     if err != nil {
+        if errors.Is(err, io.ErrUnexpectedEOF) {
+            logger.Errorln("Ensure message length prefix has the correct value. Also make sure you're sending correct sequence of messages.")
+        }
         return nil, err
     }
 

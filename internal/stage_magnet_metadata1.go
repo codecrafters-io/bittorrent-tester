@@ -81,7 +81,7 @@ func readMetadataRequest(conn net.Conn, logger *logger.Logger) (err error) {
     defer logOnExit(logger, &err)
 
     logger.Debugln("Waiting to receive metadata request")
-    msg, err := readMessage(conn)
+    msg, err := readMessage(conn, logger)
     if err != nil {
         return fmt.Errorf("error reading message: %v", err.Error())
     }
