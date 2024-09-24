@@ -40,6 +40,7 @@ type TrackerParams struct {
 	fileLengthBytes int
 	logger *logger.Logger
 	myMetadataExtensionID uint8
+	isMagnetLinkTest bool
 }
 
 var samplePieceHashes = []string{
@@ -247,7 +248,7 @@ func listenAndServeTrackerResponse(p TrackerParams) {
 	logger := p.logger
 	mux := http.NewServeMux()
 	mux.HandleFunc("/announce", func(w http.ResponseWriter, r *http.Request) {
-		serveTrackerResponse(w, r, p.peersResponse, p.expectedInfoHash, p.fileLengthBytes, p.logger)
+		serveTrackerResponse(w, r, p.peersResponse, p.expectedInfoHash, p.fileLengthBytes, p.isMagnetLinkTest, p.logger)
 	})
 	
 	// Redirect /announce/ to /announce while preserving query parameters 
@@ -269,7 +270,7 @@ func listenAndServeTrackerResponse(p TrackerParams) {
 	}
 }
 
-func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, logger *logger.Logger) {
+func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseContent []byte, expectedInfoHash [20]byte, fileLengthBytes int, isMagnetLinkTest bool, logger *logger.Logger) {
 	if r.Method != "GET" {
 		logger.Errorln("HTTP method GET expected")
 		http.Error(w, "HTTP method GET expected", http.StatusMethodNotAllowed)
@@ -278,7 +279,11 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseConten
 	queryParams := r.URL.Query()
 	left := queryParams.Get("left")
 	if left == "" {
-		logger.Errorln("Required parameter missing: left")
+		if isMagnetLinkTest {
+			logger.Errorln("Required parameter \"left\" is missing in peers request. Use a placeholder value like left=1 for magnet links as file size is not known in advance.")
+		} else {
+			logger.Errorln("Required parameter missing: left")
+		}
 		w.Write([]byte("d14:failure reason31:failed to parse parameter: lefte"))
 		return
 	}

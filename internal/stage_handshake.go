@@ -74,6 +74,7 @@ func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 			expectedInfoHash: infoHash,
 			fileLengthBytes: fileLengthBytes,
 			logger: logger,
+			isMagnetLinkTest: false,
 	})
 
 	go waitAndHandlePeerConnection(
