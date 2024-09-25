@@ -173,7 +173,7 @@ func receiveAndAssertExtensionHandshake(conn net.Conn, logger *logger.Logger) (i
 
 func receiveExtensionHandshake(conn net.Conn, logger *logger.Logger) (*Message, error) {
 	logger.Debugln("Waiting to receive extension handshake message")
-	msg, err := readMessage(conn)
+	msg, err := readMessage(conn, logger)
 	if err != nil {
 		return nil, err
 	}
