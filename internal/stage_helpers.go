@@ -358,6 +358,8 @@ func serveTrackerResponse(w http.ResponseWriter, r *http.Request, responseConten
 		logger.Errorln("peer_id needs to be a string of length 20")
 		w.Write([]byte("d14:failure reason31:failed to provide valid peer_ide"))
 		return
+	} else if peerId == "00112233445566778899" {
+		logger.Errorln("WARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.")
 	}
 
 	infoHash := queryParams.Get("info_hash")

@@ -154,6 +154,10 @@ func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 	copy(infoHash[:], handshakeBuffer[protocolNameLength+8:protocolNameLength+8+20])
 	copy(peerID[:], handshakeBuffer[protocolNameLength+8+20:])
 
+	if bytes.Equal(peerID[:], []byte("00112233445566778899")) {
+		logger.Errorln("WARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.")
+	}
+
 	handshake := Handshake{
 		ProtocolStr: protocolStr,
 		Reserved:    reservedBytes,
