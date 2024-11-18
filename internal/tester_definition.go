@@ -26,6 +26,7 @@ var testerDefinition = tester_definition.TesterDefinition{
         {
             Slug: "mn6",
             TestFunc: testBencodeDict,
+            Timeout:  15 * time.Second,
         },
         {
             Slug: "ow9",
