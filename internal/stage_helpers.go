@@ -399,10 +399,11 @@ func createPeersResponse(peerIP string, peerPort int) []byte {
 	peerBytes[5] = byte(peerPort)
 
 	response := map[string]interface{}{
-		"complete":    1,
-		"incomplete":  0,
-		"mininterval": 1800,
-		"peers":       peerBytes,
+		"complete":     1,
+		"incomplete":   0,
+		"interval":     60,
+		"min interval": 60,
+		"peers":        peerBytes,
 	}
 
 	var buf bytes.Buffer
