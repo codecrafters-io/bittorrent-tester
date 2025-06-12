@@ -5,7 +5,7 @@ import (
 )
 
 func logOnExit(logger *logger.Logger, err *error) {
-    if *err != nil {
-        logger.Errorf("%v", *err)
-    }
+	if *err != nil {
+		logger.Errorf("%v", *err)
+	}
 }

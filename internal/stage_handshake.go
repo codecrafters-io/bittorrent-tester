@@ -66,22 +66,22 @@ func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
 	peersResponse := createPeersResponse("127.0.0.1", peerPort)
 
 	go listenAndServeTrackerResponse(
-		TrackerParams {
-			trackerAddress: trackerAddress,
-			peersResponse: peersResponse,
+		TrackerParams{
+			trackerAddress:   trackerAddress,
+			peersResponse:    peersResponse,
 			expectedInfoHash: infoHash,
-			fileLengthBytes: fileLengthBytes,
-			logger: logger,
+			fileLengthBytes:  fileLengthBytes,
+			logger:           logger,
 			isMagnetLinkTest: false,
-	})
+		})
 
 	go waitAndHandlePeerConnection(
-		PeerConnectionParams {
-			address: peerAddress,
-			myPeerID: expectedPeerID,
-			infoHash: infoHash,
+		PeerConnectionParams{
+			address:               peerAddress,
+			myPeerID:              expectedPeerID,
+			infoHash:              infoHash,
 			expectedReservedBytes: expectedReservedBytes,
-			logger: logger,
+			logger:                logger,
 		},
 		handleHandshake,
 	)
