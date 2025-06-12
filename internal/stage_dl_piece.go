@@ -65,8 +65,6 @@ var downloadPieceTests = [][]DownloadPieceTest{
 }
 
 func testDownloadPiece(stageHarness *test_case_harness.TestCaseHarness) error {
-	initRandom()
-
 	randomIndex := rand.Intn(len(downloadPieceTests))
 	tests := downloadPieceTests[randomIndex]
 

@@ -10,8 +10,6 @@ import (
 )
 
 func testHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
-	initRandom()
-
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 

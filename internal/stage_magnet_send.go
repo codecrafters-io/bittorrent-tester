@@ -11,8 +11,6 @@ import (
 var handshakeChannel = make(chan bool)
 
 func testMagnetSendExtendedHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
-    initRandom()
-
     logger := stageHarness.Logger
     executable := stageHarness.Executable
 

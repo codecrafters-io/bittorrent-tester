@@ -7,8 +7,6 @@ import (
 )
 
 func testParseMagnetLink(stageHarness *test_case_harness.TestCaseHarness) error {
-	initRandom()
-
 	link := randomMagnetLink()
 	trackerUrl := "http://bittorrent-test-tracker.codecrafters.io/announce"
 	urlEncoded := "magnet:?xt=urn:btih:" + link.InfoHashStr + "&dn=" + link.Filename + "&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce"
