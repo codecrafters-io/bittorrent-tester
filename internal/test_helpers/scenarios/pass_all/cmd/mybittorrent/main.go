@@ -2,7 +2,7 @@ package main
 
 import (
 	// Uncomment this line to pass the first stage
-	"crypto/rand"
+
 	"encoding/json"
 	"fmt"
 	"os"
@@ -15,11 +15,13 @@ import (
 	"github.com/codecrafters-io/grep-starter-go/p2p"
 	"github.com/codecrafters-io/grep-starter-go/parser"
 	"github.com/codecrafters-io/grep-starter-go/peers"
+	"github.com/codecrafters-io/tester-utils/random"
 )
 
 func main() {
 	// You can use print statements as follows for debugging, they'll be visible when running tests.
 	//fmt.Println("Logs from your program will appear here!")
+	random.Init()
 
 	command := os.Args[1]
 
@@ -93,8 +95,7 @@ func Stage_tracker_get() {
 		return
 	}
 	//fmt.Println("Tracker URL:", torrentFile.Announce)
-	var peerID [20]byte
-	_, err = rand.Read(peerID[:])
+	peerID, err := randomHash()
 	if err != nil {
 		fmt.Println("error generating peer id")
 		return
@@ -123,8 +124,7 @@ func Stage_handshake() {
 		return
 	}
 
-	var peerID [20]byte
-	_, err = rand.Read(peerID[:])
+	peerID, err := randomHash()
 	if err != nil {
 		fmt.Println("error generating peer id")
 		return
@@ -196,7 +196,7 @@ func Stage_magnet_parse() {
 		fmt.Println("Error", err)
 	}
 
-	for _, tracker := range(link.Trackers) {
+	for _, tracker := range link.Trackers {
 		fmt.Printf("Tracker URL: %s\n", tracker)
 	}
 	fmt.Printf("Info Hash: %s\n", link.InfoHash)
@@ -204,7 +204,7 @@ func Stage_magnet_parse() {
 
 func Stage_magnet_handshake(shouldSendMetadata bool) {
 	magnetUrl := os.Args[2]
-	
+
 	myPeerID := generateMyPeerID()
 	peers, err := p2p.FetchPeers(magnetUrl, myPeerID)
 	if err != nil {
@@ -225,7 +225,7 @@ func Stage_magnet_handshake(shouldSendMetadata bool) {
 		fmt.Printf("Info Hash: %x\n", myTorrent.InfoHash)
 		fmt.Printf("Piece Length: %d\n", myTorrent.PieceLength)
 		fmt.Printf("Piece Hashes:\n")
-		for _, hash := range(myTorrent.PieceHashes) {
+		for _, hash := range myTorrent.PieceHashes {
 			fmt.Printf("%x\n", hash)
 		}
 	}
@@ -255,7 +255,7 @@ func Stage_magnet_dl_piece() {
 		fmt.Println("Error", err)
 		return
 	}
-	
+
 	peer := peers[0].String()
 	torrentFile, err := p2p.FetchTorrentMetadata(magnetUrl, peer, myPeerID, true)
 	if err != nil {
@@ -294,4 +294,12 @@ func Stage_magnet_dl_file() {
 		return
 	}
 	//fmt.Printf("Downloaded to %s.", outputPath)
+}
+
+func randomHash() ([20]byte, error) {
+	var hash [20]byte
+	for i := 0; i < 20; i++ {
+		hash[i] = byte(random.RandomInt(0, 256))
+	}
+	return hash, nil
 }
