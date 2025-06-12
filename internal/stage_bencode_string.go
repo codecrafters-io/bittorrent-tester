@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -11,7 +12,7 @@ func testBencodeString(stageHarness *test_case_harness.TestCaseHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	randomWord := randomWord()
+	randomWord := random.RandomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
 
 	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), randomWordEncoded)

@@ -2,11 +2,11 @@ package internal
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"path"
 	"strings"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -65,7 +65,7 @@ var downloadPieceTests = [][]DownloadPieceTest{
 }
 
 func testDownloadPiece(stageHarness *test_case_harness.TestCaseHarness) error {
-	randomIndex := rand.Intn(len(downloadPieceTests))
+	randomIndex := random.RandomInt(0, len(downloadPieceTests))
 	tests := downloadPieceTests[randomIndex]
 
 	logger := stageHarness.Logger

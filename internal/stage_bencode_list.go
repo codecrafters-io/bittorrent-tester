@@ -2,10 +2,10 @@ package internal
 
 import (
 	"fmt"
-	"math/rand"
 	"path"
 	"strings"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -31,9 +31,9 @@ func testBencodeList(stageHarness *test_case_harness.TestCaseHarness) error {
 	}
 
 	// Test list with random word and random number
-	randomWord := randomWord()
+	randomWord := random.RandomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
-	randomNumber := rand.Intn(1000)
+	randomNumber := random.RandomInt(0, 1000)
 	randomNumberEncoded := fmt.Sprintf("i%de", randomNumber)
 	listEncoded := fmt.Sprintf("l%s%se", randomWordEncoded, randomNumberEncoded)
 

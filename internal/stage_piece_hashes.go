@@ -3,11 +3,11 @@ package internal
 import (
 	"encoding/hex"
 	"fmt"
-	"math/rand"
 	"os"
 	"path"
 	"strings"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -87,9 +87,9 @@ func hashWithoutLeadingZeros(hexString string) string {
 }
 
 func createPieceHashes() ([]string, error) {
-	size := rand.Intn(7) + 2
+	size := random.RandomInt(0, 7) + 2
 	pieceHashes := make([]string, size)
-	for i := 0; i < size; i++ {
+	for i := range size {
 		hash, err := randomHash()
 		if err != nil {
 			return []string{}, err

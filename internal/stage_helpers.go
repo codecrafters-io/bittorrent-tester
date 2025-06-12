@@ -470,8 +470,8 @@ func waitAndHandlePeerConnection(p PeerConnectionParams, handler ConnectionHandl
 
 func randomHash() ([20]byte, error) {
 	var hash [20]byte
-	if _, err := rand.Read(hash[:]); err != nil {
-		return [20]byte{}, err
+	for i := 0; i < 20; i++ {
+		hash[i] = byte(random.RandomInt(0, 256))
 	}
 	return hash, nil
 }
