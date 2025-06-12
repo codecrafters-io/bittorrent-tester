@@ -1,5 +1,5 @@
 [33m[tester::#NS2] [0m[94mRunning tests for Stage #NS2 (ns2)[0m
-[33m[tester::#NS2] [0m[94mRunning ./your_bittorrent.sh decode 5:apple[0m
+[33m[tester::#NS2] [0m[94mRunning ./your_bittorrent.sh decode 4:pear[0m
 [33m[your_program] [0mLogs from your program will appear here!
-[33m[tester::#NS2] [0m[91mExpected "\"apple\"\n" as stdout, got: "Logs from your program will appear here!\n"[0m
+[33m[tester::#NS2] [0m[91mExpected "\"pear\"\n" as stdout, got: "Logs from your program will appear here!\n"[0m
 [33m[tester::#NS2] [0m[91mTest failed (try setting 'debug: true' in your codecrafters.yml to see more details)[0m

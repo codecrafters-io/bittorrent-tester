@@ -1,5 +1,5 @@
 [33m[tester::#DV7] [0m[94mRunning tests for Stage #DV7 (dv7)[0m
-[33m[tester::#DV7] [0m[94mRunning ./your_bittorrent.sh magnet_download -o /tmp/torrents1003884585/magnet1.gif "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce"[0m
+[33m[tester::#DV7] [0m[94mRunning ./your_bittorrent.sh magnet_download -o /tmp/torrents4005727858/magnet1.gif "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce"[0m
 [33m[your_program] [0mPeer ID: 2d524e302e302e302df91cf98bdb86ce6aca9a21
 [33m[your_program] [0mPeer Metadata Extension ID: 1
 [33m[your_program] [0mextended message payload d8:msg_typei0e5:piecei0ee
@@ -8,13 +8,13 @@
 [33m[tester::#DV7] [0m[92mTest passed.[0m
 
 [33m[tester::#QV6] [0m[94mRunning tests for Stage #QV6 (qv6)[0m
-[33m[tester::#QV6] [0m[94mRunning ./your_bittorrent.sh magnet_download_piece -o /tmp/torrents3557054046/piece-1 "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce" 1[0m
+[33m[tester::#QV6] [0m[94mRunning ./your_bittorrent.sh magnet_download_piece -o /tmp/torrents534006858/piece-1 "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce" 1[0m
 [33m[your_program] [0mPeer ID: 2d524e302e302e302df91cf98bdb86ce6aca9a21
 [33m[your_program] [0mPeer Metadata Extension ID: 1
 [33m[your_program] [0mextended message payload d8:msg_typei0e5:piecei0ee
 [33m[tester::#QV6] [0m[92m✓ Piece size is correct.[0m
 [33m[tester::#QV6] [0m[92m✓ Piece SHA-1 is correct.[0m
-[33m[tester::#QV6] [0m[94mRunning ./your_bittorrent.sh magnet_download_piece -o /tmp/torrents3557054046/piece-2 "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce" 2[0m
+[33m[tester::#QV6] [0m[94mRunning ./your_bittorrent.sh magnet_download_piece -o /tmp/torrents534006858/piece-2 "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce" 2[0m
 [33m[your_program] [0mPeer ID: 2d524e302e302e302df91cf98bdb86ce6aca9a21
 [33m[your_program] [0mPeer Metadata Extension ID: 1
 [33m[your_program] [0mextended message payload d8:msg_typei0e5:piecei0ee
@@ -23,20 +23,18 @@
 [33m[tester::#QV6] [0m[92mTest passed.[0m
 
 [33m[tester::#ZH1] [0m[94mRunning tests for Stage #ZH1 (zh1)[0m
-[33m[tester::#ZH1] [0m[94mRunning ./your_bittorrent.sh magnet_info "magnet:?xt=urn:btih:c5fb9894bdaba464811b088d806bdd611ba490af&dn=magnet3.gif&tr=http%3A%2F%2F127.0.0.1:34383%2Fannounce"[0m
+[33m[tester::#ZH1] [0m[94mRunning ./your_bittorrent.sh magnet_info "magnet:?xt=urn:btih:3f994a835e090238873498636b98a3e78d1c34ca&dn=magnet2.gif&tr=http%3A%2F%2F127.0.0.1:44859%2Fannounce"[0m
 [33m[tester::#ZH1] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
 [33m[tester::#ZH1] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
-[33m[your_program] [0mPeer ID: dc8c68659f0a2bf11154e1724bf47c1d6e4e8058
-[33m[your_program] [0mPeer Metadata Extension ID: 35
-[33m[your_program] [0mextended message payload #d8:msg_typei0e5:piecei0ee
-[33m[your_program] [0mTracker URL: http://127.0.0.1:34383/announce
-[33m[your_program] [0mLength: 629944
-[33m[your_program] [0mInfo Hash: c5fb9894bdaba464811b088d806bdd611ba490af
+[33m[your_program] [0mPeer ID: fa15a2b372c707985a22024a8e58101cc0b54af3
+[33m[your_program] [0mPeer Metadata Extension ID: 189
+[33m[your_program] [0mextended message payload �d8:msg_typei0e5:piecei0ee
+[33m[your_program] [0mTracker URL: http://127.0.0.1:44859/announce
+[33m[your_program] [0mLength: 79752
+[33m[your_program] [0mInfo Hash: 3f994a835e090238873498636b98a3e78d1c34ca
 [33m[your_program] [0mPiece Length: 262144
 [33m[your_program] [0mPiece Hashes:
-[33m[your_program] [0mca80fd83ffb34d6e1bbd26a8ef6d305827f1cd0a
-[33m[your_program] [0m707fd7c657f6d636f0583466c3cfe134ddb2c08a
-[33m[your_program] [0m47076d104d214c0052960ef767262649a8af0ea8
+[33m[your_program] [0md78a7f55ddd89fef477bc49d938bc7e4d94094f1
 [33m[tester::#ZH1] [0m[92m✓ Tracker URL is correct.[0m
 [33m[tester::#ZH1] [0m[92m✓ Length is correct.[0m
 [33m[tester::#ZH1] [0m[92m✓ Info Hash is correct.[0m
@@ -45,77 +43,80 @@
 [33m[tester::#ZH1] [0m[92mTest passed.[0m
 
 [33m[tester::#NS5] [0m[94mRunning tests for Stage #NS5 (ns5)[0m
-[33m[tester::#NS5] [0m[94mRunning ./your_bittorrent.sh magnet_info "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2F127.0.0.1:46559%2Fannounce"[0m
+[33m[tester::#NS5] [0m[94mRunning ./your_bittorrent.sh magnet_info "magnet:?xt=urn:btih:c5fb9894bdaba464811b088d806bdd611ba490af&dn=magnet3.gif&tr=http%3A%2F%2F127.0.0.1:33845%2Fannounce"[0m
 [33m[tester::#NS5] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
 [33m[tester::#NS5] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
-[33m[your_program] [0mPeer ID: 6b5e56cae10cbfa4222ff53b4ea3ab46e37a3e46
-[33m[your_program] [0mPeer Metadata Extension ID: 70
-[33m[your_program] [0mextended message payload Fd8:msg_typei0e5:piecei0ee
-[33m[your_program] [0mTracker URL: http://127.0.0.1:46559/announce
-[33m[your_program] [0mLength: 636505
-[33m[your_program] [0mInfo Hash: ad42ce8109f54c99613ce38f9b4d87e70f24a165
+[33m[your_program] [0mPeer ID: 78e636cf38a9fcc687a3bf5f5ab92fea93868e65
+[33m[your_program] [0mPeer Metadata Extension ID: 245
+[33m[your_program] [0mextended message payload �d8:msg_typei0e5:piecei0ee
+[33m[your_program] [0mTracker URL: http://127.0.0.1:33845/announce
+[33m[your_program] [0mLength: 629944
+[33m[your_program] [0mInfo Hash: c5fb9894bdaba464811b088d806bdd611ba490af
 [33m[your_program] [0mPiece Length: 262144
 [33m[your_program] [0mPiece Hashes:
-[33m[your_program] [0m3b46a96d9bc3716d1b75da91e6d753a793ad1cef
-[33m[your_program] [0meda417cb5c1cdbf841125c412da0bec9db8301f3
-[33m[your_program] [0m422f45b1052e2d45da3e2a6516e1bb1f1db00733
+[33m[your_program] [0mca80fd83ffb34d6e1bbd26a8ef6d305827f1cd0a
+[33m[your_program] [0m707fd7c657f6d636f0583466c3cfe134ddb2c08a
+[33m[your_program] [0m47076d104d214c0052960ef767262649a8af0ea8
 [33m[tester::#NS5] [0m[92mTest passed.[0m
 
 [33m[tester::#JK6] [0m[94mRunning tests for Stage #JK6 (jk6)[0m
-[33m[tester::#JK6] [0m[94mRunning ./your_bittorrent.sh magnet_handshake "magnet:?xt=urn:btih:3f994a835e090238873498636b98a3e78d1c34ca&dn=magnet2.gif&tr=http%3A%2F%2F127.0.0.1:37295%2Fannounce"[0m
+[33m[tester::#JK6] [0m[94mRunning ./your_bittorrent.sh magnet_handshake "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2F127.0.0.1:42129%2Fannounce"[0m
 [33m[tester::#JK6] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
 [33m[tester::#JK6] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
-[33m[your_program] [0mPeer ID: 2a81fce52ea12a16d4cf6a3414ca98208408abc9
-[33m[your_program] [0mPeer Metadata Extension ID: 185
+[33m[your_program] [0mPeer ID: 7c0055e6127ab25ddbaa13acc6923db4753f6989
+[33m[your_program] [0mPeer Metadata Extension ID: 232
 [33m[tester::#JK6] [0m[92m✓ Peer ID is correct.[0m
 [33m[tester::#JK6] [0m[92m✓ Peer Metadata Extension ID is correct.[0m
 [33m[tester::#JK6] [0m[92mTest passed.[0m
 
 [33m[tester::#XI4] [0m[94mRunning tests for Stage #XI4 (xi4)[0m
-[33m[tester::#XI4] [0m[94mRunning ./your_bittorrent.sh magnet_handshake "magnet:?xt=urn:btih:3f994a835e090238873498636b98a3e78d1c34ca&dn=magnet2.gif&tr=http%3A%2F%2F127.0.0.1:40959%2Fannounce"[0m
+[33m[tester::#XI4] [0m[94mRunning ./your_bittorrent.sh magnet_handshake "magnet:?xt=urn:btih:c5fb9894bdaba464811b088d806bdd611ba490af&dn=magnet3.gif&tr=http%3A%2F%2F127.0.0.1:45927%2Fannounce"[0m
 [33m[tester::#XI4] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
 [33m[tester::#XI4] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
-[33m[your_program] [0mPeer ID: 84633a07c7af256eaac9d03ae3626bdc7c1ae913
-[33m[your_program] [0mPeer Metadata Extension ID: 172
+[33m[your_program] [0mPeer ID: faf86ef81d910bc2217168298f307e49aed536f6
+[33m[your_program] [0mPeer Metadata Extension ID: 35
 [33m[tester::#XI4] [0m[92mTest passed.[0m
 
 [33m[tester::#PK2] [0m[94mRunning tests for Stage #PK2 (pk2)[0m
-[33m[tester::#PK2] [0m[94mRunning ./your_bittorrent.sh magnet_handshake "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2F127.0.0.1:41721%2Fannounce"[0m
+[33m[tester::#PK2] [0m[94mRunning ./your_bittorrent.sh magnet_handshake "magnet:?xt=urn:btih:c5fb9894bdaba464811b088d806bdd611ba490af&dn=magnet3.gif&tr=http%3A%2F%2F127.0.0.1:38213%2Fannounce"[0m
 [33m[tester::#PK2] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
 [33m[tester::#PK2] [0m[91mWARNING: Common peer_ids like 00112233445566778899 are prone to collisions with other clients. Peers may only accept one connection per peer_id, increasing the chance of seeing 'Connection reset by peer' errors. Use a random peer_id instead.[0m
-[33m[your_program] [0mPeer ID: b6a4cd4f742f7ebcb0ca29ab68ce36d31f322279
-[33m[your_program] [0mPeer Metadata Extension ID: 34
+[33m[your_program] [0mPeer ID: 16ec81beaf0a50e72326b82da3af3ba167edd568
+[33m[your_program] [0mPeer Metadata Extension ID: 240
 [33m[tester::#PK2] [0m[92mTest passed.[0m
 
 [33m[tester::#HW0] [0m[94mRunning tests for Stage #HW0 (hw0)[0m
-[33m[tester::#HW0] [0m[94mRunning ./your_bittorrent.sh magnet_parse "magnet:?xt=urn:btih:ad42ce8109f54c99613ce38f9b4d87e70f24a165&dn=magnet1.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce"[0m
+[33m[tester::#HW0] [0m[94mRunning ./your_bittorrent.sh magnet_parse "magnet:?xt=urn:btih:3f994a835e090238873498636b98a3e78d1c34ca&dn=magnet2.gif&tr=http%3A%2F%2Fbittorrent-test-tracker.codecrafters.io%2Fannounce"[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
-[33m[your_program] [0mInfo Hash: ad42ce8109f54c99613ce38f9b4d87e70f24a165
+[33m[your_program] [0mInfo Hash: 3f994a835e090238873498636b98a3e78d1c34ca
 [33m[tester::#HW0] [0m[92m✓ Info Hash is correct.[0m
 [33m[tester::#HW0] [0m[92m✓ Tracker URL is correct.[0m
 [33m[tester::#HW0] [0m[92mTest passed.[0m
 
 [33m[tester::#JV8] [0m[94mRunning tests for Stage #JV8 (jv8)[0m
-[33m[tester::#JV8] [0m[94mRunning ./your_bittorrent.sh download -o /tmp/torrents4016265061/congratulations.gif /tmp/torrents4016265061/congratulations.gif.torrent[0m
+[33m[tester::#JV8] [0m[94mRunning ./your_bittorrent.sh download -o /tmp/torrents393879159/congratulations.gif /tmp/torrents393879159/congratulations.gif.torrent[0m
 [33m[tester::#JV8] [0m[92mTest passed.[0m
 
 [33m[tester::#ND2] [0m[94mRunning tests for Stage #ND2 (nd2)[0m
-[33m[tester::#ND2] [0m[94mRunning ./your_bittorrent.sh download_piece -o /tmp/torrents2111690657/piece-0 /tmp/torrents2111690657/codercat.gif.torrent 0[0m
-[33m[tester::#ND2] [0m[94mRunning ./your_bittorrent.sh download_piece -o /tmp/torrents2111690657/piece-11 /tmp/torrents2111690657/codercat.gif.torrent 11[0m
+[33m[tester::#ND2] [0m[94mRunning ./your_bittorrent.sh download_piece -o /tmp/torrents3022885970/piece-9 /tmp/torrents3022885970/itsworking.gif.torrent 9[0m
+[33m[tester::#ND2] [0m[94mRunning ./your_bittorrent.sh download_piece -o /tmp/torrents3022885970/piece-1 /tmp/torrents3022885970/itsworking.gif.torrent 1[0m
 [33m[tester::#ND2] [0m[92mTest passed.[0m
 
 [33m[tester::#CA4] [0m[94mRunning tests for Stage #CA4 (ca4)[0m
-[33m[tester::#CA4] [0m[94mRunning ./your_bittorrent.sh handshake /tmp/torrents1671605711/test.torrent 127.0.0.1:44083[0m
-[33m[your_program] [0mPeer ID: 48810eb27cafdae7bf4e7a7f512a0d50c95a28fb
+[33m[tester::#CA4] [0m[94mRunning ./your_bittorrent.sh handshake /tmp/torrents1743907330/test.torrent 127.0.0.1:41899[0m
+[33m[your_program] [0mPeer ID: 2c2bb1a943e2cc3ae9a3daa0f208750caa5ed891
 [33m[tester::#CA4] [0m[92mTest passed.[0m
 
 [33m[tester::#FI9] [0m[94mRunning tests for Stage #FI9 (fi9)[0m
-[33m[tester::#FI9] [0m[94mRunning ./your_bittorrent.sh peers /tmp/torrents572672097/test.torrent[0m
+[33m[tester::#FI9] [0m[94mRunning ./your_bittorrent.sh peers /tmp/torrents3643505857/test.torrent[0m
+[33m[your_program] [0m106.72.196.0:41485
 [33m[your_program] [0m188.119.61.177:6881
+[33m[your_program] [0m2.7.245.20:51413
 [33m[your_program] [0m71.224.0.29:51414
-[33m[your_program] [0m62.153.208.98:3652
 [33m[your_program] [0m37.48.74.20:44697
 [33m[your_program] [0m82.149.227.229:6890
+[33m[your_program] [0m72.175.28.2:58966
+[33m[your_program] [0m45.67.229.74:60007
 [33m[your_program] [0m195.90.215.221:45682
 [33m[your_program] [0m66.55.206.70:60000
 [33m[your_program] [0m69.53.20.159:60000
@@ -123,20 +124,19 @@
 [33m[tester::#FI9] [0m[92mTest passed.[0m
 
 [33m[tester::#BF7] [0m[94mRunning tests for Stage #BF7 (bf7)[0m
-[33m[tester::#BF7] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents1182625020/test.torrent[0m
+[33m[tester::#BF7] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents2490481132/test.torrent[0m
 [33m[your_program] [0mTracker URL: http://bttracker.debian.org:6969/announce
-[33m[your_program] [0mLength: 1048576
-[33m[your_program] [0mInfo Hash: 2f839656f62763d7ce9fc6b1f4c9a2acb2e7358e
+[33m[your_program] [0mLength: 786432
+[33m[your_program] [0mInfo Hash: 34ba5b82668b31aa651f12684739a578f81d8489
 [33m[your_program] [0mPiece Length: 262144
 [33m[your_program] [0mPiece Hashes:
-[33m[your_program] [0m992d93c3773c01c541752b343844d5c9a7f0f8d5
-[33m[your_program] [0m82840f7730ad0031bef7bfedbbd15ca5cf90700d
-[33m[your_program] [0me14fe2e4f3a0416ece28e43880343175022473b7
+[33m[your_program] [0m56147a0aafe287bf309bf0be558b9d73b48cbd76
+[33m[your_program] [0m1fe5ecefc0b284ab90fc741d89788cf3316b05b1
 [33m[your_program] [0m70edcac2611a8829ebf467a6849f5d8408d9d8f4
 [33m[tester::#BF7] [0m[92mTest passed.[0m
 
 [33m[tester::#RB2] [0m[94mRunning tests for Stage #RB2 (rb2)[0m
-[33m[tester::#RB2] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents3807470712/codercat.gif.torrent[0m
+[33m[tester::#RB2] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents2358550467/codercat.gif.torrent[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -154,7 +154,7 @@
 [33m[your_program] [0ma86ee6abbc30cddb800a0b62d7a296111166d839
 [33m[your_program] [0m783f52b70f0c902d56196bd3ee7f379b5db57e3b
 [33m[your_program] [0m3d8db9e34db63b4ba1be27930911aa37b3f997dd
-[33m[tester::#RB2] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents3807470712/congratulations.gif.torrent[0m
+[33m[tester::#RB2] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents2358550467/congratulations.gif.torrent[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 820892
 [33m[your_program] [0mInfo Hash: 1cad4a486798d952614c394eb15e75bec587fd08
@@ -164,7 +164,7 @@
 [33m[your_program] [0m69f885b3988a52ffb03591985402b6d5285940ab
 [33m[your_program] [0m76869e6c9c1f101f94f39de153e468be6a638f4f
 [33m[your_program] [0mbded68d02de011a2b687f75b5833f46cce8e3e9c
-[33m[tester::#RB2] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents3807470712/itsworking.gif.torrent[0m
+[33m[tester::#RB2] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents2358550467/itsworking.gif.torrent[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2549700
 [33m[your_program] [0mInfo Hash: 70edcac2611a8829ebf467a6849f5d8408d9d8f4
@@ -183,7 +183,7 @@
 [33m[tester::#RB2] [0m[92mTest passed.[0m
 
 [33m[tester::#OW9] [0m[94mRunning tests for Stage #OW9 (ow9)[0m
-[33m[tester::#OW9] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents4243500885/codercat.gif.torrent[0m
+[33m[tester::#OW9] [0m[94mRunning ./your_bittorrent.sh info /tmp/torrents1897942062/codercat.gif.torrent[0m
 [33m[your_program] [0mTracker URL: http://bittorrent-test-tracker.codecrafters.io/announce
 [33m[your_program] [0mLength: 2994120
 [33m[your_program] [0mInfo Hash: c77829d2a77d6516f88cd7a3de1a26abcbfab0db
@@ -209,9 +209,9 @@
 [33m[tester::#MN6] [0m[94mRunning ./your_bittorrent.sh decode de[0m
 [33m[tester::#MN6] [0m[94mExpected output: {}[0m
 [33m[your_program] [0m{}
-[33m[tester::#MN6] [0m[94mRunning ./your_bittorrent.sh decode d3:foo5:apple5:helloi52ee[0m
-[33m[tester::#MN6] [0m[94mExpected output: {"foo":"apple","hello":52}[0m
-[33m[your_program] [0m{"foo":"apple","hello":52}
+[33m[tester::#MN6] [0m[94mRunning ./your_bittorrent.sh decode d3:foo9:blueberry5:helloi52ee[0m
+[33m[tester::#MN6] [0m[94mExpected output: {"foo":"blueberry","hello":52}[0m
+[33m[your_program] [0m{"foo":"blueberry","hello":52}
 [33m[tester::#MN6] [0m[94mRunning ./your_bittorrent.sh decode d10:inner_dictd4:key16:value14:key2i42e8:list_keyl5:item15:item2i3eeee[0m
 [33m[tester::#MN6] [0m[94mExpected output: {"inner_dict":{"key1":"value1","key2":42,"list_key":["item1","item2",3]}}[0m
 [33m[your_program] [0m{"inner_dict":{"key1":"value1","key2":42,"list_key":["item1","item2",3]}}
@@ -221,20 +221,20 @@
 [33m[tester::#AH1] [0m[94mRunning ./your_bittorrent.sh decode le[0m
 [33m[tester::#AH1] [0m[94mExpected output: [][0m
 [33m[your_program] [0m[]
-[33m[tester::#AH1] [0m[94mRunning ./your_bittorrent.sh decode l6:bananai962ee[0m
-[33m[tester::#AH1] [0m[94mExpected output: ["banana",962][0m
-[33m[your_program] [0m["banana",962]
-[33m[tester::#AH1] [0m[94mRunning ./your_bittorrent.sh decode lli962e6:bananaee[0m
-[33m[tester::#AH1] [0m[94mExpected output: [[962,"banana"]][0m
-[33m[your_program] [0m[[962,"banana"]]
+[33m[tester::#AH1] [0m[94mRunning ./your_bittorrent.sh decode l5:mangoi31ee[0m
+[33m[tester::#AH1] [0m[94mExpected output: ["mango",31][0m
+[33m[your_program] [0m["mango",31]
+[33m[tester::#AH1] [0m[94mRunning ./your_bittorrent.sh decode lli31e5:mangoee[0m
+[33m[tester::#AH1] [0m[94mExpected output: [[31,"mango"]][0m
+[33m[your_program] [0m[[31,"mango"]]
 [33m[tester::#AH1] [0m[94mRunning ./your_bittorrent.sh decode lli4eei5ee[0m
 [33m[tester::#AH1] [0m[94mExpected output: [[4],5][0m
 [33m[your_program] [0m[[4],5]
 [33m[tester::#AH1] [0m[92mTest passed.[0m
 
 [33m[tester::#EB4] [0m[94mRunning tests for Stage #EB4 (eb4)[0m
-[33m[tester::#EB4] [0m[94mRunning ./your_bittorrent.sh decode i1070028349e[0m
-[33m[your_program] [0m1070028349
+[33m[tester::#EB4] [0m[94mRunning ./your_bittorrent.sh decode i1012356670e[0m
+[33m[your_program] [0m1012356670
 [33m[tester::#EB4] [0m[94mRunning ./your_bittorrent.sh decode i4294967300e[0m
 [33m[your_program] [0m4294967300
 [33m[tester::#EB4] [0m[94mRunning ./your_bittorrent.sh decode i-52e[0m
@@ -242,8 +242,8 @@
 [33m[tester::#EB4] [0m[92mTest passed.[0m
 
 [33m[tester::#NS2] [0m[94mRunning tests for Stage #NS2 (ns2)[0m
-[33m[tester::#NS2] [0m[94mRunning ./your_bittorrent.sh decode 10:strawberry[0m
-[33m[your_program] [0m"strawberry"
+[33m[tester::#NS2] [0m[94mRunning ./your_bittorrent.sh decode 9:blueberry[0m
+[33m[your_program] [0m"blueberry"
 [33m[tester::#NS2] [0m[94mRunning ./your_bittorrent.sh decode 55:http://bittorrent-test-tracker.codecrafters.io/announce[0m
 [33m[your_program] [0m"http://bittorrent-test-tracker.codecrafters.io/announce"
 [33m[tester::#NS2] [0m[92mTest passed.[0m
