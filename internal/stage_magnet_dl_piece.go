@@ -2,12 +2,12 @@ package internal
 
 import (
     "fmt"
-    "math/rand"
     "os"
     "path"
     "strings"
 
-    "github.com/codecrafters-io/tester-utils/test_case_harness"
+    "github.com/codecrafters-io/tester-utils/random"
+	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
 func testMagnetDownloadPiece(stageHarness *test_case_harness.TestCaseHarness) error {
@@ -63,9 +63,7 @@ func testMagnetDownloadPiece(stageHarness *test_case_harness.TestCaseHarness) er
         },
     }
 
-    initRandom()
-
-    randomIndex := rand.Intn(len(magnetLinkPieceTests))
+    randomIndex := random.RandomInt(0, len(magnetLinkPieceTests))
     tests := magnetLinkPieceTests[randomIndex]
 
     logger := stageHarness.Logger
