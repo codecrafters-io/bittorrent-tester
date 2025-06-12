@@ -2,10 +2,10 @@ package internal
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"path"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
@@ -57,7 +57,7 @@ var discoverPeersResponses = []DiscoverPeersTestCase{
 }
 
 func randomResponse() DiscoverPeersTestCase {
-	return discoverPeersResponses[rand.Intn(len(discoverPeersResponses))]
+	return discoverPeersResponses[random.RandomInt(0, len(discoverPeersResponses))]
 }
 
 func testDiscoverPeers(stageHarness *test_case_harness.TestCaseHarness) error {

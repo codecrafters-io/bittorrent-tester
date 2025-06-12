@@ -5,10 +5,10 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"math/rand"
 	"net"
 
 	logger "github.com/codecrafters-io/tester-utils/logger"
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/jackpal/bencode-go"
 )
 
@@ -139,7 +139,7 @@ func NewMagnetTestParams(magnetLink MagnetTestTorrentInfo, logger *logger.Logger
 	}
 	params.ExpectedPeerID = expectedPeerID
 	params.ExpectedReservedBytes = []byte{0, 0, 0, 0, 0, 16, 0, 0}
-	params.MyMetadataExtensionID = uint8(rand.Intn(255) + 1)
+	params.MyMetadataExtensionID = uint8(random.RandomInt(0, 255) + 1)
 	params.MagnetLinkInfo = magnetLink
 	params.Logger = logger
 	return &params, nil

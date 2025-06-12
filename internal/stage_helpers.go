@@ -6,7 +6,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
-	"math/rand"
 	"net"
 	"net/http"
 	"net/url"
@@ -16,6 +15,7 @@ import (
 	"strings"
 
 	logger "github.com/codecrafters-io/tester-utils/logger"
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/jackpal/bencode-go"
 )
 
@@ -176,11 +176,11 @@ func copyTorrent(tempDir string, torrentFilename string) error {
 }
 
 func randomTorrent() TestTorrentInfo {
-	return testTorrents[rand.Intn(len(testTorrents))]
+	return testTorrents[random.RandomInt(0, len(testTorrents))]
 }
 
 func randomMagnetLink() MagnetTestTorrentInfo {
-	return magnetTestTorrents[rand.Intn(len(magnetTestTorrents))]
+	return magnetTestTorrents[random.RandomInt(0, len(magnetTestTorrents))]
 }
 
 func getTorrentPath(filename string) string {
