@@ -2,20 +2,18 @@ package internal
 
 import (
 	"fmt"
-	"math/rand"
 	"path"
 	"strings"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
 func testBencodeInt(stageHarness *test_case_harness.TestCaseHarness) error {
-	initRandom()
-
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
-	randomNumber := fmt.Sprintf("%d", rand.Intn(2147483647))
+	randomNumber := fmt.Sprintf("%d", random.RandomInt(0, 2147483647))
 	randomNumberEncoded := fmt.Sprintf("i%se", randomNumber)
 	logger.Infof("Running ./%s decode %s", path.Base(executable.Path), randomNumberEncoded)
 	result, err := executable.Run("decode", randomNumberEncoded)

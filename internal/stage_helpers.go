@@ -6,7 +6,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
-	"math/rand"
 	"net"
 	"net/http"
 	"net/url"
@@ -16,31 +15,32 @@ import (
 	"strings"
 
 	logger "github.com/codecrafters-io/tester-utils/logger"
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/jackpal/bencode-go"
 )
 
 type ConnectionHandler func(net.Conn, PeerConnectionParams)
 
 type PeerConnectionParams struct {
-	address string
-	myPeerID [20]byte
-	infoHash [20]byte
+	address               string
+	myPeerID              [20]byte
+	infoHash              [20]byte
 	expectedReservedBytes [][]byte
 	myMetadataExtensionID uint8
-	metadataSizeBytes int
-	bitfield []byte
-	magnetLink MagnetTestTorrentInfo
-	logger *logger.Logger
+	metadataSizeBytes     int
+	bitfield              []byte
+	magnetLink            MagnetTestTorrentInfo
+	logger                *logger.Logger
 }
 
 type TrackerParams struct {
-	trackerAddress string
-	peersResponse []byte
-	expectedInfoHash [20]byte
-	fileLengthBytes int
-	logger *logger.Logger
+	trackerAddress        string
+	peersResponse         []byte
+	expectedInfoHash      [20]byte
+	fileLengthBytes       int
+	logger                *logger.Logger
 	myMetadataExtensionID uint8
-	isMagnetLinkTest bool
+	isMagnetLinkTest      bool
 }
 
 var samplePieceHashes = []string{
@@ -176,11 +176,11 @@ func copyTorrent(tempDir string, torrentFilename string) error {
 }
 
 func randomTorrent() TestTorrentInfo {
-	return testTorrents[rand.Intn(len(testTorrents))]
+	return testTorrents[random.RandomInt(0, len(testTorrents))]
 }
 
 func randomMagnetLink() MagnetTestTorrentInfo {
-	return magnetTestTorrents[rand.Intn(len(magnetTestTorrents))]
+	return magnetTestTorrents[random.RandomInt(0, len(magnetTestTorrents))]
 }
 
 func getTorrentPath(filename string) string {
@@ -250,8 +250,8 @@ func listenAndServeTrackerResponse(p TrackerParams) {
 	mux.HandleFunc("/announce", func(w http.ResponseWriter, r *http.Request) {
 		serveTrackerResponse(w, r, p.peersResponse, p.expectedInfoHash, p.fileLengthBytes, p.isMagnetLinkTest, p.logger)
 	})
-	
-	// Redirect /announce/ to /announce while preserving query parameters 
+
+	// Redirect /announce/ to /announce while preserving query parameters
 	mux.HandleFunc("/announce/", func(w http.ResponseWriter, r *http.Request) {
 		parsedURL, err := url.Parse(r.URL.String())
 		if err != nil {
@@ -422,7 +422,7 @@ func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err erro
 	if err != nil {
 		return fmt.Errorf("error reading handshake: %s", err)
 	}
-	
+
 	if !isEqualToOneOf(handshake.Reserved[:], peer.expectedReservedBytes...) {
 		var formattedStrings []string
 		for _, byteSlice := range peer.expectedReservedBytes {
@@ -438,8 +438,8 @@ func receiveAndSendHandshake(conn net.Conn, peer PeerConnectionParams) (err erro
 
 	logger.Debugf("Received handshake: [infohash: %x, peer_id: %x]\n", handshake.InfoHash, handshake.PeerID)
 	logger.Debugf("Sending back handshake with peer_id: %x", peer.myPeerID)
-	
-	var reservedBytes [8]byte 
+
+	var reservedBytes [8]byte
 	copy(reservedBytes[:], peer.expectedReservedBytes[0])
 
 	err = sendHandshake(conn, reservedBytes, handshake.InfoHash, peer.myPeerID)
@@ -470,8 +470,8 @@ func waitAndHandlePeerConnection(p PeerConnectionParams, handler ConnectionHandl
 
 func randomHash() ([20]byte, error) {
 	var hash [20]byte
-	if _, err := rand.Read(hash[:]); err != nil {
-		return [20]byte{}, err
+	for i := 0; i < 20; i++ {
+		hash[i] = byte(random.RandomInt(0, 256))
 	}
 	return hash, nil
 }

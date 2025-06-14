@@ -149,7 +149,7 @@ func readHandshake(r io.Reader, logger *logger.Logger) (*Handshake, error) {
 	}
 
 	var reservedBytes [8]byte
-	copy(reservedBytes[:], handshakeBuffer[protocolNameLength : protocolNameLength+8])
+	copy(reservedBytes[:], handshakeBuffer[protocolNameLength:protocolNameLength+8])
 	var infoHash, peerID [20]byte
 	copy(infoHash[:], handshakeBuffer[protocolNameLength+8:protocolNameLength+8+20])
 	copy(peerID[:], handshakeBuffer[protocolNameLength+8+20:])
