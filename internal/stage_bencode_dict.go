@@ -5,12 +5,11 @@ import (
 	"path"
 	"strings"
 
+	"github.com/codecrafters-io/tester-utils/random"
 	"github.com/codecrafters-io/tester-utils/test_case_harness"
 )
 
 func testBencodeDict(stageHarness *test_case_harness.TestCaseHarness) error {
-	initRandom()
-
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
@@ -31,7 +30,7 @@ func testBencodeDict(stageHarness *test_case_harness.TestCaseHarness) error {
 		return err
 	}
 
-	randomWord := randomWord()
+	randomWord := random.RandomWord()
 	randomWordEncoded := fmt.Sprintf("%d:%s", len(randomWord), randomWord)
 	// Keys must be strings and appear in sorted order
 	randomDictEncoded := fmt.Sprintf("d3:foo%s5:helloi52ee", randomWordEncoded)

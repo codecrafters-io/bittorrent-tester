@@ -9,8 +9,6 @@ import (
 )
 
 func testMagnetReceiveExtendedHandshake(stageHarness *test_case_harness.TestCaseHarness) error {
-	initRandom()
-
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
 
@@ -28,7 +26,7 @@ func testMagnetReceiveExtendedHandshake(stageHarness *test_case_harness.TestCase
 	if err != nil {
 		return err
 	}
-	
+
 	if err = assertExitCode(result, 0); err != nil {
 		return err
 	}
@@ -40,7 +38,7 @@ func testMagnetReceiveExtendedHandshake(stageHarness *test_case_harness.TestCase
 	}
 
 	logger.Successln("✓ Peer ID is correct.")
-	
+
 	expected = fmt.Sprintf("Peer Metadata Extension ID: %d\n", params.MyMetadataExtensionID)
 
 	if err = assertStdoutContains(result, expected); err != nil {
@@ -69,8 +67,8 @@ func handleReceiveExtensionHandshake(conn net.Conn, p PeerConnectionParams) {
 	}
 
 	if _, err := receiveAndAssertExtensionHandshake(conn, logger); err != nil {
-        return
-    }
+		return
+	}
 
 	// Wait in case other party wants to send extra data
 	time.Sleep(1 * time.Second)

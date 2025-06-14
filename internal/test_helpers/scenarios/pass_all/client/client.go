@@ -158,12 +158,12 @@ func New(peer string, peerID, infoHash [20]byte, extensions []byte) (*Client, er
 	// fmt.Println("received bitfield from peer")
 
 	return &Client{
-		Conn:     conn,
-		Choked:   true,
-		Bitfield: bf,
-		peer:     peer,
-		infoHash: infoHash,
-		peerID:   peerID,
+		Conn:      conn,
+		Choked:    true,
+		Bitfield:  bf,
+		peer:      peer,
+		infoHash:  infoHash,
+		peerID:    peerID,
 		Handshake: handshake,
 	}, nil
 }

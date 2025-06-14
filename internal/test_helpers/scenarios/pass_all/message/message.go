@@ -212,8 +212,8 @@ func (m *Message) FindMetadataPayloadIndex() int {
 	var buf bytes.Buffer
 	inner := torr.(map[string]interface{})
 	err := bencode.Marshal(&buf, bencodeMetadataExtensionMsg{
-		Piece: int(inner["piece"].(int64)),
-		Type:  uint8(inner["msg_type"].(int64)),
+		Piece:     int(inner["piece"].(int64)),
+		Type:      uint8(inner["msg_type"].(int64)),
 		TotalSize: int(inner["total_size"].(int64)),
 	})
 	if err != nil {
