@@ -110,12 +110,12 @@ func testDiscoverPeers(stageHarness *test_case_harness.TestCaseHarness) error {
 		return err
 	}
 
-	go listenAndServeTrackerResponse(TrackerParams {
-		trackerAddress: address,
-		peersResponse: peersResponse,
+	go listenAndServeTrackerResponse(TrackerParams{
+		trackerAddress:   address,
+		peersResponse:    peersResponse,
 		expectedInfoHash: expectedInfoHash,
-		fileLengthBytes: fileLengthBytes,
-		logger: logger,
+		fileLengthBytes:  fileLengthBytes,
+		logger:           logger,
 		isMagnetLinkTest: false,
 	})
 

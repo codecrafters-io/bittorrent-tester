@@ -8,19 +8,19 @@ import (
 const Pstr = "BitTorrent protocol"
 
 type Handshake struct {
-	Pstr     string
+	Pstr       string
 	Extensions []byte
-	InfoHash [20]byte
-	PeerID   [20]byte
+	InfoHash   [20]byte
+	PeerID     [20]byte
 }
 
 // New creates a new handshake with the standard pstr
 func New(infoHash, peerID [20]byte, extensions []byte) *Handshake {
 	return &Handshake{
-		Pstr:     "BitTorrent protocol",
+		Pstr:       "BitTorrent protocol",
 		Extensions: extensions,
-		InfoHash: infoHash,
-		PeerID:   peerID,
+		InfoHash:   infoHash,
+		PeerID:     peerID,
 	}
 }
 
@@ -64,10 +64,10 @@ func Read(r io.Reader) (*Handshake, error) {
 	copy(peerID[:], handshakeBuf[pstrlen+8+20:])
 
 	h := Handshake{
-		Pstr:     string(handshakeBuf[0:pstrlen]),
+		Pstr:       string(handshakeBuf[0:pstrlen]),
 		Extensions: extensions,
-		InfoHash: infoHash,
-		PeerID:   peerID,
+		InfoHash:   infoHash,
+		PeerID:     peerID,
 	}
 
 	return &h, nil

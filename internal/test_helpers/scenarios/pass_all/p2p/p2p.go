@@ -59,7 +59,7 @@ func TalkToPeer(torrentFile torrent.TorrentFile, peer string, peerID [20]byte, i
 		return
 	}
 
-	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
+	extensions := []byte{0, 0, 0, 0, 0, 0, 0, 0}
 	handshake, err := client.CompleteHandshake(conn, infoHash, peerID, extensions)
 	if err != nil {
 		fmt.Println("error", err)
@@ -292,7 +292,7 @@ func attemptDownloadPiece(c *client.Client, pw *pieceWork) ([]byte, error) {
 
 func (t *Torrent) startDownloadWorker(peer peers.Peer, workQueue chan *pieceWork, resultQueue chan *pieceResult) {
 	// fmt.Println("trying to start download worker")
-	extensions := []byte {0, 0, 0, 0, 0, 0, 0, 0}
+	extensions := []byte{0, 0, 0, 0, 0, 0, 0, 0}
 	c, err := client.New(peer.String(), t.PeerID, t.InfoHash, extensions)
 	if err != nil {
 		fmt.Errorf("error connecting to peer", err)
@@ -391,7 +391,7 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 	}
 
 	//fmt.Printf("Connecting to %s\n", peer)
-	extensions := []byte {0, 0, 0, 0, 0, 16, 0, 0}
+	extensions := []byte{0, 0, 0, 0, 0, 16, 0, 0}
 	conn, err := client.New(peer, myPeerID, infoHash, extensions)
 	if err != nil {
 		return &empty, err
@@ -419,14 +419,14 @@ func FetchTorrentMetadata(magnetUrl string, peer string, myPeerID [20]byte, shou
 
 	dict := handshake.(map[string]interface{})
 	//fmt.Printf("Peer Extensions: %v\n", dict)
-	
+
 	//metadataSize := dict["metadata_size"].(int64)
 	//fmt.Println("metadata size", metadataSize)
 
 	metadataExtensionID := dict["m"].(map[string]interface{})["ut_metadata"]
 	fmt.Println("Peer Metadata Extension ID:", metadataExtensionID)
 
-	if(!shouldRequestMetadata) {
+	if !shouldRequestMetadata {
 		return &empty, nil
 	}
 
