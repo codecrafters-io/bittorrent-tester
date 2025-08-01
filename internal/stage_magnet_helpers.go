@@ -177,6 +177,11 @@ func receiveExtensionHandshake(conn net.Conn, logger *logger.Logger) (*Message, 
 	if err != nil {
 		return nil, err
 	}
+
+	if msg == nil {
+		return nil, fmt.Errorf("received unexpected empty message")
+	}
+
 	logger.Debugf("Received extension handshake with payload: %s", string(msg.Payload))
 	return msg, nil
 }
