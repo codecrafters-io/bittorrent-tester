@@ -10,6 +10,7 @@ import (
 func testDownloadFile(stageHarness *test_case_harness.TestCaseHarness) error {
 	logger := stageHarness.Logger
 	executable := stageHarness.Executable
+	executable.TimeoutInMilliseconds = 20000
 
 	t := randomTorrent()
 
