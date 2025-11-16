@@ -8,6 +8,6 @@
 
 module github.com/codecrafters-io/grep-starter-go
 
-go 1.24
+go 1.24.0
 
-require github.com/codecrafters-io/tester-utils v0.4.5
+require github.com/codecrafters-io/tester-utils v0.4.9
