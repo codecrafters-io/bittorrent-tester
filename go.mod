@@ -5,7 +5,7 @@ go 1.24.0
 toolchain go1.24.2
 
 require (
-	github.com/codecrafters-io/tester-utils v0.4.9
+	github.com/codecrafters-io/tester-utils v0.4.13
 	github.com/jackpal/bencode-go v1.0.2
 )
 
@@ -13,6 +13,7 @@ require (
 // replace github.com/codecrafters-io/tester-utils v0.2.1 => /Users/rohitpaulk/experiments/codecrafters/tester-utils
 
 require (
+	github.com/creack/pty v1.1.24 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
