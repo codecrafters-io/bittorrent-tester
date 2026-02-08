@@ -1,5 +1,5 @@
-github.com/codecrafters-io/tester-utils v0.4.15-0.20260205181025-90e1af54ed4f h1:CM8IKArlGpOusbDeEBTzSAIYGXbpZQfw9H14aaIo7IY=
-github.com/codecrafters-io/tester-utils v0.4.15-0.20260205181025-90e1af54ed4f/go.mod h1:uhbl+sCQIv2Hg4QUZuKQarVR5cuhDbpVKId8KUF2cX8=
+github.com/codecrafters-io/tester-utils v0.4.15 h1:5scq/S1Eiz68yF+wcCIr59M5xWb/gLbrqvylwD2oDlc=
+github.com/codecrafters-io/tester-utils v0.4.15/go.mod h1:uhbl+sCQIv2Hg4QUZuKQarVR5cuhDbpVKId8KUF2cX8=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

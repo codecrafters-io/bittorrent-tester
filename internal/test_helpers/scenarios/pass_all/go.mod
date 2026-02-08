@@ -10,4 +10,4 @@ module github.com/codecrafters-io/grep-starter-go
 
 go 1.24
 
-require github.com/codecrafters-io/tester-utils v0.4.15-0.20260205181025-90e1af54ed4f
+require github.com/codecrafters-io/tester-utils v0.4.15
